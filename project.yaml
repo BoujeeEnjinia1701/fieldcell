@@ -1,0 +1,17 @@
+# Card metadata consumed by https://amishchadha.com
+name: FieldCell
+slug: fieldcell
+area: Situational Field Hardware
+status: concept          # concept | design | prototype | tested | released
+shortlisted: true
+pitch: >-
+  Two-wheel hand cart carrying fold-out PV and a LiFePO4 bank, with an inverter and DC outlets, that one person can deploy in under 10 minutes.
+problem: >-
+  Disaster responders and remote crews rely on noisy, fuel-hungry generators.
+budget_usd: 1500
+difficulty: 3  # 1 easiest, 5 hardest
+hero_image: media/hero.png
+licenses:
+  hardware: CERN-OHL-S-2.0
+  software: MIT
+tags: [situational-field-hardware, open-hardware, cern-ohl-s]
