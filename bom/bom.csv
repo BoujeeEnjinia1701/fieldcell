@@ -1,7 +1,18 @@
 item,qty,spec,supplier,unit_cost_usd,make_buy,notes
-Folding PV panels 200 W (2),,,,,,
-LiFePO4 bank 1.2 kWh,,,,,,
-MPPT charge controller,,,,,,
-Inverter 1 kW,,,,,,
-Steel cart frame,,,,,,
-Weatherproof enclosure,,,,,,
+1 Cart frame and axle,1,"40 x 40 x 2 mm steel square tube, 1,200 x 600 mm frame, expanded-metal deck, 20 mm axle and brackets",Local steel supplier,80.00,make,Material cost only; steel versus aluminium proposed awaiting Amish
+2 Wheels 16 in,2,"16 in (406 mm) flat-free or pneumatic, 20 mm bore, about 90 mm wide",Online retailer or farm supply,32.00,buy,Indicative price; flat-free recommended awaiting Amish
+3 Handle,1,"28 mm steel tube T-handle with grip, detachable",Local steel supplier,20.00,make,Material cost only
+4 Stand legs,4,"Folding 25 mm tube legs with feet and detents",Local steel supplier,6.00,make,Material cost only
+5 Battery enclosure,1,"IP65 rugged case about 420 x 360 x 300 mm with gland plate and vent",Online retailer,60.00,buy,Indicative price
+6 LiFePO4 pack,1,"25.6 V 50 Ah (1.28 kWh), 100 A BMS, low-temperature charge cutoff",Battery distributor,290.00,buy,Indicative price; 24 V system proposed awaiting Amish
+7 Electronics enclosure,1,"IP54 enclosure about 320 x 460 x 300 mm with filtered baffled vent",Electrical distributor,55.00,buy,Indicative price
+8 MPPT charge controller,1,"100 V 20 A MPPT for 24 V battery",Solar distributor,95.00,buy,Indicative price
+9 Inverter 1 kW,1,"1,000 W pure sine, 2,000 W surge, 24 V input, 120 V 60 Hz (230 V 50 Hz variant)",Solar distributor,170.00,buy,Indicative price; output voltage awaiting Amish
+10 DC outlet panel,1,"2 x USB-C PD 100 W, 2 x 12 V sockets, 24 to 12 V 20 A converter, sealed panel",Online retailer,65.00,buy,Indicative price
+11 AC outlet with GFCI,1,"GFCI duplex receptacle (120 V) or 30 mA RCD socket (230 V), weatherproof in-use cover",Electrical distributor,35.00,buy,Indicative price
+12 Fusing and disconnect,1,"Class T 100 A fuse and holder, battery isolator, DC breakers for inverter, MPPT, DC panel and PV, shunt battery monitor",Solar distributor,95.00,buy,Indicative price
+13 PV panels 200 W,2,"200 W lightweight aluminium-frame module, 24 V class (Vmp about 36 V), about 1,400 x 700 x 35 mm, about 6.5 kg",Solar distributor,135.00,buy,Indicative price; panel size to confirm with supplier
+14 Panel hinges and latches,1,"Two 1.4 m continuous hinges, four over-center latches",Hardware store,35.00,buy,Indicative price
+15 Outrigger legs,4,"Folding 25 mm tube legs with foot plate and stake loop, sets 15 degree tilt; stakes included",Local steel supplier,6.00,make,Material cost only
+16 Accessory and cable bin,1,"Open plastic or sheet-metal bin about 320 x 460 x 240 mm",Hardware store,20.00,buy,Indicative price
+17 Wiring and hardware,1,"16 mm2 (6 AWG) battery cable and lugs, PV cable and connectors, cable glands, fasteners",Electrical distributor,60.00,buy,Indicative price; not modeled
