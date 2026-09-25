@@ -3,9 +3,9 @@ doc_id: FCL-PRB-001
 title: FieldCell problem statement
 project: FieldCell
 doc_type: Problem statement
-version: "0.2"
+version: "0.3"
 status: Draft
-date: '2026-09-24'
+date: '2026-09-25'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -17,6 +17,10 @@ revisions:
   date: '2026-09-24'
   author: Amish Chadha
   change: Populate to TRL 2 (users, context, constraints, out of scope, prior work)
+- version: "0.3"
+  date: '2026-09-25'
+  author: Amish Chadha
+  change: Record decisions of FCL-DDR-001 (first user group, 120 V first build); budget note from FCL-CAL-001
 ---
 
 # FieldCell problem statement
@@ -45,7 +49,7 @@ Solar plus battery systems solve the noise, fumes and fuel problems, but the fie
 
 ## Constraints
 
-- Prototype parts cost about $1,500 USD (`project.yaml`), using off-the-shelf electronics and a welded or bolted steel frame.
+- Prototype parts cost about $1,500 USD (`project.yaml`), using off-the-shelf electronics and a welded steel frame. The TRL 3 BOM totals about $2,006 (FCL-CAL-001), so the budget is under review; see `docs/REVIEW.md`.
 - One person must move, deploy and stow it, without tools, on uneven ground.
 - Must work in rain and dust, and through a range of field temperatures, while its lithium cells stay within safe charging limits.
 - Electrical safety: fused circuits, ground-fault protection on AC outlets, a clear disconnect, and no connection to building wiring.
@@ -69,6 +73,6 @@ Solar plus battery systems solve the noise, fumes and fuel problems, but the fie
 
 ## Open questions
 
-- Which user group to design for first: disaster response, humanitarian field teams or remote crews? Proposed: disaster response first, awaiting Amish.
-- Which responder organization, if any, could review the deployment sequence and load profile? Awaiting Amish.
-- Should the first build target 120 V (North America) or 230 V output? Proposed: 120 V first, awaiting Amish.
+- First user group: disaster response. Decided by Amish, 2026-09-25 (FCL-DDR-001, D8). Humanitarian field teams and remote crews remain secondary users.
+- Which responder organization, if any, could review the deployment sequence and load profile? Proposed, awaiting Amish (FCL-DDR-001, O1).
+- Output voltage: 120 V 60 Hz for the first build, with a 230 V 50 Hz variant documented. Decided by Amish, 2026-09-25 (FCL-DDR-001, D4).

@@ -1,18 +1,18 @@
 item,qty,spec,supplier,unit_cost_usd,make_buy,notes
-1 Cart frame and axle,1,"40 x 40 x 2 mm steel square tube, 1,200 x 600 mm frame, expanded-metal deck, 20 mm axle and brackets",Local steel supplier,80.00,make,Material cost only; steel versus aluminium proposed awaiting Amish
-2 Wheels 16 in,2,"16 in (406 mm) flat-free or pneumatic, 20 mm bore, about 90 mm wide",Online retailer or farm supply,32.00,buy,Indicative price; flat-free recommended awaiting Amish
-3 Handle,1,"28 mm steel tube T-handle with grip, detachable",Local steel supplier,20.00,make,Material cost only
-4 Stand legs,4,"Folding 25 mm tube legs with feet and detents",Local steel supplier,6.00,make,Material cost only
-5 Battery enclosure,1,"IP65 rugged case about 420 x 360 x 300 mm with gland plate and vent",Online retailer,60.00,buy,Indicative price
-6 LiFePO4 pack,1,"25.6 V 50 Ah (1.28 kWh), 100 A BMS, low-temperature charge cutoff",Battery distributor,290.00,buy,Indicative price; 24 V system proposed awaiting Amish
-7 Electronics enclosure,1,"IP54 enclosure about 320 x 460 x 300 mm with filtered baffled vent",Electrical distributor,55.00,buy,Indicative price
-8 MPPT charge controller,1,"100 V 20 A MPPT for 24 V battery",Solar distributor,95.00,buy,Indicative price
-9 Inverter 1 kW,1,"1,000 W pure sine, 2,000 W surge, 24 V input, 120 V 60 Hz (230 V 50 Hz variant)",Solar distributor,170.00,buy,Indicative price; output voltage awaiting Amish
-10 DC outlet panel,1,"2 x USB-C PD 100 W, 2 x 12 V sockets, 24 to 12 V 20 A converter, sealed panel",Online retailer,65.00,buy,Indicative price
-11 AC outlet with GFCI,1,"GFCI duplex receptacle (120 V) or 30 mA RCD socket (230 V), weatherproof in-use cover",Electrical distributor,35.00,buy,Indicative price
-12 Fusing and disconnect,1,"Class T 100 A fuse and holder, battery isolator, DC breakers for inverter, MPPT, DC panel and PV, shunt battery monitor",Solar distributor,95.00,buy,Indicative price
-13 PV panels 200 W,2,"200 W lightweight aluminium-frame module, 24 V class (Vmp about 36 V), about 1,400 x 700 x 35 mm, about 6.5 kg",Solar distributor,135.00,buy,Indicative price; panel size to confirm with supplier
-14 Panel hinges and latches,1,"Two 1.4 m continuous hinges, four over-center latches",Hardware store,35.00,buy,Indicative price
-15 Outrigger legs,4,"Folding 25 mm tube legs with foot plate and stake loop, sets 15 degree tilt; stakes included",Local steel supplier,6.00,make,Material cost only
-16 Accessory and cable bin,1,"Open plastic or sheet-metal bin about 320 x 460 x 240 mm",Hardware store,20.00,buy,Indicative price
-17 Wiring and hardware,1,"16 mm2 (6 AWG) battery cable and lugs, PV cable and connectors, cable glands, fasteners",Electrical distributor,60.00,buy,Indicative price; not modeled
+1 Cart frame and axle,1,"40 x 40 x 1.5 mm steel square tube (about 3.8 m), 1,200 x 600 mm frame, expanded-metal deck, 20 mm bright steel axle, axle brackets",Local steel supplier (steel stockholder),85.00,make,Material cost only; welded steel decided 2026-09-25
+2 Wheels 16 in flat-free,2,"16 in (406 mm) flat-free polyurethane tyre on steel rim, 20 mm bore, about 90 mm wide, load rating 100 kg or more",Farm supply or hand-truck parts retailer,40.00,buy,Indicative price; flat-free decided 2026-09-25; about 4 kg each (assumed)
+3 Handle,1,"28 x 1.5 mm steel tube T-handle with grip and two quick-release pins",Local steel supplier (steel stockholder),22.00,make,Material cost only
+4 Stand legs,4,"Folding 25 mm tube legs with feet and spring detents",Local steel supplier (steel stockholder),8.00,make,Material cost and detent pins
+5 Battery enclosure,1,"IP65 rugged polypropylene case about 420 x 360 x 300 mm with gland plate and pressure vent",Online retailer (protective case maker),85.00,buy,Indicative price
+6 LiFePO4 pack,1,"25.6 V 50 Ah (1.28 kWh), 100 A BMS with low-temperature charge cutoff and 45 C high-temperature charge cutoff",Battery distributor (LiFePO4 specialist),300.00,buy,Indicative price; 25.6 V system decided 2026-09-25
+7 Electronics enclosure with filter fan,1,"IP54 polycarbonate enclosure about 320 x 460 x 300 mm; IP54 24 V filter fan (about 40 m3/h) with thermostat and matching IP54 exhaust filter",Electrical distributor,105.00,buy,Indicative price; filter fan added at TRL 3 (FCL-CAL-001) proposed awaiting Amish
+8 MPPT charge controller,1,"100 V 20 A MPPT for 12/24 V battery, LiFePO4 profile, temperature-compensated off",Solar distributor,110.00,buy,Indicative price
+9 Inverter 1 kW,1,"1,000 W pure sine high-frequency, 2,000 W surge, 24 V input, 120 V 60 Hz, no-load draw 10 W or less, temperature-controlled fan",Solar distributor,220.00,buy,Indicative price; 120 V 60 Hz decided 2026-09-25 (230 V 50 Hz variant documented)
+10 DC outlet panel,1,"2 x USB-C PD 100 W modules (24 V input), 2 x 12 V sockets, 24 to 12 V 20 A converter, sealed panel",Online retailer (marine and RV electrical),100.00,buy,Indicative price
+11 AC outlet with GFCI,1,"20 A GFCI duplex receptacle (120 V), weatherproof in-use cover and box",Electrical distributor,40.00,buy,Indicative price; 30 mA RCD socket for the 230 V variant
+12 Fusing and disconnect,1,"Class T 100 A fuse and holder, battery isolator, DC breakers for inverter, MPPT, DC panel and PV, shunt battery monitor",Solar distributor,180.00,buy,Indicative price
+13 PV wings 200 W,2,"200 W semi-flexible monocrystalline module (Vmp about 36 V, Voc about 45 V) bonded to a ventilated aluminium backing frame, about 1,400 x 700 x 35 mm, about 6.5 kg",Solar distributor,230.00,buy,Indicative price (module about $190 plus frame material about $40); 24 V class in parallel decided 2026-09-25
+14 Panel hinges and latches,1,"Two 1.4 m stainless continuous hinges, four over-center latches with keepers",Hardware store,45.00,buy,Indicative price
+15 Outrigger legs,4,"Folding 25 mm tube legs with foot plate, stake loop and one 300 mm steel stake each; sets the 15 degree tilt",Local steel supplier (steel stockholder),8.00,make,Material cost and stake
+16 Accessory and cable bin,1,"Open plastic bin about 320 x 460 x 240 mm with tie-down strap",Hardware store,20.00,buy,Indicative price
+17 Wiring and hardware,1,"16 mm2 (6 AWG) battery cable and lugs, 4 mm2 PV cable and connectors, cable glands, fasteners",Electrical distributor,90.00,buy,Indicative price; not modeled
