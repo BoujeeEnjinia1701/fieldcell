@@ -6,6 +6,9 @@ Exports STEP and STL into cad/step and cad/stl:
     fieldcell-stowed.step / .stl     whole cart, wings up as the cart sides (travel)
     frame.step, pv-wing.step, battery-enclosure.step, electronics-enclosure.step (and .stl)
 
+Rev for DDR-002 (2026-09-25): hinge line raised by a 20 mm spacer (hinge_z 470 to 490 mm)
+and a reflective sun shade (item 18) added over the battery and electronics enclosures.
+
 Axes: X along the cart (handle toward +X), Y across the cart, Z up, ground at Z = 0.
 Main dimensions and interfaces only (frame, axle and wheel track, hinge line, enclosure
 envelopes, outlet face, outrigger feet). Not fabrication detail; not for fabrication.
@@ -33,7 +36,8 @@ PARAMS = {
     "out_d": 25.0,
     # PV wings (2 x 200 W semi-flexible module on an aluminium backing frame)
     "pv_l": 1400.0, "pv_w": 700.0, "pv_t": 35.0,
-    "hinge_y": 330.0, "hinge_z": 470.0,      # continuous hinge line along each side rail
+    "hinge_y": 330.0, "hinge_z": 490.0,      # continuous hinge line, on a 20 mm spacer over each side rail (DDR-002)
+    "spacer": 20.0,                          # hinge spacer height (20 x 20 x 2 mm aluminium angle, DDR-002)
     "tilt": 15.0,                            # deployed wing tilt below horizontal
     # enclosures and main parts (outer envelopes)
     "batt_box": (420.0, 360.0, 300.0),       # IP65 battery case, centered over the deck center
@@ -42,6 +46,8 @@ PARAMS = {
     "bin": (320.0, 460.0, 240.0),            # accessory and cable bin at the far end
     "wall": 6.0,                             # massing wall thickness of enclosures
     "fan": (125.0, 125.0, 20.0),             # IP54 filter fan (intake, +Y wall) and exhaust filter (-Y wall)
+    # reflective sun shade over both enclosures (DDR-002): x from, x to, width, gap above the enclosure tops
+    "shade": (-230.0, 600.0, 540.0, 50.0), "shade_t": 6.0,
 }
 
 
@@ -153,7 +159,9 @@ def build_parts(P=PARAMS, deployed=True):
             return Pos(0, s * hyy, hz) * Rot(-s * tilt, 0, 0) * panel
         return Pos(0, s * (hyy + pt / 2), hz + pw / 2) * Box(pl, pt, pw)
 
-    hinges = _comp(*[_tube((-pl / 2 + 50, s * hyy, hz - 8), (pl / 2 - 50, s * hyy, hz - 8), 9) for s in (-1, 1)])
+    sp = P["spacer"]
+    hinges = _comp(*[_tube((-pl / 2 + 50, s * hyy, hz - 8), (pl / 2 - 50, s * hyy, hz - 8), 9) for s in (-1, 1)],
+                   *[Pos(0, s * hyy, hz - 17 - sp / 2) * Box(pl - 100, 20, sp) for s in (-1, 1)])
 
     def outriggers_at(s):
         xs = (-pl / 2 + 80, pl / 2 - 80)
@@ -168,6 +176,14 @@ def build_parts(P=PARAMS, deployed=True):
     # 16 accessory bin
     bn = P["bin"]
     acc_bin = Pos(D["bin_x"], 0, P["deck_z"] + bn[2] / 2) * _shell(*bn, t, open_top=True)
+
+    # 18 sun shade: reflective panel on four short posts over the battery and electronics enclosures
+    x0, x1, sw, gap = P["shade"]
+    top = P["deck_z"] + max(bb[2], eb[2])
+    sz = top + gap + P["shade_t"] / 2
+    posts = [_tube((x, s * (sw / 2 - 30), top), (x, s * (sw / 2 - 30), sz), 6)
+             for x in (x0 + 30, x1 - 30) for s in (-1, 1)]
+    shade = _comp(Pos((x0 + x1) / 2, 0, sz) * Box(x1 - x0, sw, P["shade_t"]), *posts)
 
     FX, RX = -L / 2 + 40, L / 2 - 40
     return [
@@ -191,6 +207,7 @@ def build_parts(P=PARAMS, deployed=True):
         ("out_l", "Outrigger legs (4)", outriggers_at(-1), 15),
         ("out_r", "Outrigger legs, far side", outriggers_at(1), None),
         ("bin", "Accessory and cable bin", acc_bin, 16),
+        ("shade", "Sun shade", shade, 18),
     ]
 
 

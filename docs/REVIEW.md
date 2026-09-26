@@ -36,15 +36,15 @@ Requirements not met or not yet shown:
 
 ### Proposed, awaiting Amish
 
-1. Battery system voltage: 25.6 V 50 Ah (recommended), 12.8 V 100 Ah, or 51.2 V.
-2. Wing layout: fixed east-west wings at 15 degrees (recommended, fastest), or detachable panels on kickstands aimed at the sun (about 10 to 15 % more energy, 3 to 5 min slower).
-3. Panels: 24 V class (Vmp about 36 V) wired in parallel into one MPPT (recommended), rather than 12 V class panels in series.
-4. AC output: 120 V 60 Hz for the first build (recommended), with a 230 V 50 Hz variant documented.
-5. Frame and wheels: welded steel with flat-free tyres (recommended for a garage build and debris), or bolted aluminium (about 4 to 5 kg lighter) and pneumatic tyres.
-6. SwapCell: record compatibility with a SwapCell 48 V pack as a future variant only; the concept is not designed around it.
-7. Budget: keep $1,500 (parts about $1,462, no contingency) or raise to about $1,750 to cover price variation, stakes, tools and spares. Recommendation: keep $1,500 for now and decide after supplier quotes at TRL 3. `project.yaml` is unchanged.
-8. First user group: disaster response (recommended), humanitarian field teams or remote crews; and whether to seek a responder organization to review the deployment sequence.
-9. Portfolio overlap: how FieldCell relates to PowerBox and SwapCell.
+1. Battery system voltage: 25.6 V 50 Ah (recommended), 12.8 V 100 Ah, or 51.2 V. **Decided by Amish, 2026-09-25: go with recommendation** (FCL-DDR-001).
+2. Wing layout: fixed east-west wings at 15 degrees (recommended, fastest), or detachable panels on kickstands aimed at the sun (about 10 to 15 % more energy, 3 to 5 min slower). **Decided by Amish, 2026-09-25: go with recommendation** (FCL-DDR-001).
+3. Panels: 24 V class (Vmp about 36 V) wired in parallel into one MPPT (recommended), rather than 12 V class panels in series. **Decided by Amish, 2026-09-25: go with recommendation** (FCL-DDR-001).
+4. AC output: 120 V 60 Hz for the first build (recommended), with a 230 V 50 Hz variant documented. **Decided by Amish, 2026-09-25: go with recommendation** (FCL-DDR-001).
+5. Frame and wheels: welded steel with flat-free tyres (recommended for a garage build and debris), or bolted aluminium (about 4 to 5 kg lighter) and pneumatic tyres. **Decided by Amish, 2026-09-25: go with recommendation** (FCL-DDR-001).
+6. SwapCell: record compatibility with a SwapCell 48 V pack as a future variant only; the concept is not designed around it. **Decided by Amish, 2026-09-25: go with recommendation** (FCL-DDR-001).
+7. Budget: keep $1,500 (parts about $1,462, no contingency) or raise to about $1,750 to cover price variation, stakes, tools and spares. Recommendation: keep $1,500 for now and decide after supplier quotes at TRL 3. `project.yaml` is unchanged. **Decided by Amish, 2026-09-25: go with recommendation** (FCL-DDR-001). Superseded by FCL-DDR-002 A1 ($2,100).
+8. First user group: disaster response (recommended), humanitarian field teams or remote crews; and whether to seek a responder organization to review the deployment sequence. First user group: disaster response,**Decided by Amish, 2026-09-25: go with recommendation** (FCL-DDR-001). Responder organization: no recommendation, stays Proposed, awaiting Amish.
+9. Portfolio overlap: how FieldCell relates to PowerBox and SwapCell. No recommendation; stays Proposed, awaiting Amish.
 
 ### Safety concerns
 
@@ -105,16 +105,16 @@ Still open from TRL 2 (no recommendation was made):
 1. Whether to seek a responder organization to review the deployment sequence and load profile, and which one (O1).
 2. How FieldCell relates to PowerBox and SwapCell in the portfolio (O2).
 3. Whether to add an AC charger or a vehicle 12 V input for cloudy periods (O3).
-4. Heavy parts low and over the axle as a layout rule (O4); recommendation: keep it.
+4. Heavy parts low and over the axle as a layout rule (O4); recommendation: keep it. **Decided by Amish, 2026-09-25: go with recommendation** (FCL-DDR-002).
 
 New from TRL 3:
 
-5. **Budget (R12).** Options: (a) raise `budget_usd` to about $2,100 (BOM plus about 5 % contingency); (b) cost-down to about $1,600 with generic inverter, MPPT and monitor, at a risk to idle draw, noise and reliability; (c) keep $1,500 and cut the PV to one wing, which breaks R3 and R4. Recommendation: (a), after quotes for the pack, the PV wings and the inverter. `project.yaml` is unchanged.
-6. **Mass (R6).** Options: (a) relax the R6 mass limit to 75 kg, keeping the decided steel frame and flat-free tyres (the handle force is what one person feels, and it stays within limits; the cart is a two-person lift either way); (b) change to a bolted aluminium frame, about 67.4 kg, which reverses D5 and adds cost; (c) pneumatic tyres, about 71.1 kg, still over. Recommendation: (a), with a note that R7 pull force on grass is then at its limit.
-7. **Electronics box ventilation (R8, R9).** Adopt a thermostat-controlled IP54 filter fan (40 to 60 m³/h) with an IP54 exhaust filter, already priced in BOM line 7 and modeled. Recommendation: adopt.
-8. **Sun shade (R9).** Add a light reflective shade over the battery and electronics enclosures when deployed (about $30 and 1 kg, not yet in the BOM or model), and obtain inverter derating data at 45 °C. Recommendation: add at the next revision.
-9. **Hinge spacer.** Raise each hinge line by a 20 mm spacer to open the 8 mm wing-to-tyre clearance. Recommendation: adopt; the model's `hinge_z` parameter is left at 470 mm until decided.
-10. **"Peak sun hours" basis (R3, R4).** Read as daily global horizontal irradiation in kWh/m²/day, as FCL-CAL-001 does. Recommendation: confirm.
+5. **Budget (R12).** Options: (a) raise `budget_usd` to about $2,100 (BOM plus about 5 % contingency); (b) cost-down to about $1,600 with generic inverter, MPPT and monitor, at a risk to idle draw, noise and reliability; (c) keep $1,500 and cut the PV to one wing, which breaks R3 and R4. Recommendation: (a), after quotes for the pack, the PV wings and the inverter. `project.yaml` is unchanged. **Decided by Amish, 2026-09-25: go with recommendation** (FCL-DDR-002). `budget_usd` is now 2,100.
+6. **Mass (R6).** Options: (a) relax the R6 mass limit to 75 kg, keeping the decided steel frame and flat-free tyres (the handle force is what one person feels, and it stays within limits; the cart is a two-person lift either way); (b) change to a bolted aluminium frame, about 67.4 kg, which reverses D5 and adds cost; (c) pneumatic tyres, about 71.1 kg, still over. Recommendation: (a), with a note that R7 pull force on grass is then at its limit. **Decided by Amish, 2026-09-25: go with recommendation** (FCL-DDR-002). R6 limit is now 75 kg.
+7. **Electronics box ventilation (R8, R9).** Adopt a thermostat-controlled IP54 filter fan (40 to 60 m³/h) with an IP54 exhaust filter, already priced in BOM line 7 and modeled. Recommendation: adopt. **Decided by Amish, 2026-09-25: go with recommendation** (FCL-DDR-002).
+8. **Sun shade (R9).** Add a light reflective shade over the battery and electronics enclosures when deployed (about $30 and 1 kg, not yet in the BOM or model), and obtain inverter derating data at 45 °C. Recommendation: add at the next revision. **Decided by Amish, 2026-09-25: go with recommendation** (FCL-DDR-002). Shade added; derating data on hold with supplier selection.
+9. **Hinge spacer.** Raise each hinge line by a 20 mm spacer to open the 8 mm wing-to-tyre clearance. Recommendation: adopt; the model's `hinge_z` parameter is left at 470 mm until decided. **Decided by Amish, 2026-09-25: go with recommendation** (FCL-DDR-002). `hinge_z` is now 490 mm.
+10. **"Peak sun hours" basis (R3, R4).** Read as daily global horizontal irradiation in kWh/m²/day, as FCL-CAL-001 does. Recommendation: confirm. **Decided by Amish, 2026-09-25: go with recommendation** (FCL-DDR-002).
 
 ### Safety concerns
 
@@ -136,3 +136,64 @@ New from TRL 3:
 Stay at TRL 3. TRL 4 is on hold by Amish's instruction. Decide items 5 to 10 above, starting with the budget and the mass limit, and get supplier quotes for the pack, the PV wings and the inverter (including idle draw, fan noise and 45 °C derating data), then revise FCL-CAL-001 and the BOM on paper.
 
 For reference only, TRL 4 would need: a lab test report (TST, `environment: lab`) on a built cart or key subassemblies (PV yield logged against irradiance, inverter idle draw and enclosure temperature at 1 kW, noise at 500 W, mass and handle force, deploy and stow timed trials, wing lift and stake pull-out), build-log entries, and the purchasing and build work that goes with them. None of this has been started.
+
+## Session 2026-09-25: recommendations accepted
+
+Amish wrote on 2026-09-25: "i accept all your recommendations, go with them across all repos." Every open item with a recommendation is now **Decided by Amish, 2026-09-25: go with recommendation**, recorded in `docs/decisions/0002-recommendations-accepted.md` (FCL-DDR-002 v0.1). The TRL 2 items above are also marked decided (FCL-DDR-001, now v0.2).
+
+### Decisions applied and what changed
+
+| # | Decision | Before | After |
+| --- | --- | --- | --- |
+| A1 | Raise the budget (option a) | `budget_usd` $1,500; BOM $2,006, 34 % over | `budget_usd` $2,100; BOM $2,051, $49 (2.4 %) contingency |
+| A2 | Relax the R6 mass limit (option a) | 70 kg limit; 73.5 kg | 75 kg limit; 75.06 kg after A4 and A5 |
+| A3 | Adopt the thermostat IP54 filter fan | Proposed, already in BOM item 7 and the model | Decided; R8 wording names it |
+| A4 | Add a reflective sun shade | None; pack about 55 °C, box about 54 °C at 45 °C ambient and 1 kW | BOM item 18 ($30, 1 kg) and model part; pack about 48 °C, box about 53 °C |
+| A5 | 20 mm hinge spacer | `hinge_z` 470 mm; wing to tyre 8 mm; stowed height 1,170 mm; BOM item 14 $45 | `hinge_z` 490 mm; 28 mm; 1,190 mm; $60 with two aluminium angles (0.53 kg) |
+| A6 | "Peak sun hours" is GHI in kWh/m²/day | Assumption, proposed | R3 and R4 restated in kWh/m²/day GHI |
+| A7 | Heavy parts low and over the axle | Proposed (O4) | Kept as a layout rule |
+
+Other knock-on numbers (FCL-CAL-001 v0.2): CG height 557 to 564 mm; handle force 14 to 50 N to 14 to 52 N; tip angle 32.9 to 32.6°; pull on grass 144 to 147 N; step pull 136 to 138 N. Energy, electrical, wind lift, deploy and noise figures are unchanged.
+
+Files changed: `project.yaml`, `README.md`, `bom/bom.csv`, `bom/bom-notes.md`, `cad/src/model.py` (and all STEP and STL files), `cad/src/sheets.py` and `cad/drawings/FCL-DWG-002.*` (Rev P2), `cad/src/concept_media.py` and all of `media/`, `docs/04-calcs/sizing.py` and FCL-CAL-001 v0.2, FCL-PRB-001 v0.4, FCL-PRC-001 v0.4, FCL-REQ-001 v0.4, FCL-DDR-001 v0.2, FCL-DDR-002 v0.1. PDFs in `docs/pdf/` were rebuilt, and the older-version PDFs removed.
+
+### Requirement status (FCL-CAL-001 v0.2)
+
+7 met, 1 not met, 2 at risk, 2 not verifiable at TRL 3 (before: 6 met, 2 not met).
+
+| ID | Status | Value against target |
+| --- | --- | --- |
+| R6 | **Not met** | 75.06 kg against 75 kg (0.06 kg over, within estimate accuracy); handle force 14 to 52 N; pack 12 kg |
+| R7 | At risk | Pull 147 N on grass against 150 N; step at 138 N; clearance 193 mm; tip 32.6° |
+| R9 | At risk | Box 53 °C at 45 °C ambient with fan and shade; pack about 48 °C under the shade, so charging stops above about 42 °C ambient; inverter derating data not yet obtained |
+| R8 | Not verifiable at TRL 3 | IP54 box with decided filter fan; IP65 case |
+| R11 | Not verifiable at TRL 3 | About 41 dB(A) at 1 m from assumed levels |
+| R1, R2, R3, R4, R5, R10, R12 | Met | As before; R12 now met at $2,051 against $2,100 |
+
+### Proposed, awaiting Amish
+
+Still open, no recommendation was made:
+
+1. Whether to seek a responder organization to review the deployment sequence and load profile, and which one (O1).
+2. How FieldCell relates to PowerBox and SwapCell in the portfolio (O2).
+3. Whether to add an AC charger or a vehicle 12 V input for cloudy periods (O3).
+
+New from this session:
+
+4. **Close the 0.06 kg R6 gap.** Options: (a) specify the sun shade at 0.9 kg or less (fabric on a lighter frame), which meets R6 with about 0.04 kg margin; (b) set the limit at 76 kg; (c) accept the figure as within estimate accuracy and settle it by weighing at TRL 4. Recommendation: (a), since it costs nothing and leaves the decided frame and tyres untouched.
+
+### Cross-repo actions
+
+None. No decision in this session needs a change in another repo (D6 on SwapCell was settled in FCL-DDR-001).
+
+### Safety concerns
+
+Unchanged from the TRL 3 session, with two updates: the cart is now about 75 kg (two-person lift), and the deployed wing to tyre gap is 28 mm instead of 8 mm, which reduces but does not remove the pinch point. The shade must stay in place in hot weather to keep the pack below its charge limit.
+
+### TRL 4
+
+TRL 4 remains on hold by Amish's instruction. `trl: 3` and `trl_target: 3` are unchanged. Supplier quotes, inverter derating data from a chosen supplier, building, weighing and testing are recorded as decided or needed but not started.
+
+### Recommended next step
+
+Decide item 4 above. Otherwise stay at TRL 3 until Amish lifts the TRL 4 hold.

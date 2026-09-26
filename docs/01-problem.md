@@ -3,7 +3,7 @@ doc_id: FCL-PRB-001
 title: FieldCell problem statement
 project: FieldCell
 doc_type: Problem statement
-version: "0.3"
+version: "0.4"
 status: Draft
 date: '2026-09-25'
 author: Amish Chadha
@@ -21,6 +21,10 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Record decisions of FCL-DDR-001 (first user group, 120 V first build); budget note from FCL-CAL-001
+- version: "0.4"
+  date: '2026-09-25'
+  author: Amish Chadha
+  change: Recommendations accepted by Amish (DDR-002)
 ---
 
 # FieldCell problem statement
@@ -49,7 +53,7 @@ Solar plus battery systems solve the noise, fumes and fuel problems, but the fie
 
 ## Constraints
 
-- Prototype parts cost about $1,500 USD (`project.yaml`), using off-the-shelf electronics and a welded steel frame. The TRL 3 BOM totals about $2,006 (FCL-CAL-001), so the budget is under review; see `docs/REVIEW.md`.
+- Prototype parts cost about $2,100 USD (`project.yaml`, raised from $1,500 by Amish on 2026-09-25, FCL-DDR-002), using off-the-shelf electronics and a welded steel frame. The TRL 3 BOM totals about $2,051 (FCL-CAL-001).
 - One person must move, deploy and stow it, without tools, on uneven ground.
 - Must work in rain and dust, and through a range of field temperatures, while its lithium cells stay within safe charging limits.
 - Electrical safety: fused circuits, ground-fault protection on AC outlets, a clear disconnect, and no connection to building wiring.

@@ -192,6 +192,12 @@ say("E1", f"frame: tubes {tube_len / 1000:.2f} m x {sq_tube_kg_per_m(R_, P['rail
 hl = 2 * sqrt((P["grip_x"] - (L / 2 - 20)) ** 2 + (P["grip_z"] - D["rail_z"]) ** 2) + W_ + 40
 m_handle = hl / 1000 * pi / 4 * (P["handle_d"] ** 2 - (P["handle_d"] - 3) ** 2) * 1000 * RHO_ST + 0.4
 ax, ex, bx = P["axle_x"], D["ebox_x"], D["bin_x"]
+# DDR-002 additions: 20 mm hinge spacer (20 x 20 x 2 mm aluminium equal angle, 1.3 m per side) and sun shade
+sp_len = 2 * (P["pv_l"] - 100) / 1000
+m_spacer = sp_len * (20 + 18) * 2 * RHO_AL * 1000
+M_SHADE = 1.0                                  # aluminized fabric on a light aluminium tube frame, posts, clips (estimate)
+x_shade = (P["shade"][0] + P["shade"][1]) / 2
+z_shade = P["deck_z"] + max(P["batt_box"][2], P["ebox"][2]) + P["shade"][3]
 MASS = [  # name, kg, x (mm from deck center, + toward handle), z (mm)
     ("Frame, deck and axle", m_frame, 0, 430),
     ("Wheels, flat-free (2 x 4.0 kg)", 8.0, ax, P["wheel_r"]),
@@ -205,6 +211,8 @@ MASS = [  # name, kg, x (mm from deck center, + toward handle), z (mm)
     ("Accessory bin and cables", 4.0, bx, 560),
     ("PV wings, stowed (2 x 6.5 kg)", 13.0, 0, P["hinge_z"] + P["pv_w"] / 2),
     ("Hinges, latches, outriggers, stakes", 3.0, 0, 780),
+    ("Hinge spacers (2 x aluminium angle)", m_spacer, 0, P["hinge_z"] - 27),
+    ("Sun shade (reflective, on 4 posts)", M_SHADE, x_shade, z_shade),
     ("Wiring and hardware", 2.0, 200, 600),
 ]
 M = sum(m for _, m, _, _ in MASS)
@@ -212,7 +220,9 @@ cgx = sum(m * x for _, m, x, _ in MASS) / M
 cgz = sum(m * z for _, m, _, z in MASS) / M
 for name, m, x, z in MASS:
     say("E2", f"  {name:38s} {m:5.1f} kg  x {x:5.0f}  z {z:4.0f}")
-say("E3", f"total {M:.1f} kg (limit 70 kg, margin {70 - M:+.1f} kg); CG x {cgx:.0f} mm, z {cgz:.0f} mm")
+M_LIMIT = 75.0                                  # R6 limit, relaxed from 70 kg by DDR-002
+say("E3", f"total {M:.2f} kg (limit {M_LIMIT:.0f} kg, margin {M_LIMIT - M:+.2f} kg; the TRL 3 v0.1 limit was 70 kg); "
+          f"CG x {cgx:.0f} mm, z {cgz:.0f} mm; DDR-002 additions: spacers {m_spacer:.2f} kg, shade {M_SHADE:.1f} kg")
 d_cg = cgx - ax
 lever = P["grip_x"] - ax
 W = M * G
@@ -282,6 +292,10 @@ for label, q in (("500 W", Q_500), ("1 kW", Q_1k), ("1 kW + half solar", Q_1k + 
               f"{FAN_M3H:.0f} m3/h filter fan rise {v45:4.1f} K (inside {45 + v45:.0f} C)")
 need = (Q_1k + Q_sun / 2) / (1.2 * 1005 * 10) * 3600
 say("G3", f"airflow for a 10 K rise at 1 kW with sun: {need:.0f} m3/h")
+SHADE_F = 0.25                          # fraction of the direct solar gain left under the shade (sides at low sun), assumed
+q_sh = Q_1k + SHADE_F * Q_sun / 2
+say("G6", f"  1 kW, shaded      sealed rise {sealed_rise(q_sh, 45):4.1f} K (inside {45 + sealed_rise(q_sh, 45):.0f} C at 45 C); "
+          f"{FAN_M3H:.0f} m3/h filter fan rise {vented_rise(q_sh, 45):4.1f} K (inside {45 + vented_rise(q_sh, 45):.0f} C)"),
 bbx = P["batt_box"]
 A_b = 2 * (bbx[0] * bbx[2] + bbx[1] * bbx[2]) * 1e-6 + bbx[0] * bbx[1] * 1e-6
 Qb = ALPHA_SOL * G_SUN * bbx[0] * bbx[1] * 1e-6
@@ -292,6 +306,10 @@ say("G4", f"battery box in noon sun: {Qb:.0f} W absorbed, steady rise about {dTb
           f"pack I2R at 1 kW {I_ac ** 2 * R_PACK:.0f} W, at the reference load {(LOAD_BATT / 24 / V_NOM) ** 2 * R_PACK * 24:.1f} Wh/day")
 say("G5", f"pack in sun reaches about {45 + dTb:.0f} C at 45 C ambient and {35 + dTb:.0f} C at 35 C; "
           f"typical LiFePO4 charge limit 45 C")
+dTb_sh = SHADE_F * Qb / (h_ext(3, 35) * A_b)
+say("G7", f"with the sun shade ({SHADE_F:.0%} of the gain left): battery box {SHADE_F * Qb:.0f} W absorbed, rise about "
+          f"{dTb_sh:.0f} K; pack about {45 + dTb_sh:.0f} C at 45 C ambient and {40 + dTb_sh:.0f} C at 40 C, "
+          f"{35 + dTb_sh:.0f} C at 35 C")
 
 # ============================================================ H. Wind (R10)
 pw_m = P["pv_w"] / 1000
@@ -337,7 +355,10 @@ say("I2", f"noise at 1 m, 500 W: inverter fan {L_INV:.0f} + filter fan {L_FAN:.0
 rows = list(csv.DictReader((ROOT / "bom" / "bom.csv").open()))
 total = sum(float(r["qty"]) * float(r["unit_cost_usd"]) for r in rows)
 top = sorted(rows, key=lambda r: -float(r["qty"]) * float(r["unit_cost_usd"]))[:3]
-say("J1", f"BOM {len(rows)} lines, total ${total:,.0f} against budget $1,500: {total - 1500:+,.0f} ({total / 1500 - 1:+.0%})")
+BUDGET = next(float(l.split(":")[1].split("#")[0]) for l in (ROOT / "project.yaml").read_text().splitlines()
+              if l.startswith("budget_usd:"))
+say("J1", f"BOM {len(rows)} lines, total ${total:,.0f} against budget ${BUDGET:,.0f}: {total - BUDGET:+,.0f} "
+          f"({total / BUDGET - 1:+.1%}); contingency left {BUDGET - total:,.0f} ({BUDGET / total - 1:.1%} of the BOM)")
 say("J2", "largest lines: " + ", ".join(f"{r['item']} ${float(r['qty']) * float(r['unit_cost_usd']):,.0f}" for r in top))
 
 # ============================================================ K. Envelope

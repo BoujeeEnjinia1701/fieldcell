@@ -3,7 +3,7 @@ doc_id: FCL-DDR-001
 title: FieldCell TRL 2 review decisions
 project: FieldCell
 doc_type: Design decision record
-version: "0.1"
+version: "0.2"
 status: Draft
 date: '2026-09-25'
 author: Amish Chadha
@@ -13,12 +13,16 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Record Amish's decisions on the TRL 2 review items and the items that remain open
+- version: "0.2"
+  date: '2026-09-25'
+  author: Amish Chadha
+  change: Recommendations accepted by Amish (DDR-002)
 ---
 
 # 0001: TRL 2 review decisions
 
 - **Date:** 2026-09-25
-- **Status:** accepted for items D1 to D8; items O1 to O5 remain proposed
+- **Status:** accepted for items D1 to D8; O4 and O5 decided by FCL-DDR-002; O1 to O3 remain proposed
 
 ## Context
 
@@ -49,15 +53,15 @@ Notes on the decided items:
 - **D7.** The TRL 3 BOM now totals about $2,006 (FCL-CAL-001, section J). `budget_usd` stays at $1,500 as decided, and a new budget proposal is recorded in `docs/REVIEW.md` as "Proposed, awaiting Amish".
 - **D2** covers the wings-as-walls architecture, since the recommended wing layout is the hinged wing that forms the cart side in travel.
 
-*Table 2. Items that remain open (Proposed, awaiting Amish).*
+*Table 2. Items left open by this record. O1 to O3 remain Proposed, awaiting Amish; O4 and O5 were decided later the same day (FCL-DDR-002).*
 
 | # | Item | Why it stays open |
 | --- | --- | --- |
 | O1 | Whether to seek a responder organization to review the deployment sequence and load profile, and which one | No recommendation was made; needs Amish |
 | O2 | How FieldCell relates to PowerBox and SwapCell in the portfolio, so the three do not overlap | No recommendation was made; needs Amish |
 | O3 | Whether to add an AC charger or a vehicle 12 V input for cloudy periods | Listed as an open option with no recommendation |
-| O4 | Heavy parts low and over the axle, with the electronics box and bin balancing fore and aft | Listed in FCL-PRC-001 as proposed but not among the review items Amish decided |
-| O5 | New TRL 3 proposals: budget, mass limit, electronics box fan, sun shade, hinge spacer, reading of "peak sun hours" | Raised by FCL-CAL-001 after the decision; see `docs/REVIEW.md`, session 2026-09-25 |
+| O4 | Heavy parts low and over the axle, with the electronics box and bin balancing fore and aft | Decided by Amish, 2026-09-25: go with recommendation (keep the rule). See FCL-DDR-002 |
+| O5 | New TRL 3 proposals: budget, mass limit, electronics box fan, sun shade, hinge spacer, reading of "peak sun hours" | Decided by Amish, 2026-09-25: go with recommendation. See FCL-DDR-002 |
 
 ## Consequences
 

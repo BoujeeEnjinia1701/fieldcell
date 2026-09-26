@@ -21,12 +21,13 @@ COLORS = {"frame": "#4B5563", "wheel_l": "#1F2937", "wheel_r": "#1F2937", "handl
           "legs_r": "#9CA3AF", "batt_box": "#D1D5DB", "pack": "#C2410C", "ebox": "#E5E7EB", "mppt": "#0F766E",
           "inverter": "#0E7490", "dc_panel": "#D4A017", "ac_outlet": "#F59E0B", "fusing": "#B91C1C",
           "wing_l": "#1E3A5F", "wing_r": "#1E3A5F", "hinges": "#94A3B8", "out_l": "#64748B", "out_r": "#64748B",
-          "bin": "#65A30D"}
+          "bin": "#65A30D", "shade": "#E2E8F0"}
 EXPLODE = {"wheel_l": (0, -260, -200), "wheel_r": (0, 260, -200), "handle": (320, 0, 120), "legs_f": (-200, 0, -420),
            "legs_r": (200, 0, -420), "batt_box": (0, 0, 380), "pack": (0, 0, 900), "ebox": (140, 0, 380),
            "mppt": (140, 0, 820), "inverter": (140, 0, 820), "dc_panel": (420, 0, 380), "ac_outlet": (420, 0, 380),
            "fusing": (140, 0, 1020), "wing_l": (0, -700, 250), "wing_r": (0, 700, 250), "hinges": (0, 0, 260),
-           "out_l": (0, -700, -60), "out_r": (0, 700, -60), "bin": (-300, 0, 200)}
+           "out_l": (0, -700, -60), "out_r": (0, 700, -60), "bin": (-300, 0, 200),
+           "shade": (-80, 0, 1350)}
 parts = [Part(name, shape, COLORS[k], bom, EXPLODE.get(k, (0, 0, 0))) for k, name, shape, bom in build_parts(deployed=True)]
 
 # Hero only: the same cart stowed for travel (wings up as the cart sides), parked behind the deployed one.
@@ -52,7 +53,7 @@ if __name__ == "__main__":
         parts, context=context, project="FieldCell", title="Solar power cart concept", dwg_no="FCL-DWG-001",
         key_figures=["Shown deployed; wings fold up to form the cart sides",
                      "2 x 200 W PV, 1.28 kWh LiFePO4 (25.6 V 50 Ah)",
-                     "1 kW AC inverter, DC outlets (USB-C, 12 V)",
+                     "1 kW AC inverter, DC outlets (USB-C, 12 V), sun shade",
                      f"About {E_batt:.2f} kWh/day stored at {GHI} kWh/m2/day (estimate)",
                      f"About {C.M:.1f} kg, CG {C.d_cg:.0f} mm from axle (estimate)",
                      "Deploy in about 6 min, one person (estimate)"],

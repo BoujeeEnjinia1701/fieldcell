@@ -1,4 +1,4 @@
-"""FieldCell general arrangement sheet FCL-DWG-002, Rev P1 (TRL 3).
+"""FieldCell general arrangement sheet FCL-DWG-002, Rev P2 (TRL 3).
 
 Run from the repo root:  python cad/src/sheets.py
 Writes cad/drawings/FCL-DWG-002.svg, .pdf and .png from the parametric model in
@@ -13,6 +13,10 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path[:0] = [str(ROOT / ".kit"), str(ROOT / "cad" / "src")]
 from drawing import Sheet, project_views, _viewbox, _t, M, TB_Y, INK, MUTED  # noqa: E402
 from model import PARAMS as P, build, derived  # noqa: E402
+import contextlib, io  # noqa: E402
+sys.path.insert(0, str(ROOT / "docs" / "04-calcs"))
+with contextlib.redirect_stdout(io.StringIO()):
+    import sizing as C  # noqa: E402
 
 DATE = "2026-09-25"
 
@@ -64,10 +68,11 @@ def main():
     views = project_views(dep, work / "deployed")
     views["iso"] = project_views(stow, work / "stowed")["iso"]
     bb = dep.bounding_box()
-    s = Sheet(project="FieldCell", title="General arrangement", dwg_no="FCL-DWG-002", rev="P1",
+    s = Sheet(project="FieldCell", title="General arrangement", dwg_no="FCL-DWG-002", rev="P2",
               author="Amish Chadha", date=DATE, scale=None, theme="technical",
               material="Welded steel frame, IP65 and IP54 enclosures; see bom/bom.csv. PRELIMINARY, NOT FOR FABRICATION",
-              revisions=[("P1", "Preliminary GA for TRL 3 (from cad/src/model.py)", DATE, "AC")])
+              revisions=[("P1", "Preliminary GA for TRL 3 (from cad/src/model.py)", DATE, "AC"),
+                         ("P2", "Hinge spacer +20 mm, sun shade added (DDR-002)", DATE, "AC")])
     s.add_ortho(views)
     k = s.scale
     c = ortho_cells(s, views)
@@ -100,9 +105,10 @@ def main():
         f"Frame {P['deck_l']:,.0f} x {P['deck_w']:.0f}, 40 x 40 x 1.5 steel tube; deck {P['deck_z']:.0f} parked",
         f"Wheels {2 * P['wheel_r']:.0f} dia., track {2 * P['wheel_y']:.0f}; axle {P['axle_x']:.0f} toward handle",
         f"Hinge line Y +/-{P['hinge_y']:.0f}, Z {P['hinge_z']:.0f}; wings {P['tilt']:.0f} deg below horizontal",
-        f"Wing to tyre clearance {D['wing_tyre_gap']:.0f} (tight; see FCL-CAL-001)",
+        f"Hinge on 20 spacer; wing to tyre clearance {D['wing_tyre_gap']:.0f}",
+        "Reflective sun shade over both enclosures (item 18)",
         f"Outlet face toward handle; grip at Z {P['grip_z']:.0f}",
-        "Mass about 73.5 kg (FCL-CAL-001); 2 x 200 W PV, 1.28 kWh",
+        f"Mass about {C.M:.1f} kg (FCL-CAL-001); 2 x 200 W PV, 1.28 kWh",
         "Third-angle; front view from -Y, right view from +X",
     ], x=276, y=160, width=146)
     out = s.save(ROOT / "cad" / "drawings" / "FCL-DWG-002")
