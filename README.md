@@ -43,7 +43,7 @@ Where there is no grid at all, field teams start from nothing. In 2023, 666 mill
 | Philippines | An average of 20 tropical cyclones enter its area of responsibility each year, 8 or 9 of them crossing the country ([PAGASA](https://www.pagasa.dost.gov.ph/climate/tropical-cyclone-information)) |
 | Pakistan | The 2022 monsoon floods affected an estimated 33 million people ([UN News, 2022](https://news.un.org/en/story/2022/08/1125752)) |
 | Sub-Saharan Africa | Home to 85 % of the 666 million people without electricity in 2023 ([World Bank, 2025](https://www.worldbank.org/en/topic/energy/publication/tracking-sdg-7-the-energy-progress-report-2025)) |
-| Caribbean and Central America | Hurricane-belt islands and coasts where grid repairs after a storm can take weeks and fuel arrives by sea |
+| Caribbean (Puerto Rico and US Virgin Islands) | After Hurricanes Irma and Maria in 2017, restoring power to all customers whose structures were safe to reconnect took about 11 months in Puerto Rico and about 5 months in the US Virgin Islands ([US GAO, 2019](https://www.gao.gov/products/gao-19-296)) |
 
 ## What sparked the idea
 
@@ -92,6 +92,12 @@ The priced bill of materials is in [bom/bom.csv](bom/bom.csv) (about $2,051 at T
 ## Documentation
 
 Controlled documents follow the portfolio [documentation standard](.kit/STANDARDS.md). Each carries a document ID (FCL-PRC-001 for the precis), a version and a revision history. Branded PDFs are built with `python .kit/render.py` and attached to GitHub Releases when a document is tagged, for example `FCL-PRC-001/v1.0`.
+
+## Credits
+
+Designed by Amish Chadha. See [CONTRIBUTORS.md](CONTRIBUTORS.md) for roles. To cite this design, use [CITATION.cff](CITATION.cff) (GitHub shows it as "Cite this repository").
+
+AI assistance (Claude) was used to accelerate concept renders, prototype documentation and first-pass sizing calculations. Design direction and all decisions are Amish Chadha's, recorded in this repository's decision records (`docs/decisions/`).
 
 ## Licenses
 

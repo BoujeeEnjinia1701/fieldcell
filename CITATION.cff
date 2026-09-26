@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use or build on this design, please cite it as below."
+type: software
+title: "FieldCell"
+abstract: "Two-wheel hand cart carrying fold-out PV and a LiFePO4 bank, with an inverter and DC outlets, that one person can deploy in under 10 minutes."
+authors:
+  - given-names: Amish
+    family-names: Chadha
+    affiliation: Design Molecule
+repository-code: "https://github.com/BoujeeEnjinia1701/fieldcell"
+url: "https://designmolecule.com"
+license:
+  - CERN-OHL-S-2.0
+  - MIT
+keywords:
+  - open-hardware
+  - situational-field-hardware

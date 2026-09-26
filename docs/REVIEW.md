@@ -197,3 +197,8 @@ TRL 4 remains on hold by Amish's instruction. `trl: 3` and `trl_target: 3` are u
 ### Recommended next step
 
 Decide item 4 above. Otherwise stay at TRL 3 until Amish lifts the TRL 4 hold.
+
+## Session 2026-09-26: sources strengthened
+
+- "Where it could be used", country table: the uncited "Caribbean and Central America" row is replaced by "Caribbean (Puerto Rico and US Virgin Islands)", citing US GAO report GAO-19-296 (2019): after Hurricanes Irma and Maria, restoring power to all customers with structures safe for reconnection took about 11 months in Puerto Rico and about 5 months in the US Virgin Islands. Old source: none. The link was opened on 2026-09-26.
+- All other rows, "Concept rationale", "Burning platform" and "What sparked the idea" already rested on primary or reputable secondary sources and are unchanged. No budget change. No controlled doc changed.
