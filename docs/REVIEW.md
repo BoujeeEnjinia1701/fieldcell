@@ -202,3 +202,39 @@ Decide item 4 above. Otherwise stay at TRL 3 until Amish lifts the TRL 4 hold.
 
 - "Where it could be used", country table: the uncited "Caribbean and Central America" row is replaced by "Caribbean (Puerto Rico and US Virgin Islands)", citing US GAO report GAO-19-296 (2019): after Hurricanes Irma and Maria, restoring power to all customers with structures safe for reconnection took about 11 months in Puerto Rico and about 5 months in the US Virgin Islands. Old source: none. The link was opened on 2026-09-26.
 - All other rows, "Concept rationale", "Burning platform" and "What sparked the idea" already rested on primary or reputable secondary sources and are unchanged. No budget change. No controlled doc changed.
+
+## Session 2026-09-26: product appearance model and photoreal renders
+
+Amish chose FieldCell for the first batch of product renders on 2026-09-26. This session adds an appearance model for photoreal product renders. It changes no controlled document, no parameter in `cad/src/model.py`, no BOM line and no budget figure.
+
+### What was done
+
+- `cad/src/product_model.py` (new): `product_parts()` returns 100 named parts with colour, material, BOM line, group and explode offset, built from `PARAMS`, `derived()` and the model.py geometry. It also defines `TITLE` and `RENDER_VIEWS` (hero, exploded, detail). What it adds over the massing model:
+  - Graphite powder-coated frame with tube end plugs and an expanded-metal deck pattern; axle brackets with rounded ends.
+  - Flat-free tyres with rounded shoulders and a staggered tread, dished steel rims with lightening holes, hub caps.
+  - T-handle with a foam grip, end caps and quick-release pins; stand legs with clamp blocks and rubber feet.
+  - PV wings as a finished module: 8 x 4 cell grid with clipped corners and busbars on a white backsheet, aluminium backing frame with ribs, teal corner guards, junction box underneath.
+  - Knuckled continuous hinges on the 20 mm spacer; outrigger feet with stake loops and stakes.
+  - Sun shade as reflective fabric on an aluminium flat-bar frame with posts and clips.
+  - Battery case with lid parting line, lid ribs, four latches, carry handle, pressure vent, rating label and gland plate; LiFePO4 pack with terminal covers and label.
+  - Electronics box with lid parting line, lid screws, louvered intake fan and exhaust filter grilles, a teal rating label and a clear side window onto the finned inverter, the MPPT on its heat sink and the DC breakers and class T fuse on a DIN rail.
+  - Outlet face toward the handle: DC panel with two USB-C PD ports (lit rings), two 12 V sockets with rubber caps and the lit battery monitor; GFCI duplex with test and reset buttons under a clear in-use cover; battery isolator knob; inverter rocker with a lit indicator.
+  - Two battery cables with glands between the battery case and the electronics box; accessory bin with rim lip, teal webbing tie-down strap, buckle and a coiled cord.
+  - Context: a compact ground patch and the shared clay mannequin (1.75 m, "stand") beside the handle end.
+- Views: hero (front right, about 30 deg elevation, deployed on the ground patch with the person), exploded (front right, about 28 deg) and detail (front right, about 22 deg, power system only: outlet face, side window and battery case). For the detail view to frame the power system closely, the battery case, pack, electronics box, its contents, outlet face and cables are in group "internal"; the cart, wings, shade and bin are in "shell".
+- `README.md`: hero image now points to `media/render-hero.png`, with a link to `media/render-exploded.png`. The render files are produced separately.
+
+### Where the appearance model differs from model.py
+
+Each item is Proposed, awaiting Amish.
+
+1. **Hinge spacer tabs.** In model.py the hinge spacer (y 320 to 340 mm) does not touch the side rail (outer face at y 300 mm). The appearance model bridges the gap with four aluminium tabs per side. Recommendation: add the tabs (or move the spacer inboard onto the rail) at the next model revision.
+2. **In-use cover depth.** The clear weatherproof cover over the GFCI outlet stands 38 mm proud of the box face, against the 12 mm outlet envelope in model.py. Recommendation: accept and enlarge the envelope; it stays clear of the handle.
+3. **Isolator, inverter switch and monitor locations.** model.py does not place the battery isolator, the inverter switch or the shunt monitor. The appearance model puts the isolator knob and inverter rocker (with indicator) on the outlet face between the AC and DC panels, and the monitor at the top of the DC panel. Recommendation: adopt, since the concept requires the isolator reachable without tools.
+4. **Electronics box side window.** The render shows a clear window in the front (-Y) wall to show the internals; the BOM enclosure has none. Recommendation: treat it as a render aid only, unless a windowed IP54 enclosure is found at a similar price, because a window adds solar gain to a box already at risk on R9.
+5. **Battery cables and glands (item 17, not modeled).** Drawn as two cables between facing walls of the battery case and the electronics box, 120 mm above the deck. Recommendation: accept as the indicative route.
+6. **Stake loops.** The outrigger stake loops stand about 26 mm outside the 80 mm foot plates. Recommendation: accept; the deployed footprint change is negligible.
+
+### TRL
+
+This is an appearance model only: no tolerances, no fabrication detail, concept, not for fabrication. `trl` stays 3 and TRL 4 remains on hold.
