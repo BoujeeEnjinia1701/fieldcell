@@ -244,3 +244,54 @@ This is an appearance model only: no tolerances, no fabrication detail, concept,
 - Kit 1.5.0 synced: STANDARDS v1.5 (sections 12 to 15: product renders, storefront images and image quality, public release, authorship and signing), `.kit/cards.py`, `.kit/image_qc.py`, `.kit/release_gate.py`, issue templates, and the `/render-product` and `/release` commands. `CLAUDE.md` now matches `.kit/CLAUDE.md`.
 - Every `media/render-*.png` recaptioned from its original render with the new layout: the title, concept label and repository sit in a band above the render and the view note in a band below it, each line wrapped to the image width, so no text overlaps other text or the render or runs off the image. `media/card.png` and `media/social-preview.png` regenerated with the same rules.
 - `python .kit/image_qc.py` and `python .kit/release_gate.py` pass. trl stays 3.
+
+## Session 2026-10-01: kit 1.7.0, constructable design and prototype build plan
+
+Kit 1.7.0 installed (`.kit/`, `.claude/commands/`; `CLAUDE.md` now matches `.kit/CLAUDE.md`). Following Amish's 2026-09-30 instruction ("If you are realising that the design cannot be built as per concept - fix the design assumptions to match and be physically feasible as you draw the illustrations."), the design was checked part by part in build123d, made buildable, and the illustrated build plan and the design decisions register were written. `design_state: constructable` is set in `project.yaml`. `trl` stays 3.
+
+### Design changes made for construction (FCL-DDR-003, Draft, open for Amish's review)
+
+1. Deck: expanded steel sheet laid on the cross tubes between the rails (it cut 5 mm into them); tubes 5 mm lower, deck top still 460 mm.
+2. Rail ends capped with 3 mm plates.
+3. Axle brackets: 60 x 5 mm plates stopping under the rails (they cut 10 mm into them), braced by 5 mm gussets; 820 mm welded axle through wheel bores, with spacer collars, washers and linch pins.
+4. Stand legs: on welded 3 mm clevis pairs under the rail centre line, M10 pivot, detent pin, folding along the rail (they had no pivot).
+5. Handle: two welded 33.7 mm sockets with gussets on the rail ends at 30.5°, legs pinned in them (the concept had no joint).
+6. Hinge line: eight steel tabs welded to the rails carry the decided 20 x 20 x 2 mm spacer angle (it stood 20 mm clear of the rails); a real 1.2 m piano hinge, pin 4.5 mm above the panel face so the wing lies where the concept put it (28 mm over the tyre).
+7. Wings: module bonded to a 1,400 x 700 mm frame of 30 x 20 x 1.5 mm aluminium tube with three ribs (a solid block in the concept); about 6.0 kg each.
+8. Outrigger legs: riveted U brackets under the wing's outer member, M8 pivot, 50 mm feet with stake loops along the cart; fold flat under the wing.
+9. Two tie bars hold the stowed wings together at the top with over-centre latches (the latches had nothing to latch to, since the stowed wing's inner face is the solar module); two latches instead of four.
+10. Sun shade: on four 355 mm uprights bolted to tabs on the rails (the posts stood in mid air); frame 830 x 580 mm; lifts off to open the battery case.
+11. Electronics: inverter, charge controller and DIN rail side by side on the mounting plate (the fusing sat on the charge controller); outlets, isolator, fan and exhaust filter through cut-outs; class T fuse moved into the battery case within 150 mm of the terminal; isolator on the outlet face.
+12. Electronics box 10 mm nearer the handle so 60 mm separates the boxes (50 mm could not take two M25 gland domes); two M25 glands each side, two M16 PV glands.
+13. Fixings: cam straps over the battery case, four floor bolts for the electronics box, bin strap through the deck.
+
+`cad/src/model.py` now runs 96 constructability checks in the parked and travel poses (`--check`); all pass. STEP and STL regenerated in `cad/step/` and `cad/stl/`.
+
+### Files
+
+- New: `docs/05-build-plan.md` (FCL-BLD-001 v0.1), `docs/06-design-decisions.md` (FCL-DEC-001 v0.1), `docs/decisions/0003-design-for-construction.md` (FCL-DDR-003 v0.1), `cad/src/build_plan_media.py`, `cad/drawings/FCL-DWG-101` to `111` (11 making sketches), `docs/05-build-plan/` (overview, 9 joint close-ups, 17 step pictures, frame layout, electronics box cut-outs, wiring).
+- Changed: `cad/src/model.py`, `cad/src/concept_media.py` (BOM groups, wing group drawn to the front in the exploded view), `cad/src/sheets.py` and `cad/drawings/FCL-DWG-002` (Rev P4), all `media/` concept images, `media/model.glb`, `docs/04-calcs/sizing.py`, FCL-CAL-001 v0.3, FCL-PRC-001 v0.5, FCL-REQ-001 v0.5, `bom/bom.csv` (line 19 added), `bom/bom-notes.md`, `project.yaml`, `README.md` (links line and "Building the prototype").
+
+### Key results (FCL-CAL-001 v0.3)
+
+- Mass 75.06 to 79.99 kg: R6 **not met** by 5.0 kg. Handle force 14 to 54 N.
+- Pull on a 10 % grass grade 147 to 156 N: R7 **not met** (was at risk). Step pull 149 N.
+- BOM $2,051 to $2,101: R12 **over the value-engineering target** by USD 1. Safety provisions met by design.
+- Deploy 6.5 min, stow 5.5 min (R5 met); unstaked wing lift 8.9 m/s; stowed size 1,400 x 830 x 1,220 mm; wing-to-tyre 28 mm unchanged.
+- Status: 6 met, 2 not met (R6, R7), 1 over its value-engineering target (R12), 1 at risk (R9), 2 not verifiable at TRL 3 (R8, R11).
+
+### Proposed, awaiting Amish
+
+All open decisions are now in the design decisions register (`docs/06-design-decisions.md`): accepting FCL-DDR-003; mass and pull (relax to 80 kg and 160 N, or an aluminium frame); tie bars or straps; shade lift-off; O1 to O3 from FCL-DDR-001; and updating the appearance model and renders. The 2026-09-25 item "close the 0.06 kg R6 gap" is superseded by the mass decision. The budget is not a decision: `budget_usd` stays $2,100 as a value-engineering target, and the savings worth trying are in the register's Value engineering section (2026-10-01 wording pass).
+
+### Stale until regenerated on Amish's Mac
+
+The design changed visibly, so `media/render-hero.png`, `media/render-exploded.png`, `media/render-detail.png` (not present in this working copy), `media/card.png`, `media/social-preview.png` and the appearance model `cad/src/product_model.py` still show the concept: shade posts, the floating hinge spacer, the old outrigger feet and electronics layout, and no tie bars. They were not regenerated here.
+
+### Safety concerns
+
+The cart is now about 80 kg: a two-person lift. The class T fuse is inside the battery case, so pulling the fuse means lifting the shade and opening the case; the isolator on the outlet face remains the everyday disconnect. Unstaked wings lift at about 9 m/s. Tie bars must be latched for travel.
+
+### Recommended next step
+
+Amish to review FCL-DDR-003 and decide items 1 and 2 of the register (accept the construction changes, the mass and pull gap). TRL 4 stays on hold.

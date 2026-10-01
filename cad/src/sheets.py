@@ -1,4 +1,4 @@
-"""FieldCell general arrangement sheet FCL-DWG-002, Rev P2 (TRL 3).
+"""FieldCell general arrangement sheet FCL-DWG-002, Rev P4 (TRL 3, constructable design FCL-DDR-003).
 
 Run from the repo root:  python cad/src/sheets.py
 Writes cad/drawings/FCL-DWG-002.svg, .pdf and .png from the parametric model in
@@ -19,6 +19,7 @@ with contextlib.redirect_stdout(io.StringIO()):
     import sizing as C  # noqa: E402
 
 DATE = "2026-09-25"
+REV_DATE = "2026-10-01"
 
 
 def ortho_cells(sheet, views, names=("front", "top", "right")):
@@ -68,12 +69,13 @@ def main():
     views = project_views(dep, work / "deployed")
     views["iso"] = project_views(stow, work / "stowed")["iso"]
     bb = dep.bounding_box()
-    s = Sheet(project="FieldCell", title="General arrangement", dwg_no="FCL-DWG-002", rev="P3",
-              author="Amish Chadha", date=DATE, scale=None, theme="technical",
+    s = Sheet(project="FieldCell", title="General arrangement", dwg_no="FCL-DWG-002", rev="P4",
+              author="Amish Chadha", date=REV_DATE, scale=None, theme="technical",
               material="Welded steel frame, IP65 and IP54 enclosures; see bom/bom.csv. PRELIMINARY, NOT FOR FABRICATION",
               revisions=[("P1", "Preliminary GA for TRL 3 (from cad/src/model.py)", DATE, "AC"),
                          ("P2", "Hinge spacer +20 mm, sun shade added (DDR-002)", DATE, "AC"),
-                         ("P3", "Layout and labels tidied", "2026-09-30", "AC")])
+                         ("P3", "Layout and labels tidied", "2026-09-30", "AC"),
+                         ("P4", "Constructable design (DDR-003): tabs, sockets, clevises, tie bars, shade uprights", "2026-10-01", "AC")])
     s.add_ortho(views)
     k = s.scale
     c = ortho_cells(s, views)
@@ -100,12 +102,12 @@ def main():
     s.add_svg(views["iso"], 276, 32, 140, 92, label="Isometric view, stowed for travel", sublabel="Not to scale")
     s.add_notes("Main dimensions and interfaces (mm)", [
         f"Deployed {bb.size.X:,.0f} L x {bb.size.Y:,.0f} W x {bb.size.Z:,.0f} H; wingspan {D['span']:,.0f}",
-        f"Stowed, handle off: {P['pv_l']:,.0f} x {2 * (P['hinge_y'] + P['pv_t'] + P['out_d'] + 2):.0f} x {P['hinge_z'] + P['pv_w']:,.0f}",
+        f"Stowed, handle off: {C.STOW_L:,.0f} x {C.STOW_W:.0f} x {C.STOW_H:,.0f}",
         f"Frame {P['deck_l']:,.0f} x {P['deck_w']:.0f}, 40 x 40 x 1.5 steel tube; deck {P['deck_z']:.0f} parked",
         f"Wheels {2 * P['wheel_r']:.0f} dia., track {2 * P['wheel_y']:.0f}; axle {P['axle_x']:.0f} toward handle",
-        f"Hinge line Y +/-{P['hinge_y']:.0f}, Z {P['hinge_z']:.0f}; wings {P['tilt']:.0f} deg below horizontal",
-        f"Hinge on 20 spacer; wing to tyre clearance {D['wing_tyre_gap']:.0f}",
-        "Reflective sun shade over both enclosures (item 18)",
+        f"Hinge pin Y +/-{D['pin_y']:.0f}, Z {D['pin_z']:.0f}; wings {P['tilt']:.0f} deg below horizontal",
+        f"Hinge on 20 x 20 angle, welded tabs; wing to tyre {D['wing_tyre_gap']:.0f}",
+        "Sun shade on 4 uprights (item 18); tie bars (item 19)",
         f"Outlet face toward handle; grip at Z {P['grip_z']:.0f}",
         f"Mass about {C.M:.1f} kg (FCL-CAL-001); 2 x 200 W PV, 1.28 kWh",
         "Third-angle; front view from -Y, right view from +X",

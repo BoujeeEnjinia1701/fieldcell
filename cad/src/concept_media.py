@@ -1,7 +1,7 @@
-"""FieldCell concept media (TRL 3), generated from the parametric model in cad/src/model.py.
+"""FieldCell concept media (TRL 3), generated from the constructable model in cad/src/model.py (FCL-DDR-003).
 
 Run from the repo root:  python cad/src/concept_media.py
-Massing-plus model: main dimensions and interfaces; not for fabrication.
+Constructable model: every part made or bought and fixed to its neighbours; not for fabrication.
 
 Axes: X along the cart (handle toward +X), Y across the cart, Z up, ground at Z = 0.
 The cart is shown parked and deployed: stand legs down, both PV wings folded out
@@ -17,17 +17,15 @@ from build123d import Pos
 from concept import Part, render_all
 from model import PARAMS as P, build_parts
 
-COLORS = {"frame": "#4B5563", "wheel_l": "#1F2937", "wheel_r": "#1F2937", "handle": "#6B7280", "legs_f": "#9CA3AF",
-          "legs_r": "#9CA3AF", "batt_box": "#D1D5DB", "pack": "#C2410C", "ebox": "#E5E7EB", "mppt": "#0F766E",
-          "inverter": "#0E7490", "dc_panel": "#D4A017", "ac_outlet": "#F59E0B", "fusing": "#B91C1C",
-          "wing_l": "#1E3A5F", "wing_r": "#1E3A5F", "hinges": "#94A3B8", "out_l": "#64748B", "out_r": "#64748B",
-          "bin": "#65A30D", "shade": "#E2E8F0"}
-EXPLODE = {"wheel_l": (0, -260, -200), "wheel_r": (0, 260, -200), "handle": (320, 0, 120), "legs_f": (-200, 0, -420),
-           "legs_r": (200, 0, -420), "batt_box": (0, 0, 380), "pack": (0, 0, 900), "ebox": (140, 0, 380),
-           "mppt": (140, 0, 820), "inverter": (140, 0, 820), "dc_panel": (420, 0, 380), "ac_outlet": (420, 0, 380),
-           "fusing": (140, 0, 1020), "wing_l": (0, -700, 250), "wing_r": (0, 700, 250), "hinges": (0, 0, 260),
-           "out_l": (0, -700, -60), "out_r": (0, 700, -60), "bin": (-300, 0, 200),
-           "shade": (-80, 0, 1350)}
+COLORS = {"frame": "#4B5563", "wheels": "#1F2937", "handle": "#6B7280", "legs": "#9CA3AF", "batt_box": "#D1D5DB",
+          "pack": "#C2410C", "ebox": "#E5E7EB", "mppt": "#0F766E", "inverter": "#0E7490", "dc_panel": "#D4A017",
+          "ac_outlet": "#F59E0B", "fusing": "#B91C1C", "wings": "#1E3A5F", "hinges": "#94A3B8", "outriggers": "#64748B",
+          "bin": "#65A30D", "wiring": "#374151", "shade": "#E2E8F0", "tie_bars": "#7C3AED"}
+EXPLODE = {"wheels": (0, 0, -260), "handle": (320, 0, 120), "legs": (0, 0, -420), "batt_box": (0, 0, 380),
+           "pack": (0, 0, 900), "ebox": (140, 0, 380), "mppt": (140, 0, 820), "inverter": (140, 0, 820),
+           "dc_panel": (420, 0, 380), "ac_outlet": (420, 0, 380), "fusing": (140, 0, 1020), "wings": (-1800, 0, 350),
+           "hinges": (-1800, 0, 150), "outriggers": (-1800, 0, -60), "bin": (-300, 0, 200), "wiring": (60, 0, 650),
+           "shade": (-80, 0, 1350), "tie_bars": (-1800, 0, 800)}
 parts = [Part(name, shape, COLORS[k], bom, EXPLODE.get(k, (0, 0, 0))) for k, name, shape, bom in build_parts(deployed=True)]
 
 # Hero only: the same cart stowed for travel (wings up as the cart sides), parked behind the deployed one.
@@ -55,8 +53,8 @@ if __name__ == "__main__":
                      "2 x 200 W PV, 1.28 kWh LiFePO4 (25.6 V 50 Ah)",
                      "1 kW AC inverter, DC outlets (USB-C, 12 V), sun shade",
                      f"About {E_batt:.2f} kWh/day stored at {GHI} kWh/m2/day (estimate)",
-                     f"About {C.M:.1f} kg, CG {C.d_cg:.0f} mm from axle (estimate)",
-                     "Deploy in about 6 min, one person (estimate)"],
+                     f"About {C.M:.0f} kg, CG {C.d_cg:.0f} mm from axle (estimate)",
+                     f"Deploy in about {sum(t for _, t in C.DEPLOY):.1f} min, one person (estimate)"],
         flow={"title": f"daily energy flow at {GHI} kWh/m2/day global horizontal (all values estimates, FCL-CAL-001)",
               "unit": "kWh/day",
               "stages": [("Sun on 400 W array", round(E_sun, 2)), ("Array DC output", round(E_arr, 2)),

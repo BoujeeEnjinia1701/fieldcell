@@ -13,7 +13,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "cad" / "src"))
-from model import PARAMS as P, derived  # noqa: E402
+from model import PARAMS as P, derived, build_components, FRAME_KEYS, key_figures  # noqa: E402
 
 D = derived(P)
 G = 9.81
@@ -175,66 +175,105 @@ say("D6", f"idle sensitivity: each 5 W of inverter no-load draw over 7 h costs {
           f"({5 * 7 / LOAD_BATT:.1%} of the load)")
 
 # ============================================================ E. Mass, center of gravity, handle force (R6)
+# Version 0.3 (FCL-DDR-003): the made parts are now taken from the constructable model. The steel frame
+# weldment is weighed from the model's own solids; the other made parts from their stock sizes below.
 RHO_ST, RHO_AL = 7850e-9, 2700e-9    # kg/mm3
 def sq_tube_kg_per_m(a, t, rho):
     return (a * a - (a - 2 * t) ** 2) * 1000 * rho
+def rect_tube_kg_per_m(a, b_, t, rho):
+    return (a * b_ - (a - 2 * t) * (b_ - 2 * t)) * 1000 * rho
+def round_tube_kg_per_m(d, t, rho):
+    return pi / 4 * (d * d - (d - 2 * t) ** 2) * 1000 * rho
 L, W_, R_ = P["deck_l"], P["deck_w"], P["rail"]
+_CM = build_components(P, True)
+V = {k: _CM[k].shape.volume for k in FRAME_KEYS if k != "deck"}
 tube_len = 2 * L + 3 * (W_ - 2 * R_)
-m_tubes = tube_len / 1000 * sq_tube_kg_per_m(R_, P["rail_wall"], RHO_ST)
-m_deck = (L - 2 * R_) * (W_ - 2 * R_) * 1e-6 * 4.5          # expanded steel, 4.5 kg/m2 assumed
-m_axle = pi * (P["axle_d"] / 2) ** 2 * 2 * P["wheel_y"] * RHO_ST
-m_brk = 1.2                                                  # two axle brackets, welds, hinge mounts
-m_frame = m_tubes + m_deck + m_axle + m_brk
-m_frame_al = tube_len / 1000 * sq_tube_kg_per_m(R_, 2.0, RHO_AL) + m_deck * 0.4 + m_axle + m_brk * 0.5
-say("E1", f"frame: tubes {tube_len / 1000:.2f} m x {sq_tube_kg_per_m(R_, P['rail_wall'], RHO_ST):.2f} kg/m = {m_tubes:.1f} kg, "
-          f"deck {m_deck:.1f}, axle {m_axle:.1f}, brackets {m_brk:.1f}: {m_frame:.1f} kg steel "
-          f"(bolted aluminium alternative about {m_frame_al:.1f} kg)")
-hl = 2 * sqrt((P["grip_x"] - (L / 2 - 20)) ** 2 + (P["grip_z"] - D["rail_z"]) ** 2) + W_ + 40
-m_handle = hl / 1000 * pi / 4 * (P["handle_d"] ** 2 - (P["handle_d"] - 3) ** 2) * 1000 * RHO_ST + 0.4
+m_tubes = V["tubes"] * RHO_ST                                  # rails, cross tubes and end caps
+m_deck = L * (W_ - 2 * R_) * 1e-6 * 4.5                        # expanded steel sheet between the rails, 4.5 kg/m2 assumed
+m_axle = V["axle"] * RHO_ST
+m_brk = V["brackets"] * RHO_ST
+m_other = (V["tabs"] + V["sockets"] + V["clevises"] + V["up_tabs"]) * RHO_ST
+m_weld = 0.2                                                   # weld metal (estimate)
+m_frame = m_tubes + m_deck + m_axle + m_brk + m_other + m_weld
+m_frame_al = (tube_len / 1000 * sq_tube_kg_per_m(R_, 2.0, RHO_AL) + m_deck * 0.4 + m_axle
+              + (m_brk + m_other) * 0.5 + m_weld)
+say("E1", f"frame from the model: tubes and end caps {m_tubes:.2f} kg, deck {m_deck:.2f}, axle {m_axle:.2f}, "
+          f"axle brackets and gussets {m_brk:.2f}, hinge tabs, handle sockets, leg clevises and shade tabs {m_other:.2f}, "
+          f"weld {m_weld:.1f}: {m_frame:.1f} kg steel (bolted aluminium alternative about {m_frame_al:.1f} kg)")
+D_ = D
+m_handle = (2 * (D_["handle_leg"] + 10) * round_tube_kg_per_m(P["handle_d"], 1.5, RHO_ST) / 1000
+            + 2 * (P["leg_y"] - 20) * round_tube_kg_per_m(P["grip_d"], 1.5, RHO_ST) / 1000 + 0.3)   # grip foam, pins
+leg_len = P["leg_pivot_z"] + 12 - P["foot"][1]
+m_legs = 4 * (leg_len * round_tube_kg_per_m(P["leg_d"], 2.0, RHO_ST) / 1000 + P["foot"][0] ** 2 * P["foot"][1] * RHO_ST + 0.04)
+M_WHEEL_HW = 0.25                                              # spacer collars, washers, linch pins
+td, tw, tt_ = P["pv_tube"]
+wf_len = 2 * P["pv_l"] + (2 + len(P["rib_x"])) * (P["pv_w"] - 2 * tw)
+m_wframe = wf_len * rect_tube_kg_per_m(td, tw, tt_, RHO_AL) / 1000
+M_MODULE = 3.5                                                 # 200 W semi-flexible module (assumed datasheet class)
+M_WING = m_wframe + M_MODULE + 0.2                             # bonding tape, junction box lead clips
+m_hinge = 2 * P["hinge_l"] * (2 * P["leaf"][0]) * P["leaf"][1] * 7900e-9 + 0.1
+m_out = 4 * (D_["out_len"] * round_tube_kg_per_m(P["out_d"], 2.0, RHO_ST) / 1000
+             + P["out_foot"][0] ** 2 * P["out_foot"][1] * RHO_ST + 0.04 + 0.03)      # leg, foot, loop and bolt, bracket
+M_STAKES, M_LATCH = 4 * 0.12, 2 * 0.12
+m_spacer = 2 * P["hinge_l"] / 1000 * (P["spacer"] + P["spacer"] - P["spacer_t"]) * P["spacer_t"] * RHO_AL * 1000
+sx0, sx1, sw, sgap = P["shade"]
+st_ = P["shade_tube"]
+z_top = P["deck_z"] + max(P["batt_box"][2], P["ebox"][2])
+m_shade_frame = (2 * (sx1 - sx0) + 3 * (sw - 2 * st_)) * sq_tube_kg_per_m(st_, 1.5, RHO_AL) / 1000
+m_uprights = 4 * (z_top + sgap - D_["tube_top"]) * sq_tube_kg_per_m(st_, 1.5, RHO_AL) / 1000
+M_SHADE = m_shade_frame + m_uprights + (sx1 - sx0) * sw * 1e-6 * 0.2 + 0.05   # fabric 0.2 kg/m2, pins
+_CS = build_components(P, False)
+tie_len = _CS["tie_bars"].shape.bounding_box().size.Y
+m_tie = 2 * tie_len * sq_tube_kg_per_m(P["tie"], 1.5, RHO_AL) / 1000 + 0.06   # two bars, pivot brackets and bolts
+M_STRAPS = 0.3                                                 # two cam straps, PV glands, extra fixings
 ax, ex, bx = P["axle_x"], D["ebox_x"], D["bin_x"]
-# DDR-002 additions: 20 mm hinge spacer (20 x 20 x 2 mm aluminium equal angle, 1.3 m per side) and sun shade
-sp_len = 2 * (P["pv_l"] - 100) / 1000
-m_spacer = sp_len * (20 + 18) * 2 * RHO_AL * 1000
-M_SHADE = 1.0                                  # aluminized fabric on a light aluminium tube frame, posts, clips (estimate)
 x_shade = (P["shade"][0] + P["shade"][1]) / 2
-z_shade = P["deck_z"] + max(P["batt_box"][2], P["ebox"][2]) + P["shade"][3]
+z_shade = z_top + P["shade"][3]
+z_wing = D_["pin_z"] + P["pv_w"] / 2
 MASS = [  # name, kg, x (mm from deck center, + toward handle), z (mm)
-    ("Frame, deck and axle", m_frame, 0, 430),
-    ("Wheels, flat-free (2 x 4.0 kg)", 8.0, ax, P["wheel_r"]),
+    ("Frame, deck and axle (welded steel)", m_frame, 5, 420),
+    ("Wheels, flat-free (2 x 4.0 kg), collars, pins", 8.0 + M_WHEEL_HW, ax, P["wheel_r"]),
     ("Handle", m_handle, 950, 700),
-    ("Stand legs (4)", 1.8, 0, 230),
-    ("Battery enclosure", 3.0, 0, 610),
-    ("LiFePO4 pack", 12.0, 0, 576),
+    ("Stand legs (4)", m_legs, 0, 230),
+    ("Battery enclosure", 3.0, P["batt_x"], 610),
+    ("LiFePO4 pack", 12.0, P["batt_x"], 576),
     ("Electronics enclosure, filter fan", 3.3, ex, 610),
     ("Inverter (high-frequency)", 4.0, ex, 521),
     ("MPPT, fusing, monitor, outlets", 4.0, ex, 580),
     ("Accessory bin and cables", 4.0, bx, 560),
-    ("PV wings, stowed (2 x 6.5 kg)", 13.0, 0, P["hinge_z"] + P["pv_w"] / 2),
-    ("Hinges, latches, outriggers, stakes", 3.0, 0, 780),
-    ("Hinge spacers (2 x aluminium angle)", m_spacer, 0, P["hinge_z"] - 27),
-    ("Sun shade (reflective, on 4 posts)", M_SHADE, x_shade, z_shade),
-    ("Wiring and hardware", 2.0, 200, 600),
+    (f"PV wings, stowed (2 x {M_WING:.1f} kg)", 2 * M_WING, 0, z_wing),
+    ("Hinges, latches, outriggers, stakes", m_hinge + m_out + M_STAKES + M_LATCH, 0, 820),
+    ("Hinge spacers (2 x aluminium angle)", m_spacer, 0, D_["angle_top"] - 10),
+    ("Sun shade, frame and uprights", M_SHADE, x_shade, 760),
+    ("Wing tie bars (2)", m_tie, 0, 1205),
+    ("Wiring and hardware, straps", 2.0 + M_STRAPS, 200, 600),
 ]
 M = sum(m for _, m, _, _ in MASS)
 cgx = sum(m * x for _, m, x, _ in MASS) / M
 cgz = sum(m * z for _, m, _, z in MASS) / M
 for name, m, x, z in MASS:
-    say("E2", f"  {name:38s} {m:5.1f} kg  x {x:5.0f}  z {z:4.0f}")
+    say("E2", f"  {name:44s} {m:5.2f} kg  x {x:5.0f}  z {z:4.0f}")
 M_LIMIT = 75.0                                  # R6 limit, relaxed from 70 kg by DDR-002
-say("E3", f"total {M:.2f} kg (limit {M_LIMIT:.0f} kg, margin {M_LIMIT - M:+.2f} kg; the TRL 3 v0.1 limit was 70 kg); "
-          f"CG x {cgx:.0f} mm, z {cgz:.0f} mm; DDR-002 additions: spacers {m_spacer:.2f} kg, shade {M_SHADE:.1f} kg")
+M_V02 = 75.06                                   # FCL-CAL-001 v0.2, concept model
+say("E3", f"total {M:.2f} kg (limit {M_LIMIT:.0f} kg, margin {M_LIMIT - M:+.2f} kg; v0.2 concept figure {M_V02:.2f} kg, "
+          f"{M - M_V02:+.2f} kg for the parts added for construction); CG x {cgx:.0f} mm, z {cgz:.0f} mm")
 d_cg = cgx - ax
 lever = P["grip_x"] - ax
 W = M * G
 F_h = W * d_cg / lever
 dx5 = (cgz - P["wheel_r"]) * sin(radians(5))
+F_lo, F_hi = W * (d_cg - dx5) / lever, W * (d_cg + dx5) / lever
 say("E4", f"CG {d_cg:.0f} mm toward the handle from the axle; handle force {F_h:.0f} N level, "
-          f"{W * (d_cg - dx5) / lever:.0f} to {W * (d_cg + dx5) / lever:.0f} N over +/-5 deg pitch")
+          f"{F_lo:.1f} to {F_hi:.0f} N over +/-5 deg pitch")
 say("E5", f"mass with the aluminium frame {M - m_frame + m_frame_al:.1f} kg; with pneumatic tyres (2 x 2.8 kg) "
           f"{M - 8.0 + 5.6:.1f} kg; with both {M - m_frame + m_frame_al - 2.4:.1f} kg")
 say("E7", f"trim: moving 4 kg from the bin (x {bx:.0f}) to the electronics end (x {ex:.0f}) changes the handle force by "
           f"{4 * G * (ex - bx) / lever:.0f} N")
 say("E6", f"heaviest removable module: LiFePO4 pack 12.0 kg (limit 25 kg)")
+say("E8", f"made parts: wing frame {m_wframe:.2f} kg each ({wf_len / 1000:.2f} m of {td:.0f} x {tw:.0f} x {tt_} mm aluminium tube), "
+          f"wing {M_WING:.2f} kg; handle {m_handle:.2f} kg; stand legs {m_legs:.2f} kg; hinges {m_hinge:.2f} kg; "
+          f"outriggers {m_out:.2f} kg; spacer angles {m_spacer:.2f} kg; shade {M_SHADE:.2f} kg "
+          f"(frame {m_shade_frame:.2f}, uprights {m_uprights:.2f}); tie bars {m_tie:.2f} kg")
 
 # ============================================================ F. Rough ground (R7)
 th = atan(0.10)
@@ -314,7 +353,7 @@ say("G7", f"with the sun shade ({SHADE_F:.0%} of the gain left): battery box {SH
 # ============================================================ H. Wind (R10)
 pw_m = P["pv_w"] / 1000
 A_w = P["pv_l"] * P["pv_w"] * 1e-6
-CN, M_WING = 1.2, 6.5
+CN = 1.2                                   # M_WING from section E
 t = radians(TILT)
 arm_wt = pw_m / 2 * cos(t)
 arm_out = (P["pv_w"] - 30) / 1000 * cos(t)
@@ -341,10 +380,11 @@ v_tip = sqrt(W * P["wheel_y"] / 1000 / (0.5 * RHO_AIR * CD_S * A_side * z_side))
 say("H4", f"stowed cart, side wind on one wing wall: overturns at about {v_tip:.0f} m/s")
 
 # ============================================================ I. Deploy (R5), noise (R11)
-DEPLOY = [("Turn cart north to south, drop 4 stand legs", 1.0), ("Wing 1: unlatch, fold out, drop 2 outriggers", 1.5),
+DEPLOY = [("Turn cart north to south, drop 4 stand legs", 1.0), ("Unlatch both tie bars, fold each down the wing", 0.5),
+          ("Wing 1: fold out, drop 2 outriggers", 1.5),
           ("Wing 2", 1.5), ("Stake 4 outrigger feet", 1.0), ("Isolator on, check monitor, inverter on, plug in", 1.0)]
 STOW = [("Loads off, inverter off, isolator off", 0.5), ("Pull 4 stakes", 1.0), ("Wing 1: fold outriggers, raise, latch", 1.5),
-        ("Wing 2", 1.5), ("Raise 4 stand legs", 0.5)]
+        ("Wing 2", 1.5), ("Swing both tie bars over, latch them", 0.5), ("Raise 4 stand legs", 0.5)]
 say("I1", f"deploy {sum(t for _, t in DEPLOY):.1f} min, stow {sum(t for _, t in STOW):.1f} min (task analysis, limit 10 min)")
 from math import log10
 L_INV, L_FAN = 40.0, 35.0                       # dB(A) at 1 m, assumed, to confirm from datasheets
@@ -362,6 +402,8 @@ say("J1", f"BOM {len(rows)} lines, total ${total:,.0f} against budget ${BUDGET:,
 say("J2", "largest lines: " + ", ".join(f"{r['item']} ${float(r['qty']) * float(r['unit_cost_usd']):,.0f}" for r in top))
 
 # ============================================================ K. Envelope
+_sb = key_figures(P)[1]
+STOW_L, STOW_W, STOW_H = _sb.size.X, _sb.size.Y, _sb.size.Z
 say("K1", f"deployed footprint {P['grip_x'] + P['pv_l'] / 2 + P['handle_d'] / 2:.0f} x {D['span']:.0f} mm; "
-          f"stowed without handle {P['pv_l']:.0f} x {2 * (P['hinge_y'] + P['pv_t'] + P['out_d'] + 2):.0f} x "
-          f"{P['hinge_z'] + P['pv_w']:.0f} mm")
+          f"stowed without handle {STOW_L:.0f} x {STOW_W:.0f} x {STOW_H:.0f} mm (from the model: folded outrigger feet "
+          f"and the tie bars included)")

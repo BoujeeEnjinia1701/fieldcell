@@ -3,9 +3,9 @@ doc_id: FCL-PRC-001
 title: FieldCell design precis
 project: FieldCell
 doc_type: Design precis
-version: "0.4"
+version: "0.6"
 status: Draft
-date: '2026-09-25'
+date: '2026-10-01'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -25,11 +25,19 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Recommendations accepted by Amish (DDR-002)
+- version: "0.5"
+  date: '2026-10-01'
+  author: Amish Chadha
+  change: Constructable design (FCL-DDR-003); component table, numbers and safety notes follow FCL-CAL-001 v0.3; build plan FCL-BLD-001
+- version: "0.6"
+  date: '2026-10-01'
+  author: Amish Chadha
+  change: Budget treated as a value-engineering target
 ---
 
 # FieldCell design precis
 
-FieldCell is a two-wheel hand cart whose two sides are 200 W solar panels. For travel the panels stand up as the cart walls; on site they fold out as wings on outrigger legs. Between them sit a 1.28 kWh LiFePO4 pack, an MPPT charger, a 1 kW inverter and DC outlets. The TRL 3 calculations (FCL-CAL-001) show that it stores about 1.17 kWh a day from its own PV at 4 kWh/m²/day of global horizontal irradiation, carries a 0.9 kWh/day field load for 1.08 days without sun, and deploys in about 6 minutes. A reflective sun shade covers the battery and electronics enclosures, and the wing hinges sit on 20 mm spacers to clear the tyres. The parts cost about $2,051 against a $2,100 budget. One requirement is not met, narrowly: the cart weighs about 75.1 kg against a 75 kg limit (R6).
+FieldCell is a two-wheel hand cart whose two sides are 200 W solar panels. For travel the panels stand up as the cart walls; on site they fold out as wings on outrigger legs. Between them sit a 1.28 kWh LiFePO4 pack, an MPPT charger, a 1 kW inverter and DC outlets. The TRL 3 calculations (FCL-CAL-001) show that it stores about 1.17 kWh a day from its own PV at 4 kWh/m²/day of global horizontal irradiation, carries a 0.9 kWh/day field load for 1.08 days without sun, and deploys in about 6.5 minutes. A reflective sun shade covers the battery and electronics enclosures, and the wing hinges sit on 20 mm spacers to clear the tyres. The design is constructable (FCL-DDR-003): every part can be made or bought and is fixed to its neighbours, as the prototype build plan FCL-BLD-001 shows. The parts that made it buildable bring the cart to about 80 kg against a 75 kg limit (R6) and the pull on a grass grade to 156 N against 150 N (R7), and the parts cost an estimated $2,101 against a $2,100 value-engineering target (R12, USD 1 over); how to close the mass and pull gaps is awaiting Amish and the savings worth trying are in FCL-DEC-001.
 
 ![Hero render](../media/hero.png)
 
@@ -37,9 +45,9 @@ FieldCell is a two-wheel hand cart whose two sides are 200 W solar panels. For t
 
 ## How it works
 
-1. **Travel.** The wings are latched upright as the cart sides, over the battery and electronics. One person pulls or pushes the cart by the T-handle on two 16 in (406 mm) flat-free wheels. The sun shade sits on four short posts above the enclosures and stays in place in travel. The center of gravity sits about 55 mm on the handle side of the axle, so the handle carries a light, positive load.
+1. **Travel.** The wings stand upright as the cart sides, over the battery and electronics, held together at the top by two tie bars with over-centre latches. One person pulls or pushes the cart by the T-handle on two 16 in (406 mm) flat-free wheels. The sun shade sits on four uprights on the frame, 50 mm above the enclosures, and stays in place in travel. The center of gravity sits about 54 mm on the handle side of the axle, so the handle carries a light, positive load.
 2. **Park.** Four stand legs fold down so the deck sits level at 460 mm.
-3. **Deploy.** Each wing unlatches and swings out on a continuous hinge, mounted on a 20 mm spacer along the side rail, coming to rest 15° below horizontal on two fold-down outrigger legs. With the cart's long axis north to south, one wing faces east and one faces west. In wind, the four outrigger feet are staked.
+3. **Deploy.** The tie bars unlatch and fold down the back of the left wing; each wing swings out on a continuous hinge, mounted on a 20 mm spacer angle bolted to tabs on the side rail, coming to rest 15° below horizontal on two fold-down outrigger legs. With the cart's long axis north to south, one wing faces east and one faces west. In wind, the four outrigger feet are staked.
 4. **Charge.** The panels are pre-wired in parallel to the MPPT charge controller, which charges the 25.6 V pack. No cable is connected on site.
 5. **Power.** The operator switches on the battery isolator and the inverter. Loads plug into the 120 V AC outlet (GFCI protected) and the DC panel (USB-C PD and 12 V sockets) on the handle end of the electronics box. A shunt monitor shows state of charge. A thermostat runs an IP54 filter fan when the box is warm, and the shade keeps direct sun off both enclosures.
 
@@ -55,10 +63,10 @@ Numbers match the exploded view (Figure 3) and `bom/bom.csv`. Drawing FCL-DWG-00
 
 | # | Component | Choice | Notes |
 | --- | --- | --- | --- |
-| 1 | Cart frame and axle | 40 x 40 x 1.5 mm steel square tube, 1,200 x 600 mm, expanded-metal deck, 20 mm axle | Welded steel, decided (FCL-DDR-001, D5); about 12.8 kg |
+| 1 | Cart frame and axle | 40 x 40 x 1.5 mm steel square tube, 1,200 x 600 mm, expanded-metal deck on the cross tubes, braced axle brackets, 20 mm axle, hinge tabs, handle sockets, leg clevises | Welded steel, decided (FCL-DDR-001, D5); about 15.4 kg (FCL-DDR-003) |
 | 2 | Wheels (2) | 16 in (406 mm) flat-free, 720 mm track | Flat-free, decided (D5); about 4 kg each |
-| 3 | Handle | Steel T-handle, grip at 900 mm | Detaches for vehicle transport |
-| 4 | Stand legs (4) | Folding tube legs with feet | Level the deck when parked |
+| 3 | Handle | Steel T-handle, grip at 900 mm, in two welded sockets with quick-release pins | Detaches for vehicle transport |
+| 4 | Stand legs (4) | Tube legs on welded clevises, folding along the rails, detent pins | Level the deck when parked |
 | 5 | Battery enclosure | IP65 case, about 420 x 360 x 300 mm | Sits over the axle, lowest heavy item |
 | 6 | LiFePO4 pack | 25.6 V 50 Ah (1.28 kWh), 100 A BMS with low- and high-temperature charge cutoff | 24 V system, decided (D1) |
 | 7 | Electronics enclosure | IP54, about 320 x 460 x 300 mm, IP54 filter fan (about 40 m³/h) and exhaust filter | Outlet face toward the handle; thermostat filter fan decided (FCL-DDR-002) |
@@ -66,13 +74,14 @@ Numbers match the exploded view (Figure 3) and `bom/bom.csv`. Drawing FCL-DWG-00
 | 9 | Inverter | 1 kW continuous, 2 kW surge, pure sine, high-frequency, 24 V input, 120 V 60 Hz | 120 V first, 230 V 50 Hz variant documented, decided (D4) |
 | 10 | DC outlet panel | 2 x USB-C PD 100 W, 2 x 12 V sockets, 24 to 12 V 20 A converter | 440 W DC in total |
 | 11 | AC outlet with GFCI | GFCI duplex (120 V), in-use cover; 30 mA RCD socket for the 230 V variant | |
-| 12 | Fusing and disconnect | Class T 100 A main fuse at the battery, isolator, DC breakers, shunt monitor | |
-| 13 | PV wings (2) | 200 W semi-flexible module on a ventilated aluminium frame, about 1,400 x 700 x 35 mm and 6.5 kg, 24 V class (Vmp about 36 V) | Parallel wiring, decided (D3) |
-| 14 | Panel hinges, spacers and latches | Continuous hinge per side on a 20 × 20 × 2 mm aluminium angle spacer, over-center latches | Spacer raises the hinge line to 490 mm, decided (FCL-DDR-002); pinch points, see Safety |
-| 15 | Outrigger legs (4) | Folding legs with stake loops and stakes, set the 15° tilt | Stakes required above about 9 m/s wind |
+| 12 | Fusing and disconnect | Class T 100 A main fuse in the battery case within 150 mm of the terminal, isolator on the outlet face, DC breakers, shunt monitor | Fuse position fixed by FCL-DDR-003 |
+| 13 | PV wings (2) | 200 W semi-flexible module bonded to a 1,400 x 700 mm frame of 30 x 20 mm aluminium tube with three ribs, 35 mm deep, about 6.0 kg, 24 V class (Vmp about 36 V) | Parallel wiring, decided (D3) |
+| 14 | Panel hinges, spacers and latches | 1.2 m piano hinge per side on a 20 × 20 × 2 mm aluminium angle spacer bolted to steel tabs on the rail; two over-center latches for the tie bars | Spacer raises the hinge line, decided (FCL-DDR-002); pinch points, see Safety |
+| 15 | Outrigger legs (4) | Legs on riveted brackets under the wing's outer edge, folding flat under the wing, with stake loops and stakes; set the 15° tilt | Stakes required above about 9 m/s wind |
 | 16 | Accessory and cable bin | Open bin, balances the electronics box | Cords, lights, stakes |
-| 17 | Wiring and hardware | 16 mm² (6 AWG) battery cable, PV cable, glands, fasteners | Not modeled |
-| 18 | Sun shade | Reflective aluminized fabric on a light aluminium frame, about 830 × 540 mm, four 50 mm posts, about 1 kg | Over both enclosures, decided (FCL-DDR-002) |
+| 17 | Wiring and hardware | 16 mm² (6 AWG) battery cable, PV cable, glands, cam straps, fasteners | Battery cables, glands and straps modeled |
+| 18 | Sun shade | Reflective aluminized fabric on a light aluminium frame, about 830 × 580 mm, on four 355 mm uprights bolted to the rails, about 1.55 kg | Over both enclosures, decided (FCL-DDR-002); lifts off to open the battery case |
+| 19 | Wing tie bars (2) | 20 × 20 mm aluminium bars pivoted on the left wing, latched to the right wing across the tops in travel | Added by FCL-DDR-003 |
 
 ## Key numbers
 
@@ -90,20 +99,20 @@ All values are estimates from FCL-CAL-001 (`docs/04-calcs/sizing.py`), which che
 | Reference load from battery | 1,063 Wh/day | 897 Wh at the outlets, Table 4 | |
 | Autonomy with no sun | 1.08 days | 1,152 / 1,063 Wh | R4 met |
 | Battery current | 46 A at 1 kW AC; 66 A with full DC; 98 A surge | 24 V at the low end | R2 met |
-| Total mass | About 75.1 kg | Table 5 | **R6 not met** (0.06 kg over 75 kg) |
-| Center of gravity | 55 mm toward the handle from the axle, 564 mm above ground | Table 5 | R6 |
-| Handle force, travel | 33 N level; 14 to 52 N at a 5° pitch | CG offset x weight / 1,240 mm axle to grip | R6 met |
-| Lateral static tip angle | 32.6° | atan(360 mm half-track / 564 mm CG height) | R7 met |
-| Pull force, 10 % grade | 117 N (gravel) to 147 N (grass) | 736 N weight x (grade + rolling resistance) | R7 at risk |
+| Total mass | About 80.0 kg | Table 5 | **R6 not met** (5.0 kg over 75 kg) |
+| Center of gravity | 54 mm toward the handle from the axle, 561 mm above ground | Table 5 | R6 |
+| Handle force, travel | 34 N level; 14 to 54 N at a 5° pitch | CG offset x weight / 1,240 mm axle to grip | R6 met |
+| Lateral static tip angle | 32.7° | atan(360 mm half-track / 564 mm CG height) | R7 met |
+| Pull force, 10 % grade | 125 N (gravel) to 156 N (grass) | 785 N weight x (grade + rolling resistance) | **R7 not met** (grass) |
 | Ground clearance | 193 mm | Under the axle, legs folded | R7 met |
-| Deploy and stow time | 6.0 and 5.0 min | Table 6 | R5 met |
+| Deploy and stow time | 6.5 and 5.5 min | Table 6 | R5 met |
 | Deployed footprint | About 2.0 x 2.0 m including the handle | Model, wings at 15° | |
-| Stowed size, handle off | 1,400 x 784 x 1,190 mm | Model | |
+| Stowed size, handle off | 1,400 x 830 x 1,220 mm | Model | |
 | Wing to tyre clearance, deployed | 28 mm | Model, 20 mm hinge spacer | |
 | Electronics box at 45 °C ambient | About 53 °C with the fan and shade, 70 °C sealed and unshaded, at 1 kW | Section G of FCL-CAL-001 | R9 at risk |
 | Pack under the shade, noon, 45 °C ambient | About 48 °C (55 °C unshaded) | Section G of FCL-CAL-001 | R9 at risk |
-| Wing lift-off wind speed, unstaked | About 9.2 m/s | Normal force coefficient 1.2 on 0.98 m², wing weight 64 N | R10 met only staked |
-| Parts cost | About $2,051 against $2,100 | `bom/bom.csv` | R12 met |
+| Wing lift-off wind speed, unstaked | About 8.9 m/s | Normal force coefficient 1.2 on 0.98 m², wing weight 59 N | R10 met only staked |
+| Parts cost | About $2,101 against the $2,100 value-engineering target | `bom/bom.csv` | **R12 over the value-engineering target by USD 1** |
 
 ### PV yield
 
@@ -136,26 +145,27 @@ With 1.15 kWh usable, the pack carries this load for 1.08 days with no sun. At 4
 
 ### Mass and center of gravity
 
-*Table 5. Mass budget, wings stowed, deck level. X is measured from the deck center toward the handle; the axle is at X = 30 mm.*
+*Table 5. Mass budget, wings stowed, deck level. X is measured from the deck center toward the handle; the axle is at X = 30 mm. From FCL-CAL-001 v0.3.*
 
 | Item | Mass (kg) | X (mm) | Z (mm) |
 | --- | --- | --- | --- |
-| Frame, deck and axle | 12.8 | 0 | 430 |
-| Wheels, flat-free (2) | 8.0 | 30 | 203 |
-| Handle | 2.7 | 950 | 700 |
-| Stand legs | 1.8 | 0 | 230 |
+| Frame, deck and axle (welded steel) | 15.4 | 5 | 420 |
+| Wheels, flat-free (2), collars, pins | 8.3 | 30 | 203 |
+| Handle | 2.6 | 950 | 700 |
+| Stand legs | 2.5 | 0 | 230 |
 | Battery enclosure | 3.0 | 0 | 610 |
 | LiFePO4 pack | 12.0 | 0 | 576 |
-| Electronics enclosure, filter fan, inverter, MPPT, fusing, monitor and outlets | 11.3 | 420 | 568 |
+| Electronics enclosure, filter fan, inverter, MPPT, fusing, monitor and outlets | 11.3 | 430 | 568 |
 | Accessory bin and cables | 4.0 | −420 | 560 |
-| PV wings, stowed (2) | 13.0 | 0 | 840 |
-| Hinges, latches, outriggers and stakes | 3.0 | 0 | 780 |
-| Hinge spacers (2) | 0.5 | 0 | 463 |
-| Sun shade | 1.0 | 185 | 810 |
-| Wiring and hardware | 2.0 | 200 | 600 |
-| **Total** | **75.1** | **85** | **564** |
+| PV wings, stowed (2) | 12.0 | 0 | 845 |
+| Hinges, latches, outriggers and stakes | 4.1 | 0 | 820 |
+| Hinge spacers (2) | 0.5 | 0 | 484 |
+| Sun shade, frame and uprights | 1.6 | 185 | 760 |
+| Wing tie bars (2) | 0.5 | 0 | 1,205 |
+| Wiring, hardware and straps | 2.3 | 200 | 600 |
+| **Total** | **80.0** | **84** | **561** |
 
-The center of gravity is 55 mm on the handle side of the axle. At the 900 mm grip the handle carries about 33 N (3.4 kgf), and it stays positive between 14 and 52 N if the user holds the cart 5° nose-up or nose-down. The load in the accessory bin is the trim: moving 4 kg of cords from the bin to the electronics end (840 mm) raises the handle force by about 27 N. Amish relaxed the R6 limit to 75 kg on 2026-09-25 to keep the decided steel frame and flat-free tyres (FCL-DDR-002). The hinge spacers and sun shade decided the same day add 1.5 kg, so the cart is 0.06 kg over the new limit, within the accuracy of the estimate; a shade of 0.9 kg or less would close it. A bolted aluminium frame would bring the cart to about 69.0 kg. How to close the gap is proposed in `docs/REVIEW.md`, awaiting Amish.
+The center of gravity is 54 mm on the handle side of the axle. At the 900 mm grip the handle carries about 34 N (3.5 kgf), and it stays positive between 14 and 54 N if the user holds the cart 5° nose-up or nose-down. The load in the accessory bin is the trim: moving 4 kg of cords from the bin to the electronics end raises the handle force by about 27 N. Amish relaxed the R6 limit to 75 kg on 2026-09-25 to keep the decided steel frame and flat-free tyres (FCL-DDR-002). Making the design buildable (FCL-DDR-003) added the brackets, gussets, tabs, sockets, clevises, fixings, tie bars and shade uprights the massing model did not have, about 4.9 kg, so the cart is about 5 kg over the limit and the pull on a 10 % grass grade is 156 N against 150 N. A bolted aluminium frame would bring the cart to about 72.7 kg. How to close the gap is an open decision, awaiting Amish (FCL-DEC-001, item 2).
 
 ### Deployment sequence
 
@@ -164,11 +174,12 @@ The center of gravity is 55 mm on the handle side of the axle. At the 900 mm gri
 | Deploy step | Time | Stow step | Time |
 | --- | --- | --- | --- |
 | Turn the cart north to south, drop four stand legs | 1.0 min | Loads off, inverter off, isolator off | 0.5 min |
-| Unlatch the first wing, fold it out, swing down its two outrigger legs | 1.5 min | Pull four stakes | 1.0 min |
-| Same for the second wing | 1.5 min | Fold the first wing's outriggers, raise and latch it | 1.5 min |
-| Stake the four outrigger feet (when wind is expected) | 1.0 min | Same for the second wing | 1.5 min |
+| Unlatch both tie bars, fold each down the left wing | 0.5 min | Pull four stakes | 1.0 min |
+| Fold the first wing out, swing down its two outrigger legs | 1.5 min | Fold the first wing's outriggers, raise it | 1.5 min |
+| Same for the second wing | 1.5 min | Same for the second wing | 1.5 min |
+| Stake the four outrigger feet (when wind is expected) | 1.0 min | Swing both tie bars over and latch them | 0.5 min |
 | Isolator on, check the monitor, inverter on, plug in loads | 1.0 min | Raise four stand legs | 0.5 min |
-| **Total** | **6.0 min** | **Total** | **5.0 min** |
+| **Total** | **6.5 min** | **Total** | **5.5 min** |
 
 ## Key design choices
 
@@ -186,29 +197,29 @@ The center of gravity is 55 mm on the handle side of the axle. At the 900 mm gri
 
 ![Exploded view](../media/exploded.png)
 
-*Figure 3. Exploded view with numbered callouts matching `bom/bom.csv` (item 17, wiring, is not modeled). Callouts 2, 4, 13 and 15 each label one of a pair; the unlabeled twin is the same part.*
+*Figure 3. Exploded view with numbered callouts matching `bom/bom.csv`. The wings and their hinges, outriggers and tie bars (13, 14, 15, 19) are drawn off to the front so the boxes stay visible.*
 
 ## Safety
 
 > **Safety:** FieldCell combines a 1.28 kWh lithium battery, 120 V or 230 V AC output, high-current DC wiring, always-live PV panels and a cart of about 75 kg with folding wings. Every one of these is hazardous if the design or the build is wrong.
 
-- **Lithium battery.** Use a LiFePO4 pack with a BMS that protects against overcharge, over-discharge, overcurrent, short circuit and over-temperature, and blocks charging below 0 °C and above about 45 °C. Put a class T fuse within about 150 mm of the positive terminal. Secure the pack so it cannot shift in a tip-over, keep the enclosure vented to outside air, and keep sharp objects and debris out of it. In noon sun at 45 °C ambient the pack can reach about 55 °C unshaded and about 48 °C under the sun shade, so keep the shade in place. Shipping a pack of this size is regulated as dangerous goods.
+- **Lithium battery.** Use a LiFePO4 pack with a BMS that protects against overcharge, over-discharge, overcurrent, short circuit and over-temperature, and blocks charging below 0 °C and above about 45 °C. Put a class T fuse within about 150 mm of the positive terminal; in the constructable design it sits inside the battery case beside the pack. Secure the pack so it cannot shift in a tip-over, keep the enclosure vented to outside air, and keep sharp objects and debris out of it. In noon sun at 45 °C ambient the pack can reach about 55 °C unshaded and about 48 °C under the sun shade, so keep the shade in place. Shipping a pack of this size is regulated as dangerous goods.
 - **AC output (120 V or 230 V).** Protect every AC outlet with a GFCI (120 V) or a 30 mA RCD (230 V). Bond the inverter neutral and ground to the frame only as the inverter maker specifies for a stand-alone portable source. Use in-use covers in rain, and keep outlets off wet ground.
 - **Not for building wiring.** FieldCell has no power inlet and must never be connected to building or grid wiring, including by a "suicide cord" into an outlet. Back-feed can kill utility workers and damage both systems. Any such connection is out of scope.
 - **DC wiring and fusing.** Fuse every circuit at its source: main class T fuse at the battery, breakers for the inverter, MPPT and DC outlets, and a PV breaker as the array disconnect. Size cables for the fuse rating. A battery isolator must be reachable without tools. The 2 kW surge with full DC load draws about 118 A for a few seconds; the BMS and fuse must tolerate this.
 - **PV panels are live whenever lit.** Open-circuit voltage is about 45 V per panel, up to about 50 V in cold weather, and cannot be switched off at the panel. Do not disconnect PV connectors under load, and cover or disconnect the panels before working in the electronics box.
-- **Lifting and handling.** At about 75 kg the cart must not be lifted by one person. Use two people to load it into a vehicle, and remove the battery pack (12 kg) first when possible.
-- **Tipping.** The lateral tip angle is about 32.6° when stowed; do not traverse slopes across the fall line, and keep the handle low when descending. When deployed, wings can lift in wind above about 9 m/s unless the outrigger feet are staked; stow the wings in high wind. A stowed cart can be blown over at about 20 m/s side wind.
-- **Pinch points.** The wing hinges, latches and folding legs can trap fingers. Latches must hold the wings firmly in travel. The deployed wing clears the tyre by about 28 mm; keep fingers out of that gap when folding.
+- **Lifting and handling.** At about 80 kg the cart must not be lifted by one person. Use two people to load it into a vehicle, and remove the battery pack (12 kg) first when possible.
+- **Tipping.** The lateral tip angle is about 32.6° when stowed; do not traverse slopes across the fall line, and keep the handle low when descending. When deployed, wings can lift in wind above about 9 m/s unless the outrigger feet are staked; stow the wings in high wind. A stowed cart can be blown over at about 21 m/s side wind.
+- **Pinch points.** The wing hinges, tie bar latches and folding legs can trap fingers. The tie bars must be latched to hold the wings firmly in travel. The deployed wing clears the tyre by about 28 mm; keep fingers out of that gap when folding.
 - **Heat.** The inverter and MPPT shed up to about 140 W inside the electronics box. Keep the filter fan and exhaust filter clear, and do not run at high load with the vents covered or with the sun shade removed.
 
 ## Open questions
 
-- Mass: 75.1 kg against the relaxed 75 kg limit (R6), 0.06 kg over. How to close the gap is proposed, awaiting Amish (`docs/REVIEW.md`).
-- Inverter derating data at 45 °C (R9) and supplier quotes for the pack, PV wings and inverter to confirm the $2,100 budget. Decided by Amish, 2026-09-25 (FCL-DDR-002); to be obtained with supplier selection.
+- Mass, pull force and cost: about 80 kg against 75 kg (R6), 156 N against 150 N on a grass grade (R7) and $2,101 against $2,100 (R12) after the design was made buildable. Options are in the design decisions register (FCL-DEC-001), awaiting Amish.
+- Inverter derating data at 45 °C (R9) and supplier quotes for the pack, PV wings and inverter to set the real cost against the $2,100 value-engineering target. Decided by Amish, 2026-09-25 (FCL-DDR-002); to be obtained with supplier selection.
 - Confirm the inverter idle draw and fan noise (R11) and the filter fan noise from datasheets.
 - Whether an AC charger or a vehicle 12 V input should be added for cloudy periods. Open option, awaiting Amish (FCL-DDR-001, O3).
 - How FieldCell relates to PowerBox and SwapCell in the portfolio, so the three do not overlap. Awaiting Amish (O2).
 - Handle geometry and grip height for users from 1.55 to 1.90 m tall.
 
-Concept media: [blueprint sheet](../media/concept-blueprint.pdf), [cutaway](../media/cutaway.png), [interactive 3D model](../media/viewer.html). General arrangement: [FCL-DWG-002](../cad/drawings/FCL-DWG-002.pdf).
+Concept media: [blueprint sheet](../media/concept-blueprint.pdf), [cutaway](../media/cutaway.png), [interactive 3D model](../media/viewer.html). General arrangement: [FCL-DWG-002](../cad/drawings/FCL-DWG-002.pdf). Prototype build plan: [FCL-BLD-001](05-build-plan.md).

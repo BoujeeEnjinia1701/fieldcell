@@ -3,9 +3,9 @@ doc_id: FCL-CAL-001
 title: FieldCell sizing calculations
 project: FieldCell
 doc_type: Calculation
-version: "0.2"
+version: "0.4"
 status: Draft
-date: '2026-09-25'
+date: '2026-10-01'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -17,17 +17,25 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Recommendations accepted by Amish (DDR-002)
+- version: "0.3"
+  date: '2026-10-01'
+  author: Amish Chadha
+  change: Constructable design (FCL-DDR-003); mass from the model's made parts; R7 and R12 now not met; wind, deploy, cost and envelope updated
+- version: "0.4"
+  date: '2026-10-01'
+  author: Amish Chadha
+  change: Budget treated as a value-engineering target
 ---
 
 # FieldCell sizing calculations
 
-On paper, FieldCell meets seven of its twelve requirements, misses one and has two at risk; two more cannot be verified at TRL 3. The energy case works: the 400 W east-west array stores about 1.17 kWh/day at 4 kWh/m²/day of global horizontal irradiation, which carries the 0.9 kWh/day reference load with about 10 % surplus, and the 1.15 kWh usable pack gives 1.08 days with no sun. Version 0.2 applies Amish's decisions of 2026-09-25 (FCL-DDR-002): the R6 mass limit is 75 kg, the budget is $2,100, the hinge line sits on a 20 mm spacer, and a reflective sun shade covers both enclosures. With the spacer and shade the cart weighs about 75.1 kg, 0.06 kg over the new limit, so R6 is still not met by a hair. Cost (about $2,051 against $2,100, R12) is now met. Heat (R9) and pull force on grass (R7) remain at risk. Every number in this note is printed by `docs/04-calcs/sizing.py`; the tag in brackets, for example [C4], is the line of that script's output that carries it.
+On paper, FieldCell meets six of its twelve requirements, misses two, is over its value-engineering cost target on one and has one at risk; two more cannot be verified at TRL 3. The energy case works: the 400 W east-west array stores about 1.17 kWh/day at 4 kWh/m²/day of global horizontal irradiation, which carries the 0.9 kWh/day reference load with about 10 % surplus, and the 1.15 kWh usable pack gives 1.08 days with no sun. Version 0.3 follows the constructable design of FCL-DDR-003: the brackets, gussets, tabs, sockets, clevises, fixings, tie bars and shade uprights that make the cart buildable add about 4.9 kg, so the cart now weighs about 80.0 kg against the 75 kg limit (R6 not met by 5 kg), the pull on a 10 % grass grade is 156 N against 150 N (R7 not met), and the 19-line BOM is $2,101 against the $2,100 value-engineering target (R12 over the target by USD 1). Heat (R9) remains at risk. Every number in this note is printed by `docs/04-calcs/sizing.py`; the tag in brackets, for example [C4], is the line of that script's output that carries it.
 
 > **Safety:** These calculations concern a 1.28 kWh lithium battery, 120 V AC output, 100 A DC circuits, always-live PV panels and a 75 kg cart. They are first-principles estimates for a paper proof of concept and are not a substitute for component datasheets, a qualified electrical review or test. See FCL-PRC-001, Safety.
 
 ## Scope and method
 
-The note checks every requirement in FCL-REQ-001 v0.4 against the design in FCL-PRC-001 v0.4 and the parametric model `cad/src/model.py`. The script imports the model's `PARAMS`, so the frame, wheel, hinge and enclosure dimensions used here are the ones in the STEP files and in drawing FCL-DWG-002. Run it from the repo root with `python docs/04-calcs/sizing.py`.
+The note checks every requirement in FCL-REQ-001 v0.5 against the design in FCL-PRC-001 v0.5 and the constructable model `cad/src/model.py` (FCL-DDR-003). The script imports the model's `PARAMS`, so the frame, wheel, hinge and enclosure dimensions used here are the ones in the STEP files and in drawing FCL-DWG-002. Run it from the repo root with `python docs/04-calcs/sizing.py`.
 
 ## Assumptions
 
@@ -40,7 +48,7 @@ The note checks every requirement in FCL-REQ-001 v0.4 against the design in FCL-
 | PV module | 200 W semi-flexible monocrystalline module bonded to a ventilated aluminium frame; Vmp 36 V, Voc 45 V, Isc 6 A; NOCT 48 °C; power coefficient −0.38 %/K; Voc −0.29 %/K, Vmp −0.35 %/K | Typical datasheet values for the class; to confirm with the chosen module |
 | PV losses | Nameplate and early degradation 0.97, soiling 0.97, mismatch between the two wings on one MPPT 0.98, wiring 0.98, MPPT 0.96, battery charge 0.97 | Engineering judgment |
 | Load | Reference load of FCL-PRC-001, Table 3 (897 Wh/day at the outlets); DC converters 0.93; inverter 0.92 marginal efficiency plus 10 W no-load draw for 7 h; standby 12 Wh/day; filter fan 3 W for 4 h | Typical high-frequency 1 kW inverter; to confirm from datasheets |
-| Mass | Steel 7,850 kg/m³, aluminium 2,700 kg/m³; expanded steel deck 4.5 kg/m²; flat-free 16 in wheel 4.0 kg; PV wing 6.5 kg (module about 3.5 kg, frame about 3 kg); hinge spacers 20 × 20 × 2 mm aluminium angle, 1.3 m per side; sun shade 1.0 kg | Tube geometry from the model; others estimated |
+| Mass | Steel 7,850 kg/m³, aluminium 2,700 kg/m³; the steel frame weldment weighed from the model's own solids, plus an expanded steel deck at 4.5 kg/m² and 0.2 kg of weld; made aluminium and steel parts from their stock sizes; flat-free 16 in wheel 4.0 kg; PV module 3.5 kg; bought enclosures and electronics as before | Model solids and stock sizes; bought parts estimated |
 | Ground | Rolling resistance 0.04 hard, 0.06 gravel, 0.10 grass; friction 0.4 | Handbook ranges for 400 mm wheels |
 | Thermal | Enclosure absorptance 0.4 (light grey), noon sun 1,000 W/m²; external film coefficient from laminar natural convection plus radiation (emissivity 0.9); filter fan 40 m³/h; the sun shade leaves 25 % of the direct solar gain on the enclosures (sides at low sun) | Textbook correlations; shade factor assumed |
 | Wind | Normal force coefficient 1.2 on a wing at 15°; air 1.225 kg/m³; side-force coefficient 1.3 on a stowed wing wall | Flat-plate data, conservative |
@@ -106,32 +114,33 @@ With 1,152 Wh usable, the pack carries the load for 1.08 days with no sun [D3]. 
 
 ## E. Mass, center of gravity and handle force (R6)
 
-The frame tubes total 3.96 m of 40 × 40 × 1.5 mm steel at 1.81 kg/m (7.2 kg). With the deck (2.6 kg), axle (1.8 kg) and brackets (1.2 kg) the welded steel frame is 12.8 kg; a bolted aluminium frame would be about 6.7 kg [E1].
+The frame is weighed from the constructable model: tubes and end caps 7.33 kg, deck sheet 2.81 kg, axle 2.02 kg, axle brackets and gussets 1.43 kg, and hinge tabs, handle sockets, stand leg clevises and shade tabs 1.60 kg, with 0.2 kg of weld: 15.4 kg of welded steel. A bolted aluminium frame would be about 8.1 kg [E1]. The other made parts are weighed from their stock sizes: each wing frame is 6.10 m of 30 x 20 x 1.5 mm aluminium tube (2.32 kg), so a wing with its 3.5 kg module is 6.02 kg; handle 2.56 kg; stand legs 2.48 kg; hinges 1.58 kg; outriggers 1.82 kg; spacer angles 0.49 kg; shade 1.55 kg (frame 0.98 kg, uprights 0.43 kg); tie bars 0.50 kg [E8].
 
 *Table 5. Mass budget, wings stowed, parked level. X from the deck center toward the handle; the axle is at X = 30 mm [E2, E3].*
 
 | Item | Mass (kg) | X (mm) | Z (mm) |
 | --- | --- | --- | --- |
-| Frame, deck and axle | 12.8 | 0 | 430 |
-| Wheels, flat-free (2 × 4.0 kg) | 8.0 | 30 | 203 |
-| Handle | 2.7 | 950 | 700 |
-| Stand legs (4) | 1.8 | 0 | 230 |
-| Battery enclosure | 3.0 | 0 | 610 |
-| LiFePO4 pack | 12.0 | 0 | 576 |
-| Electronics enclosure and filter fan | 3.3 | 420 | 610 |
-| Inverter (high-frequency) | 4.0 | 420 | 521 |
-| MPPT, fusing, monitor, outlets | 4.0 | 420 | 580 |
-| Accessory bin and cables | 4.0 | −420 | 560 |
-| PV wings, stowed (2 × 6.5 kg) | 13.0 | 0 | 840 |
-| Hinges, latches, outriggers, stakes | 3.0 | 0 | 780 |
-| Hinge spacers (2 × aluminium angle) | 0.5 | 0 | 463 |
-| Sun shade on four posts | 1.0 | 185 | 810 |
-| Wiring and hardware | 2.0 | 200 | 600 |
-| **Total** | **75.1** | **85** | **564** |
+| Frame, deck and axle (welded steel) | 15.39 | 5 | 420 |
+| Wheels, flat-free (2 × 4.0 kg), collars, pins | 8.25 | 30 | 203 |
+| Handle | 2.56 | 950 | 700 |
+| Stand legs (4) | 2.48 | 0 | 230 |
+| Battery enclosure | 3.00 | 0 | 610 |
+| LiFePO4 pack | 12.00 | 0 | 576 |
+| Electronics enclosure and filter fan | 3.30 | 430 | 610 |
+| Inverter (high-frequency) | 4.00 | 430 | 521 |
+| MPPT, fusing, monitor, outlets | 4.00 | 430 | 580 |
+| Accessory bin and cables | 4.00 | −420 | 560 |
+| PV wings, stowed (2 × 6.0 kg) | 12.04 | 0 | 845 |
+| Hinges, latches, outriggers, stakes | 4.12 | 0 | 820 |
+| Hinge spacers (2 × aluminium angle) | 0.49 | 0 | 484 |
+| Sun shade, frame and uprights | 1.55 | 185 | 760 |
+| Wing tie bars (2) | 0.50 | 0 | 1,205 |
+| Wiring and hardware, straps | 2.30 | 200 | 600 |
+| **Total** | **79.99** | **84** | **561** |
 
-The cart weighs about 75.06 kg [E3]. Amish relaxed the R6 limit from 70 kg to 75 kg on 2026-09-25 (FCL-DDR-002), keeping the steel frame and flat-free tyres; the same decisions added the hinge spacers (0.53 kg) and the sun shade (1.0 kg), which take the cart from 73.5 kg to 0.06 kg over the new limit. The TRL 2 budget of 68.5 kg had underestimated the steel frame (11.0 kg budgeted), the flat-free wheels (6.0 kg for two) and the hinges and outriggers (2.0 kg). The center of gravity is 55 mm toward the handle from the axle, so the handle carries 33 N when level and 14 to 52 N over a 5° pitch either way, inside the 10 to 150 N band [E4]. The heaviest removable module is the 12.0 kg pack, against a 25 kg limit [E6].
+The cart weighs about 79.99 kg [E3], 4.93 kg more than the 75.06 kg of v0.2: the massing model had no brackets, gussets, tabs, sockets, clevises, end caps or fixings, under-counted the stand legs, outriggers and hinges, and had no tie bars or shade uprights; the wings came out 1 kg lighter than assumed. The R6 limit of 75 kg (FCL-DDR-002) is missed by 5.0 kg. The center of gravity is 54 mm toward the handle from the axle, so the handle carries 34 N when level and 14 to 54 N over a 5° pitch either way, inside the 10 to 150 N band [E4]. The heaviest removable module is the 12.0 kg pack, against a 25 kg limit [E6].
 
-An aluminium frame would bring the cart to 69.0 kg; pneumatic tyres alone to 72.7 kg; both to 66.6 kg [E5]. R6 is **not met** by 0.06 kg, well inside the accuracy of this estimate; a shade of 0.9 kg or less would meet it. How to close the gap is proposed in `docs/REVIEW.md`, awaiting Amish.
+An aluminium frame would bring the cart to 72.7 kg; pneumatic tyres alone to 77.6 kg; both to 70.3 kg [E5]. R6 is **not met**. How to close the gap is an open decision in the design decisions register (FCL-DEC-001, item 2).
 
 ## F. Rough ground and structure (R7)
 
@@ -139,16 +148,16 @@ An aluminium frame would bring the cart to 69.0 kg; pneumatic tyres alone to 72.
 
 | Surface | Rolling resistance | Pull force |
 | --- | --- | --- |
-| Hard or packed | 0.04 | 103 N |
-| Gravel | 0.06 | 117 N |
-| Grass | 0.10 | 147 N |
+| Hard or packed | 0.04 | 109 N |
+| Gravel | 0.06 | 125 N |
+| Grass | 0.10 | 156 N |
 
-- **Step.** Pulled handle first onto a 150 mm step, the 203 mm wheel meets the edge 196 mm ahead of the axle. Taking moments about the edge, the user needs about 138 N of horizontal pull at the grip; a straight push at the axle would need about 2,720 N, so the step is climbed by pulling at the handle, not by pushing [F2].
-- **Clearance and tipping.** Ground clearance under the axle is 193 mm and the lateral static tip angle is 32.6° [F3].
+- **Step.** Pulled handle first onto a 150 mm step, the 203 mm wheel meets the edge 196 mm ahead of the axle. Taking moments about the edge, the user needs about 149 N of horizontal pull at the grip; a straight push at the axle would need about 2,900 N, so the step is climbed by pulling at the handle, not by pushing [F2].
+- **Clearance and tipping.** Ground clearance under the axle is 193 mm and the lateral static tip angle is 32.7° [F3].
 - **Wing to tyre.** With the hinge line raised from 470 to 490 mm on a 20 mm spacer (FCL-DDR-002), the deployed wing underside clears the tyre top by 28 mm at the tyre's outer edge [F4], up from 8 mm. This leaves room for tyre growth, mud and hinge tolerance.
-- **Strength.** At a 2 g bump, a side rail with 30 kg cantilevered 0.4 m sees 118 N·m and 41 MPa, a factor of 5.7 on S235 yield; the 20 mm axle sees 52 N·m and 66 MPa, a factor of about 5.3 on bright mild steel [F5]. Welds, fatigue and the handle joint are not assessed at TRL 3.
+- **Strength.** At a 2 g bump, a side rail with 30 kg cantilevered 0.4 m sees 118 N·m and 41 MPa, a factor of 5.7 on S235 yield; the 20 mm axle sees 55 N·m and 70 MPa, a factor of about 5.0 on bright mild steel [F5]; the brackets are now braced by gussets to the middle cross tube (FCL-DDR-003). Welds, fatigue and the handle joint are not assessed at TRL 3.
 
-R7 is **at risk**: every target is met on paper, but the pull force on grass is within 2 % of the 150 N limit, and it grows with any further mass.
+R7 is **not met**: the pull force on a 10 % grass grade is 156 N against the 150 N limit; the other targets are met (the step is climbed at about 149 N of pull). An aluminium frame would bring it to about 142 N (FCL-DEC-001, item 2).
 
 ## G. Thermal (R8, R9)
 
@@ -173,28 +182,28 @@ R8 is **not verifiable at TRL 3** (it needs a spray and dust test). R9 is **at r
 
 ## H. Wind (R10)
 
-- **Unstaked wing.** A 0.98 m² wing of 6.5 kg lifts about its hinge at about 9.2 m/s [H1].
-- **Staked at 15 m/s.** The dynamic pressure is 138 Pa and the normal force 162 N per wing. Each staked outrigger foot must resist 27 N of pull-out, or 49 N with a 1.5 load factor [H2], well within a 300 mm steel stake in firm soil (commonly a few hundred newtons).
-- **Whole cart at 15 m/s.** Worst-case uplift on both wings is 313 N against a weight of 736 N. The lateral load of 125 N is below the 169 N friction of an unstaked cart; staked, it is about 31 N per foot [H3].
-- **Stowed.** Side wind on one wing wall overturns the stowed cart at about 20 m/s [H4].
+- **Unstaked wing.** A 0.98 m² wing of 6.0 kg lifts about its hinge at about 8.9 m/s [H1].
+- **Staked at 15 m/s.** The dynamic pressure is 138 Pa and the normal force 162 N per wing. Each staked outrigger foot must resist 28 N of pull-out, or 50 N with a 1.5 load factor [H2], well within a 300 mm steel stake in firm soil (commonly a few hundred newtons).
+- **Whole cart at 15 m/s.** Worst-case uplift on both wings is 313 N against a weight of 785 N. The lateral load of 125 N is below the 189 N friction of an unstaked cart; staked, it is about 31 N per foot [H3].
+- **Stowed.** Side wind on one wing wall overturns the stowed cart at about 21 m/s [H4].
 
-R10 is met with the four feet staked or ballasted, as the requirement states. Unstaked, the wings must be stowed above about 9 m/s.
+R10 is met with the four feet staked or ballasted, as the requirement states. Unstaked, the wings must be stowed above about 9 m/s (8.9 m/s).
 
 ## I. Deployment and noise (R5, R11)
 
-Task analysis gives 6.0 min to deploy and 5.0 min to stow, against 10 min each [I1]. R5 is met by analysis; a timed trial is TRL 4 work. With the assumed source levels, the inverter fan and filter fan together give about 41.2 dB(A) at 1 m at 500 W [I2], but neither level comes from a datasheet, so R11 is **not verifiable at TRL 3**.
+Task analysis gives 6.5 min to deploy and 5.5 min to stow, against 10 min each, including 0.5 min each way to unlatch or latch the two tie bars that hold the stowed wings (FCL-DDR-003) [I1]. R5 is met by analysis; a timed trial is TRL 4 work. With the assumed source levels, the inverter fan and filter fan together give about 41.2 dB(A) at 1 m at 500 W [I2], but neither level comes from a datasheet, so R11 is **not verifiable at TRL 3**.
 
 ## J. Cost (R12)
 
-The 18-line BOM totals $2,051 [J1] against the $2,100 budget that Amish set on 2026-09-25 (FCL-DDR-002), leaving $49, about 2.4 % contingency. The decisions added the sun shade (item 18, $30) and the hinge spacers ($15, in item 14) to the $2,006 of v0.1. The largest lines are the two PV wings ($460), the pack ($300) and the inverter ($220) [J2]. The TRL 2 figure of $1,462 priced rigid-frame 200 W panels at $135 each; a rigid glass panel of that rating weighs about 11 to 12 kg, which would add about 10 kg to a cart already over its mass limit, so the semi-flexible module on a light frame is kept and costs more. Fusing, monitoring and outlets were also underpriced. R12 is **met** on cost, with a thin contingency; its electrical safety provisions are met by design. Supplier quotes for the pack, PV wings and inverter will decide whether $2,100 holds.
+The 19-line BOM totals $2,101 [J1] against the $2,100 value-engineering target that Amish set on 2026-09-25 (FCL-DDR-002; `budget_usd`, a hypothetical control target): USD 1 over. The constructable design (FCL-DDR-003) re-specified eleven lines and added line 19, the tie bars, taking the BOM from $2,051 to $2,101: frame steel +$12, wheel collars and linch pins +$5, outrigger brackets +$6, two latches fewer and new fixings −$6, cam straps and PV glands +$15, shade uprights +$9, tie bars +$9. The largest lines are the two PV wings ($460), the pack ($300) and the inverter ($220) [J2]. R12 is **over the value-engineering target** on cost, by USD 1 (0.05 %), well inside the accuracy of indicative prices; its electrical safety provisions are met by design, now with the class T fuse inside the battery case within 150 mm of the terminal. The savings worth trying are in the Value engineering section of FCL-DEC-001.
 
 ## K. Envelope
 
-Deployed, the cart covers 1,984 × 2,012 mm including the handle; stowed with the handle removed it is 1,400 × 784 × 1,190 mm [K1], which fits a pickup bed between the wheel wells and most vans.
+Deployed, the cart covers 1,984 × 2,012 mm including the handle; stowed with the handle removed it is 1,400 × 830 × 1,220 mm, including the folded outrigger feet and the tie bars [K1], which fits a pickup bed between the wheel wells and most vans.
 
 ## Results
 
-*Table 8. Requirement status. Status is one of met, not met, at risk, or not verifiable at TRL 3.*
+*Table 8. Requirement status. Status is one of met, not met, at risk, not verifiable at TRL 3, or over the value-engineering target for cost.*
 
 | ID | Quantity | Value (FCL-CAL-001) | Target (FCL-REQ-001) | Status |
 | --- | --- | --- | --- | --- |
@@ -202,19 +211,21 @@ Deployed, the cart covers 1,984 × 2,012 mm including the handle; stowed with th
 | R2 | AC and DC output | 1 kW AC, 2 kW surge by selection; 440 W DC; 66 A continuous on a 100 A fuse [B1, B2] | 1 kW AC, 2 kW surge; 300 W DC | Met |
 | R3 | PV recharge | 1.17 kWh/day at 4 kWh/m²/day (1.09 at 40 °C); full recharge 0.79 day at 5 [C4, C5] | 1.1 kWh/day at 4; full recharge in 1 day at 5 | Met |
 | R4 | Autonomy | 1.08 days with no sun; +10 % at 4 kWh/m²/day [D3, D4] | 1 day; energy-neutral at 4 | Met |
-| R5 | Deploy and stow | 6.0 min deploy, 5.0 min stow by task analysis [I1] | 10 min each | Met |
-| R6 | Mass and handle force | 75.1 kg; 14 to 52 N; pack 12.0 kg [E3, E4, E6] | 75 kg; 10 to 150 N; module 25 kg | **Not met** (mass 0.06 kg over) |
-| R7 | Rough ground | 406 mm wheels; 193 mm clearance; step at 138 N pull; 147 N on grass; tip 32.6° [F1 to F3] | 406 mm; 150 mm; 150 mm step; 150 N; 25° | At risk |
+| R5 | Deploy and stow | 6.5 min deploy, 5.5 min stow by task analysis [I1] | 10 min each | Met |
+| R6 | Mass and handle force | 80.0 kg; 14 to 54 N; pack 12.0 kg [E3, E4, E6] | 75 kg; 10 to 150 N; module 25 kg | **Not met** (mass 5.0 kg over) |
+| R7 | Rough ground | 406 mm wheels; 193 mm clearance; step at 149 N pull; 156 N on grass; tip 32.7° [F1 to F3] | 406 mm; 150 mm; 150 mm step; 150 N; 25° | **Not met** (grass pull 6 N over) |
 | R8 | Rain and dust | IP54 box with IP54 filter fan and filter; IP65 battery case; glands (by selection) | IP54 operating; IP65; glands | Not verifiable at TRL 3 |
 | R9 | Temperature | Box 53 °C at 45 °C ambient with fan and shade; pack under the shade about 48 °C; charge blocked below 0 °C by BMS [G6, G7] | −10 to 45 °C; charge block below 0 °C; derating known | At risk |
-| R10 | Wind | Staked: 27 N pull-out per foot at 15 m/s (49 N factored); unstaked lift at 9.2 m/s [H1, H2] | Stable to 15 m/s staked or ballasted | Met |
+| R10 | Wind | Staked: 28 N pull-out per foot at 15 m/s (50 N factored); unstaked lift at 8.9 m/s [H1, H2] | Stable to 15 m/s staked or ballasted | Met |
 | R11 | Noise | About 41 dB(A) at 1 m from assumed source levels [I2] | 45 dB(A) at 1 m at 500 W | Not verifiable at TRL 3 |
-| R12 | Safety and cost | Fusing, GFCI, isolator, no inlet by design; parts $2,051 [J1] | Safety provisions; $2,100 | Met |
+| R12 | Safety and cost | Fusing (class T fuse in the battery case), GFCI, isolator, no inlet by design; parts $2,101 [J1] | Safety provisions; at or below the $2,100 value-engineering target | **Over the value-engineering target by USD 1** |
 
-Summary: 7 met (R1, R2, R3, R4, R5, R10, R12), 1 not met (R6, by 0.06 kg), 2 at risk (R7, R9), 2 not verifiable at TRL 3 (R8, R11).
+Summary: 6 met (R1, R2, R3, R4, R5, R10), 2 not met (R6 by 5.0 kg, R7 by 6 N), 1 over its value-engineering target (R12 by USD 1), 1 at risk (R9), 2 not verifiable at TRL 3 (R8, R11).
 
 ## Checks against earlier figures
 
 The TRL 2 figures in FCL-PRC-001 v0.2 and FCL-REQ-001 v0.2 were checked against this note and corrected in v0.3 of both documents: mass 68.5 to 73.5 kg; CG offset 63 to 55 mm; handle force 17 to 52 N to 14 to 50 N; lateral tip 32 to 32.9°; pull on grass 135 to 144 N; east-west penalty 10 to 14 %; stored energy at 4 h 1.12 to 1.17 kWh/day, now against GHI; load from the battery 1,025 to 1,063 Wh/day; autonomy 1.1 to 1.08 days; surplus at 4 h 9 to 10 %; parts $1,462 to $2,006. The unstaked lift-off speed (about 9 m/s) and deploy time (about 6 min) are confirmed.
 
 Version 0.2 (FCL-DDR-002) changed: mass 73.5 to 75.1 kg against a limit relaxed from 70 to 75 kg; CG height 557 to 564 mm; handle force 14 to 50 N to 14 to 52 N; tip angle 32.9 to 32.6°; pull on grass 144 to 147 N; step pull 136 to 138 N; wing to tyre clearance 8 to 28 mm; stowed height 1,170 to 1,190 mm; pack in noon sun at 45 °C ambient 55 to 48 °C; electronics box at 1 kW 54 to 53 °C; BOM $2,006 to $2,051 against a budget raised from $1,500 to $2,100. The energy, electrical, wind lift, deploy and noise figures are unchanged.
+
+Version 0.3 (FCL-DDR-003, constructable design) changed: mass 75.06 to 79.99 kg; CG offset 55 to 54 mm and height 564 to 561 mm; handle force 14 to 52 N to 14 to 54 N; tip angle 32.6 to 32.7°; pull on grass 147 to 156 N, gravel 117 to 125 N, hard 103 to 109 N; step pull 138 to 149 N; axle stress 66 to 70 MPa; wing mass 6.5 to 6.0 kg; unstaked wing lift 9.2 to 8.9 m/s; stake pull-out 27 to 28 N; stowed overturn 20 to 21 m/s; deploy 6.0 to 6.5 min and stow 5.0 to 5.5 min; stowed size 1,400 x 784 x 1,190 to 1,400 x 830 x 1,220 mm; BOM $2,051 to $2,101 with 19 lines. The energy, electrical, thermal and noise figures and the 28 mm wing-to-tyre clearance are unchanged.

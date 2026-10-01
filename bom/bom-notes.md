@@ -1,8 +1,19 @@
 # BOM notes
 
-Prices are indicative TRL 3 estimates (2026) by supplier type, not quotes. Item numbers match the exploded view (`media/exploded.png`) and the component table in FCL-PRC-001; item 17 (wiring and hardware) is not modeled. Item 18 (sun shade) was added on 2026-09-25.
+Prices are indicative TRL 3 estimates (2026) by supplier type, not quotes. Item numbers match the exploded view (`media/exploded.png`) and the component table in FCL-PRC-001. Item 18 (sun shade) was added on 2026-09-25 and item 19 (wing tie bars) on 2026-10-01.
 
-The 18 lines total about $2,051 (checked by `docs/04-calcs/sizing.py`, FCL-CAL-001 section J), against the $2,100 `budget_usd` in `project.yaml`. Amish raised the budget from $1,500 to $2,100 on 2026-09-25 (FCL-DDR-002), which leaves about $49 (2.4 %) of contingency and no allowance for tools, spares or shipping. Supplier quotes for the pack, PV wings and inverter will confirm it.
+The 19 lines total about $2,101 (checked by `docs/04-calcs/sizing.py`, FCL-CAL-001 section J), $1 over the $2,100 `budget_usd` in `project.yaml`, with no allowance for tools, spares or shipping. Amish raised the budget from $1,500 to $2,100 on 2026-09-25 (FCL-DDR-002); whether to raise it again is an open decision (FCL-DEC-001, item 3). Supplier quotes for the pack, PV wings and inverter will settle it.
+
+Changes for the constructable design (FCL-DDR-003, 2026-10-01), $2,051 to $2,101:
+
+- Item 1, frame: braced axle brackets, hinge tabs, handle sockets, leg clevises, end caps, shade upright tabs and a longer axle ($85 to $97).
+- Item 2, wheels: spacer collar, washer and linch pin per wheel ($40 to $42.50 each).
+- Items 3, 4, 12, 13, 16: specifications made definite; class T fuse moved into the battery case; the wing frame (item 13) is now a made part.
+- Item 14: two latches instead of four, with hinge and tab fixings ($60 to $54).
+- Item 15: riveted clevis bracket and pivot bolt per outrigger leg ($8 to $9.50 each).
+- Item 17: two cam straps and two PV glands ($90 to $105).
+- Item 18: four uprights replace the 50 mm posts ($30 to $39).
+- Item 19, wing tie bars, added (2 x $4.50).
 
 Changes from Amish's decisions of 2026-09-25 (FCL-DDR-002), $2,006 to $2,051:
 

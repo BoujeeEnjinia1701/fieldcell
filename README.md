@@ -2,13 +2,13 @@
 
 ![TRL 3](https://img.shields.io/badge/TRL-3%20of%209-0F766E) ![Hardware: CERN-OHL-S-2.0](https://img.shields.io/badge/hardware-CERN--OHL--S--2.0-111827) ![Software: MIT](https://img.shields.io/badge/software-MIT-111827) [![DOI](https://zenodo.org/badge/1386351747.svg)](https://zenodo.org/badge/latestdoi/1386351747) [![REUSE compliant](https://github.com/BoujeeEnjinia1701/fieldcell/actions/workflows/reuse.yml/badge.svg)](https://github.com/BoujeeEnjinia1701/fieldcell/actions/workflows/reuse.yml) [![Archived in Software Heritage](https://archive.softwareheritage.org/badge/origin/https://github.com/BoujeeEnjinia1701/fieldcell/)](https://archive.softwareheritage.org/browse/origin/?origin_url=https://github.com/BoujeeEnjinia1701/fieldcell)
 
-**Area:** Situational Field Hardware · **TRL:** 3 of 9 (proof of concept on paper) · **Prototype budget:** about $2,100 USD · **Difficulty:** 3 of 5
+**Area:** Situational Field Hardware · **TRL:** 3 of 9 (proof of concept on paper) · **Value-engineering target:** about $2,100 USD (estimated parts cost $2,101) · **Difficulty:** 3 of 5
 
 Two-wheel hand cart carrying fold-out PV and a LiFePO4 bank, with an inverter and DC outlets, that one person can deploy in under 10 minutes.
 
 ![FieldCell: solar power cart with fold-out panels and a battery bank, product render](media/render-hero.png)
 
-[Exploded render](media/render-exploded.png) · [Detail render](media/render-detail.png) · [Interactive 3D model](media/viewer.html) · [Concept blueprint (PDF)](media/concept-blueprint.pdf) · [General arrangement FCL-DWG-002 (PDF)](cad/drawings/FCL-DWG-002.pdf) · [Sizing calculations](docs/04-calcs/01-sizing.md) · [Review note](docs/REVIEW.md)
+[Exploded render](media/render-exploded.png) · [Detail render](media/render-detail.png) · [Interactive 3D model](media/viewer.html) · [Concept blueprint (PDF)](media/concept-blueprint.pdf) · [General arrangement FCL-DWG-002 (PDF)](cad/drawings/FCL-DWG-002.pdf) · [Sizing calculations](docs/04-calcs/01-sizing.md) · [Prototype build plan](docs/05-build-plan.md) · [Design decisions](docs/06-design-decisions.md) · [Review note](docs/REVIEW.md)
 
 ## Concept rationale
 
@@ -65,11 +65,18 @@ Full design precis: [docs/02-concept.md](docs/02-concept.md)
 - LiFePO4 bank 1.28 kWh (25.6 V 50 Ah)
 - MPPT charge controller
 - Inverter 1 kW
-- Welded steel cart frame, 16 in flat-free wheels
+- Welded steel cart frame, 16 in flat-free wheels, detachable handle, folding stand legs
 - IP65 battery case and IP54 electronics enclosure with thermostat filter fan
 - Reflective sun shade over both enclosures, hinge line on a 20 mm spacer
+- Two tie bars that hold the folded-up wings together for travel
 
-The priced bill of materials is in [bom/bom.csv](bom/bom.csv) (about $2,051 at TRL 3, within the $2,100 budget decided on 2026-09-25; see the review note).
+The priced bill of materials is in [bom/bom.csv](bom/bom.csv) (about $2,101 at TRL 3, USD 1 over the $2,100 value-engineering target set on 2026-09-25, after the parts that make the design buildable; see the [design decisions register](docs/06-design-decisions.md)).
+
+## Building the prototype
+
+The [prototype build plan](docs/05-build-plan.md) (FCL-BLD-001) shows how to build the first FieldCell, component by component and step by step, with a making sketch for every made part and a picture for every assembly step. It is a plan, not a record of a build. The frame is welded from steel tube in a garage; the wings, shade and tie bars are cut and riveted from aluminium tube; the enclosures, electronics, wheels and modules are bought. Making the concept buildable added brackets, sockets, hinge tabs, tie bars and shade uprights (decision record FCL-DDR-003) and brought the cart to about 80 kg; the open decisions are in the [design decisions register](docs/06-design-decisions.md).
+
+![FieldCell prototype: every component pulled apart and numbered in build order](docs/05-build-plan/overview.png)
 
 ## Safety
 
