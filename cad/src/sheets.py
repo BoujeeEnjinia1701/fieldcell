@@ -68,24 +68,23 @@ def main():
     views = project_views(dep, work / "deployed")
     views["iso"] = project_views(stow, work / "stowed")["iso"]
     bb = dep.bounding_box()
-    s = Sheet(project="FieldCell", title="General arrangement", dwg_no="FCL-DWG-002", rev="P2",
+    s = Sheet(project="FieldCell", title="General arrangement", dwg_no="FCL-DWG-002", rev="P3",
               author="Amish Chadha", date=DATE, scale=None, theme="technical",
               material="Welded steel frame, IP65 and IP54 enclosures; see bom/bom.csv. PRELIMINARY, NOT FOR FABRICATION",
               revisions=[("P1", "Preliminary GA for TRL 3 (from cad/src/model.py)", DATE, "AC"),
-                         ("P2", "Hinge spacer +20 mm, sun shade added (DDR-002)", DATE, "AC")])
+                         ("P2", "Hinge spacer +20 mm, sun shade added (DDR-002)", DATE, "AC"),
+                         ("P3", "Layout and labels tidied", "2026-09-30", "AC")])
     s.add_ortho(views)
     k = s.scale
     c = ortho_cells(s, views)
     L = []
     # top view: overall length above, overall width at left
     x, y, w, h = c["top"]
-    L += dim_h(x, x + w, y - 3.5, f"{bb.size.X:,.0f} overall")
-    L += dim_v(x - 4, y, y + h, f"{bb.size.Y:,.0f} over outrigger feet")
+    # overall length and width are already dimensioned by the kit
     # front view (from -Y): overall height, deck height and hinge line, at left
     x, y, w, h = c["front"]
     zb = y + h                                   # ground line on the sheet
     L += [ext(x - 13, zb, x, zb)]
-    L += dim_v(x - 4, y, zb, f"{bb.size.Z:,.0f}")
     L += dim_v(x - 10, zb - P["deck_z"] * k, zb, f"{P['deck_z']:.0f} deck")
     L += [ext(x - 11, zb - P["deck_z"] * k, x + (-P["deck_l"] / 2 - bb.min.X) * k, zb - P["deck_z"] * k)]
     # right view (from +X, +Y to the right): wheel track above, wing edge height at right
@@ -95,10 +94,10 @@ def main():
     L += [ext(wl, y - 6, wl, y + h - P["wheel_r"] * k), ext(wr, y - 6, wr, y + h - P["wheel_r"] * k)]
     L += dim_h(wl, wr, y - 4, f"{2 * P['wheel_y']:.0f} track")
     ez = y + h - D["edge_z"] * k
-    L += [ext(x + w - 4, ez, x + w + 6, ez)]
-    L += dim_v(x + w + 5, ez, y + h, f"{D['edge_z']:.0f}")
+    L += [ext(x + w - 4, ez, x + w + 11, ez)]
+    L += dim_v(x + w + 10, ez, y + h, f"{D['edge_z']:.0f}")
     s._layers += L
-    s.add_svg(views["iso"], 276, 32, 140, 106, label="Isometric view, stowed for travel", sublabel="Not to scale")
+    s.add_svg(views["iso"], 276, 32, 140, 92, label="Isometric view, stowed for travel", sublabel="Not to scale")
     s.add_notes("Main dimensions and interfaces (mm)", [
         f"Deployed {bb.size.X:,.0f} L x {bb.size.Y:,.0f} W x {bb.size.Z:,.0f} H; wingspan {D['span']:,.0f}",
         f"Stowed, handle off: {P['pv_l']:,.0f} x {2 * (P['hinge_y'] + P['pv_t'] + P['out_d'] + 2):.0f} x {P['hinge_z'] + P['pv_w']:,.0f}",
@@ -110,7 +109,7 @@ def main():
         f"Outlet face toward handle; grip at Z {P['grip_z']:.0f}",
         f"Mass about {C.M:.1f} kg (FCL-CAL-001); 2 x 200 W PV, 1.28 kWh",
         "Third-angle; front view from -Y, right view from +X",
-    ], x=276, y=160, width=146)
+    ], x=276, y=142, width=146)
     out = s.save(ROOT / "cad" / "drawings" / "FCL-DWG-002")
     shutil.rmtree(work, ignore_errors=True)
     print(f"wrote {out} and .pdf, .png at scale 1:{1 / k:g}")
