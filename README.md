@@ -57,6 +57,8 @@ Disaster responders and remote crews rely on noisy, fuel-hungry generators.
 
 Two-wheel hand cart carrying fold-out PV and a LiFePO4 bank, with an inverter and DC outlets, that one person can deploy in under 10 minutes.
 
+FieldCell is the portfolio's mobile field-site unit: PV only, 1 kW AC, a one-person cart and its own 25.6 V pack. PowerBox is the household outage unit (multi-input, indoor, on a SwapCell pack), and SwapCell is the shared pack standard.
+
 Full design precis: [docs/02-concept.md](docs/02-concept.md)
 
 ## Key components
@@ -74,7 +76,7 @@ The priced bill of materials is in [bom/bom.csv](bom/bom.csv) (about $2,101 at T
 
 ## Building the prototype
 
-The [prototype build plan](docs/05-build-plan.md) (FCL-BLD-001) shows how to build the first FieldCell, component by component and step by step, with a making sketch for every made part and a picture for every assembly step. It is a plan, not a record of a build. The frame is welded from steel tube in a garage; the wings, shade and tie bars are cut and riveted from aluminium tube; the enclosures, electronics, wheels and modules are bought. Making the concept buildable added brackets, sockets, hinge tabs, tie bars and shade uprights (decision record FCL-DDR-003) and brought the cart to about 80 kg; the open decisions are in the [design decisions register](docs/06-design-decisions.md).
+The [prototype build plan](docs/05-build-plan.md) (FCL-BLD-001) shows how to build the first FieldCell, component by component and step by step, with a making sketch for every made part and a picture for every assembly step. It is a plan, not a record of a build. The frame is welded from steel tube in a garage; the wings, shade and tie bars are cut and riveted from aluminium tube; the enclosures, electronics, wheels and modules are bought. Making the concept buildable added brackets, sockets, hinge tabs, tie bars and shade uprights (decision record FCL-DDR-003) and brought the cart to about 80 kg, inside the 82 kg limit set on 2026-10-02; the decisions are recorded in the [design decisions register](docs/06-design-decisions.md).
 
 ![FieldCell prototype: every component pulled apart and numbered in build order](docs/05-build-plan/overview.png)
 

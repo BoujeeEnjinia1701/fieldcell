@@ -3,9 +3,9 @@ doc_id: FCL-DDR-003
 title: FieldCell design for construction
 project: FieldCell
 doc_type: Design decision record
-version: "0.2"
+version: "0.3"
 status: Draft
-date: '2026-10-01'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -17,12 +17,16 @@ revisions:
   date: '2026-10-01'
   author: Amish Chadha
   change: Budget treated as a value-engineering target
+- version: "0.3"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "Accepted by Amish on 2026-10-02, with A1 sharpened (R6 at 82 kg, R7 grass pull at 160 N), A3 and A4 as recommended"
 ---
 
 # 0003: Design for construction
 
 - **Date:** 2026-10-01
-- **Status:** Draft. The changes in Tables 1 and 2 were made under Amish's 2026-09-30 instruction to make the design physically buildable; open for his review. The items in Table 3 are Proposed, awaiting Amish.
+- **Status:** accepted. Amish, 2026-10-02: "i approve your recommendations for all 555 open decisions." This covers every change in Tables 1 and 2 (P1 to P13) and the items in Table 3, now decided and recorded in the design decisions register (FCL-DEC-001). A1 was decided in a sharpened form: R6 is set at 82 kg and the R7 grass pull at 160 N, not 80 kg, so that the 80.0 kg cart keeps a margin.
 
 ## Context
 
@@ -62,18 +66,18 @@ The changes keep what FieldCell does: the same cart, frame size, wheels, deck he
 | Documents | FCL-CAL-001 v0.3, FCL-PRC-001 v0.5, FCL-REQ-001 v0.5 | Follows the model |
 | Thermal | Unchanged: boxes, shade gap and fan unchanged; the class T fuse adds no heat of note | |
 
-*Table 3. Proposed, awaiting Amish.*
+*Table 3. Proposed, then decided by Amish on 2026-10-02.*
 
 | # | Question | Options | Recommendation |
 | --- | --- | --- | --- |
-| A1 | The buildable cart is about 80 kg: R6 (75 kg) is missed by 5 kg and R7 (150 N on a 10 % grass grade) by 6 N | (a) relax R6 to 80 kg and the R7 grass figure to 160 N, keeping the decided steel frame and flat-free tyres; (b) bolted aluminium frame, about 72.7 kg and 142 N, meeting both but reversing D5 (FCL-DDR-001); (c) pneumatic tyres, about 77.6 kg, still over; (d) both, about 70.3 kg | (a) for the first prototype, and weigh it at TRL 4; take (b) if the weighed cart is over 80 kg |
+| A1 | The buildable cart is about 80 kg: R6 (75 kg) is missed by 5 kg and R7 (150 N on a 10 % grass grade) by 6 N | (a) relax R6 to 80 kg and the R7 grass figure to 160 N, keeping the decided steel frame and flat-free tyres; (b) bolted aluminium frame, about 72.7 kg and 142 N, meeting both but reversing D5 (FCL-DDR-001); (c) pneumatic tyres, about 77.6 kg, still over; (d) both, about 70.3 kg | (a) for the first prototype, and weigh it at TRL 4; take (b) if the weighed cart is over 80 kg. **Decided 2026-10-02:** (a) with R6 at 82 kg and the R7 grass pull at 160 N; (b) if the weighed cart is over 82 kg |
 | A2 | The BOM is $2,101 against the $2,100 value-engineering target (`budget_usd`, a hypothetical control target), USD 1 over | No decision needed. The target stays $2,100; supplier quotes for the pack, wings and inverter will give the real cost | Carry in the value engineering section of FCL-DEC-001 |
-| A3 | Tie bars add a step to deploy and stow (R5 still met at 6.5 and 5.5 min) | (a) tie bars as modelled; (b) two webbing straps with cam buckles over the wing tops | (a): stiffer, nothing to lose, and they hold both wings at once |
-| A4 | The shade must be lifted off (four wing bolts) to open the battery case | (a) accept, since the battery case is opened only for service; (b) hinge the shade on its handle-end uprights | (a) |
+| A3 | Tie bars add a step to deploy and stow (R5 still met at 6.5 and 5.5 min) | (a) tie bars as modelled; (b) two webbing straps with cam buckles over the wing tops | (a): stiffer, nothing to lose, and they hold both wings at once. **Decided 2026-10-02: (a)** |
+| A4 | The shade must be lifted off (four wing bolts) to open the battery case | (a) accept, since the battery case is opened only for service; (b) hinge the shade on its handle-end uprights | (a). **Decided 2026-10-02: (a)** |
 
 ## Consequences
 
-- `design_state: constructable` in `project.yaml`. The build plan FCL-BLD-001 shows every component and step in pictures generated from the model (`cad/src/build_plan_media.py`); open items are in the design decisions register FCL-DEC-001.
-- Requirement status (FCL-CAL-001 v0.3): 6 met, 2 not met (R6, R7), 1 over its value-engineering target (R12), 1 at risk (R9), 2 not verifiable at TRL 3 (R8, R11). Before: 7 met, 1 not met, 2 at risk, 2 not verifiable.
+- `design_state: constructable` in `project.yaml`. The build plan FCL-BLD-001 shows every component and step in pictures generated from the model (`cad/src/build_plan_media.py`); the decisions are recorded in the design decisions register FCL-DEC-001.
+- Requirement status (FCL-CAL-001 v0.3): 6 met, 2 not met (R6, R7), 1 over its value-engineering target (R12), 1 at risk (R9), 2 not verifiable at TRL 3 (R8, R11). Before: 7 met, 1 not met, 2 at risk, 2 not verifiable. With A1 decided on 2026-10-02 (R6 at 82 kg, R7 grass pull at 160 N): 8 met, none not met, 1 over its value-engineering target (R12), 1 at risk (R9), 2 not verifiable at TRL 3.
 - The photoreal renders (`media/render-*.png`), `media/card.png`, `media/social-preview.png` and the appearance model `cad/src/product_model.py` still show the concept hinge spacer, shade posts, outrigger feet and electronics layout, and have no tie bars; they need updating on Amish's Mac, where Blender is.
 - The wing module, wheels, enclosures and outlets are chosen at TRL 4; their sizes must be checked then against the model (FCL-DEC-001, "To confirm when parts are bought").

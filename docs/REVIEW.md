@@ -295,3 +295,33 @@ The cart is now about 80 kg: a two-person lift. The class T fuse is inside the b
 ### Recommended next step
 
 Amish to review FCL-DDR-003 and decide items 1 and 2 of the register (accept the construction changes, the mass and pull gap). TRL 4 stays on hold.
+
+## Session 2026-10-02: open decisions decided
+
+Amish approved every recommendation for the open decisions on 2026-10-02: "i approve your recommendations for all 555 open decisions."
+
+### Decisions recorded
+
+Eight, all moved to "Decisions made" in FCL-DEC-001 (open items 1 to 8): design for construction accepted (FCL-DDR-003, P1 to P13); steel frame and flat-free tyres kept with R6 set at 82 kg and the R7 grass pull at 160 N, the prototype weighed at TRL 4 and moved to a bolted aluminium frame if over 82 kg; tie bars with over-centre latches; the shade lifts off for battery service; a responder organization sought now for a paper review, with a US volunteer disaster response organization such as Team Rubicon as the first candidate to approach; FieldCell positioned as the mobile field-site unit beside PowerBox (household outage unit) and SwapCell (shared pack standard); no AC charger, and no vehicle 12 V input in the first prototype; the appearance model to be rebuilt from the constructable model, with the clear side window as a render aid only.
+
+### Documents changed
+
+- `docs/06-design-decisions.md` FCL-DEC-001 v0.3: decisions made; open decisions section now reads "None".
+- `docs/decisions/0003-design-for-construction.md` FCL-DDR-003 v0.3: accepted (status Draft kept); A1 sharpened, A3 and A4 as recommended; requirement status after the decision.
+- `docs/03-requirements.md` FCL-REQ-001 v0.7: R6 restated at 82 kg and R7 at 160 N on grass; both met on paper; summary counts.
+- `docs/04-calcs/01-sizing.md` FCL-CAL-001 v0.5: R6 and R7 status and the summary against the new limits; no figures changed.
+- `docs/02-concept.md` FCL-PRC-001 v0.7: R6 and R7 status; open questions on mass, charging inputs and positioning answered.
+- `docs/01-problem.md` FCL-PRB-001 v0.5: responder review question answered.
+- `docs/05-build-plan.md` FCL-BLD-001 v0.3: R6 and R7 first checks against the new limits; FCL-DDR-003 shown as accepted.
+- `README.md`: positioning paragraph in the Concept section; build plan paragraph cites the 82 kg limit.
+
+### Follow-up actions to carry approved decisions into the design
+
+1. Decision 2 (calculations): set the R6 limit to 82 kg and the R7 grass pull limit to 160 N in `docs/04-calcs/sizing.py` so that `results.csv` matches FCL-CAL-001.
+2. Decision 6 (docs): add the matching positioning paragraph to the PowerBox and SwapCell READMEs.
+3. Decision 8 (model, pictures): rebuild `cad/src/product_model.py` from the constructable model and re-render on Amish's Mac, keeping the clear side window as a render aid only; regenerate `media/card.png` and `media/social-preview.png`.
+
+### Points found in the review
+
+- R6 has now been relaxed twice (70 to 75 kg in DDR-002, and option (a) would take it to 80 kg), and an 80 kg limit against a 79.99 kg model has no margin at all.
+- The 2026-10-01 review notes the cart is now a two-person lift at about 80 kg, while the pitch still says one person can deploy it; deploying is still one person, but loading it onto a vehicle is not.

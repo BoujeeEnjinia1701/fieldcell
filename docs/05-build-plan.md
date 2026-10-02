@@ -3,9 +3,9 @@ doc_id: FCL-BLD-001
 title: FieldCell prototype build plan
 project: FieldCell
 doc_type: Build plan
-version: "0.2"
+version: "0.3"
 status: Draft
-date: '2026-10-01'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -17,6 +17,10 @@ revisions:
     date: '2026-10-01'
     author: Amish Chadha
     change: Budget treated as a value-engineering target
+  - version: "0.3"
+    date: '2026-10-02'
+    author: Amish Chadha
+    change: "First checks for R6 and R7 against the limits set by Amish on 2026-10-02 (82 kg, 160 N on grass); FCL-DDR-003 accepted"
 ---
 
 # FieldCell prototype build plan
@@ -35,7 +39,7 @@ The prototype is one FieldCell cart: a welded steel frame on two 16 in wheels, c
 
 ## 2. What changed to make it buildable
 
-The concept showed what the cart does; some of its parts could not be made or fixed as drawn. Each change below keeps what the cart does, and all of them are recorded in decision record FCL-DDR-003, open for Amish's review.
+The concept showed what the cart does; some of its parts could not be made or fixed as drawn. Each change below keeps what the cart does, and all of them are recorded in decision record FCL-DDR-003, accepted by Amish on 2026-10-02.
 
 *Table 1. Changes from the concept.*
 
@@ -492,8 +496,8 @@ These are the checks a TRL 4 test report would record; this plan only lists them
 
 | Check | Requirement | How | Pass when |
 | --- | --- | --- | --- |
-| Mass and handle force | R6 | Weigh the cart; spring balance under the grip, level and at 5° either way | Mass recorded (about 80 kg estimated); handle force 10 to 150 N, never negative |
-| Pull force | R7 | Spring balance at the grip on a measured 10 % grade, gravel and grass | Recorded against 150 N (125 and 156 N estimated) |
+| Mass and handle force | R6 | Weigh the cart; spring balance under the grip, level and at 5° either way | Mass 82 kg or less (about 80 kg estimated); over 82 kg, the frame becomes bolted aluminium (FCL-DEC-001); handle force 10 to 150 N, never negative |
+| Pull force | R7 | Spring balance at the grip on a measured 10 % grade, gravel and grass | 150 N or less on gravel, 160 N or less on grass (125 and 156 N estimated) |
 | Ground clearance and step | R7 | Measure under the axle; pull over a 150 mm step | 150 mm or more; the step climbed by pulling |
 | Wing to tyre and tilt | R3 (tilt); design check (gap) | Wings out on flat ground: gap over the tyre, angle finder on the panel | Gap 25 mm or more (28 mm modelled); 15°, give or take 1° |
 | Deploy and stow | R5 | One person, timed, from arrival to power on and back | 10 minutes or less each (6.5 and 5.5 min estimated) |

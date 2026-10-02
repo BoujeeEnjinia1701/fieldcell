@@ -3,9 +3,9 @@ doc_id: FCL-PRB-001
 title: FieldCell problem statement
 project: FieldCell
 doc_type: Problem statement
-version: "0.4"
+version: "0.5"
 status: Draft
-date: '2026-09-25'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -25,6 +25,10 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Recommendations accepted by Amish (DDR-002)
+- version: "0.5"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "Responder review decided by Amish on 2026-10-02; Team Rubicon named as the first candidate to approach"
 ---
 
 # FieldCell problem statement
@@ -78,5 +82,5 @@ Solar plus battery systems solve the noise, fumes and fuel problems, but the fie
 ## Open questions
 
 - First user group: disaster response. Decided by Amish, 2026-09-25 (FCL-DDR-001, D8). Humanitarian field teams and remote crews remain secondary users.
-- Which responder organization, if any, could review the deployment sequence and load profile? Proposed, awaiting Amish (FCL-DDR-001, O1).
+- Which responder organization, if any, could review the deployment sequence and load profile? Decided by Amish, 2026-10-02: seek one now, for a paper review only. The first candidate to approach is a US volunteer disaster response organization such as Team Rubicon, since the first build is 120 V 60 Hz; nothing is agreed (FCL-DEC-001).
 - Output voltage: 120 V 60 Hz for the first build, with a 230 V 50 Hz variant documented. Decided by Amish, 2026-09-25 (FCL-DDR-001, D4).

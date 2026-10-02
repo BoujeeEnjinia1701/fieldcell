@@ -3,9 +3,9 @@ doc_id: FCL-CAL-001
 title: FieldCell sizing calculations
 project: FieldCell
 doc_type: Calculation
-version: "0.4"
+version: "0.5"
 status: Draft
-date: '2026-10-01'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -25,11 +25,15 @@ revisions:
   date: '2026-10-01'
   author: Amish Chadha
   change: Budget treated as a value-engineering target
+- version: "0.5"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "R6 and R7 status against the limits set by Amish on 2026-10-02 (82 kg, 160 N on grass); no figures changed"
 ---
 
 # FieldCell sizing calculations
 
-On paper, FieldCell meets six of its twelve requirements, misses two, is over its value-engineering cost target on one and has one at risk; two more cannot be verified at TRL 3. The energy case works: the 400 W east-west array stores about 1.17 kWh/day at 4 kWh/m²/day of global horizontal irradiation, which carries the 0.9 kWh/day reference load with about 10 % surplus, and the 1.15 kWh usable pack gives 1.08 days with no sun. Version 0.3 follows the constructable design of FCL-DDR-003: the brackets, gussets, tabs, sockets, clevises, fixings, tie bars and shade uprights that make the cart buildable add about 4.9 kg, so the cart now weighs about 80.0 kg against the 75 kg limit (R6 not met by 5 kg), the pull on a 10 % grass grade is 156 N against 150 N (R7 not met), and the 19-line BOM is $2,101 against the $2,100 value-engineering target (R12 over the target by USD 1). Heat (R9) remains at risk. Every number in this note is printed by `docs/04-calcs/sizing.py`; the tag in brackets, for example [C4], is the line of that script's output that carries it.
+On paper, FieldCell meets eight of its twelve requirements, misses none, is over its value-engineering cost target on one and has one at risk; two more cannot be verified at TRL 3. The energy case works: the 400 W east-west array stores about 1.17 kWh/day at 4 kWh/m²/day of global horizontal irradiation, which carries the 0.9 kWh/day reference load with about 10 % surplus, and the 1.15 kWh usable pack gives 1.08 days with no sun. Version 0.3 follows the constructable design of FCL-DDR-003: the brackets, gussets, tabs, sockets, clevises, fixings, tie bars and shade uprights that make the cart buildable add about 4.9 kg, so the cart now weighs about 80.0 kg against the 75 kg limit, and the pull on a 10 % grass grade is 156 N against 150 N; on 2026-10-02 Amish set the limits at 82 kg and 160 N (FCL-DEC-001), so R6 and R7 are now met, and the 19-line BOM is $2,101 against the $2,100 value-engineering target (R12 over the target by USD 1). Heat (R9) remains at risk. Every number in this note is printed by `docs/04-calcs/sizing.py`; the tag in brackets, for example [C4], is the line of that script's output that carries it.
 
 > **Safety:** These calculations concern a 1.28 kWh lithium battery, 120 V AC output, 100 A DC circuits, always-live PV panels and a 75 kg cart. They are first-principles estimates for a paper proof of concept and are not a substitute for component datasheets, a qualified electrical review or test. See FCL-PRC-001, Safety.
 
@@ -138,9 +142,9 @@ The frame is weighed from the constructable model: tubes and end caps 7.33 kg, d
 | Wiring and hardware, straps | 2.30 | 200 | 600 |
 | **Total** | **79.99** | **84** | **561** |
 
-The cart weighs about 79.99 kg [E3], 4.93 kg more than the 75.06 kg of v0.2: the massing model had no brackets, gussets, tabs, sockets, clevises, end caps or fixings, under-counted the stand legs, outriggers and hinges, and had no tie bars or shade uprights; the wings came out 1 kg lighter than assumed. The R6 limit of 75 kg (FCL-DDR-002) is missed by 5.0 kg. The center of gravity is 54 mm toward the handle from the axle, so the handle carries 34 N when level and 14 to 54 N over a 5° pitch either way, inside the 10 to 150 N band [E4]. The heaviest removable module is the 12.0 kg pack, against a 25 kg limit [E6].
+The cart weighs about 79.99 kg [E3], 4.93 kg more than the 75.06 kg of v0.2: the massing model had no brackets, gussets, tabs, sockets, clevises, end caps or fixings, under-counted the stand legs, outriggers and hinges, and had no tie bars or shade uprights; the wings came out 1 kg lighter than assumed. The R6 limit of 75 kg (FCL-DDR-002) is missed by 5.0 kg; on 2026-10-02 Amish set the limit at 82 kg (FCL-DEC-001), which the cart meets by 2.0 kg. The center of gravity is 54 mm toward the handle from the axle, so the handle carries 34 N when level and 14 to 54 N over a 5° pitch either way, inside the 10 to 150 N band [E4]. The heaviest removable module is the 12.0 kg pack, against a 25 kg limit [E6].
 
-An aluminium frame would bring the cart to 72.7 kg; pneumatic tyres alone to 77.6 kg; both to 70.3 kg [E5]. R6 is **not met**. How to close the gap is an open decision in the design decisions register (FCL-DEC-001, item 2).
+An aluminium frame would bring the cart to 72.7 kg; pneumatic tyres alone to 77.6 kg; both to 70.3 kg [E5]. R6 is met against the 82 kg limit set on 2026-10-02; the prototype is weighed at TRL 4 and takes the aluminium frame if it is over 82 kg (FCL-DEC-001).
 
 ## F. Rough ground and structure (R7)
 
@@ -157,7 +161,7 @@ An aluminium frame would bring the cart to 72.7 kg; pneumatic tyres alone to 77.
 - **Wing to tyre.** With the hinge line raised from 470 to 490 mm on a 20 mm spacer (FCL-DDR-002), the deployed wing underside clears the tyre top by 28 mm at the tyre's outer edge [F4], up from 8 mm. This leaves room for tyre growth, mud and hinge tolerance.
 - **Strength.** At a 2 g bump, a side rail with 30 kg cantilevered 0.4 m sees 118 N·m and 41 MPa, a factor of 5.7 on S235 yield; the 20 mm axle sees 55 N·m and 70 MPa, a factor of about 5.0 on bright mild steel [F5]; the brackets are now braced by gussets to the middle cross tube (FCL-DDR-003). Welds, fatigue and the handle joint are not assessed at TRL 3.
 
-R7 is **not met**: the pull force on a 10 % grass grade is 156 N against the 150 N limit; the other targets are met (the step is climbed at about 149 N of pull). An aluminium frame would bring it to about 142 N (FCL-DEC-001, item 2).
+R7 is met against the grass limit of 160 N set on 2026-10-02 (FCL-DEC-001): the pull force on a 10 % grass grade is 156 N, 6 N over the earlier 150 N limit; the other targets are met (the step is climbed at about 149 N of pull). An aluminium frame would bring it to about 142 N (FCL-DEC-001, item 2).
 
 ## G. Thermal (R8, R9)
 
@@ -212,15 +216,15 @@ Deployed, the cart covers 1,984 × 2,012 mm including the handle; stowed with th
 | R3 | PV recharge | 1.17 kWh/day at 4 kWh/m²/day (1.09 at 40 °C); full recharge 0.79 day at 5 [C4, C5] | 1.1 kWh/day at 4; full recharge in 1 day at 5 | Met |
 | R4 | Autonomy | 1.08 days with no sun; +10 % at 4 kWh/m²/day [D3, D4] | 1 day; energy-neutral at 4 | Met |
 | R5 | Deploy and stow | 6.5 min deploy, 5.5 min stow by task analysis [I1] | 10 min each | Met |
-| R6 | Mass and handle force | 80.0 kg; 14 to 54 N; pack 12.0 kg [E3, E4, E6] | 75 kg; 10 to 150 N; module 25 kg | **Not met** (mass 5.0 kg over) |
-| R7 | Rough ground | 406 mm wheels; 193 mm clearance; step at 149 N pull; 156 N on grass; tip 32.7° [F1 to F3] | 406 mm; 150 mm; 150 mm step; 150 N; 25° | **Not met** (grass pull 6 N over) |
+| R6 | Mass and handle force | 80.0 kg; 14 to 54 N; pack 12.0 kg [E3, E4, E6] | 82 kg; 10 to 150 N; module 25 kg | Met (mass 2.0 kg under) |
+| R7 | Rough ground | 406 mm wheels; 193 mm clearance; step at 149 N pull; 156 N on grass; tip 32.7° [F1 to F3] | 406 mm; 150 mm; 150 mm step; 150 N gravel, 160 N grass; 25° | Met (grass pull 4 N under) |
 | R8 | Rain and dust | IP54 box with IP54 filter fan and filter; IP65 battery case; glands (by selection) | IP54 operating; IP65; glands | Not verifiable at TRL 3 |
 | R9 | Temperature | Box 53 °C at 45 °C ambient with fan and shade; pack under the shade about 48 °C; charge blocked below 0 °C by BMS [G6, G7] | −10 to 45 °C; charge block below 0 °C; derating known | At risk |
 | R10 | Wind | Staked: 28 N pull-out per foot at 15 m/s (50 N factored); unstaked lift at 8.9 m/s [H1, H2] | Stable to 15 m/s staked or ballasted | Met |
 | R11 | Noise | About 41 dB(A) at 1 m from assumed source levels [I2] | 45 dB(A) at 1 m at 500 W | Not verifiable at TRL 3 |
 | R12 | Safety and cost | Fusing (class T fuse in the battery case), GFCI, isolator, no inlet by design; parts $2,101 [J1] | Safety provisions; at or below the $2,100 value-engineering target | **Over the value-engineering target by USD 1** |
 
-Summary: 6 met (R1, R2, R3, R4, R5, R10), 2 not met (R6 by 5.0 kg, R7 by 6 N), 1 over its value-engineering target (R12 by USD 1), 1 at risk (R9), 2 not verifiable at TRL 3 (R8, R11).
+Summary: 8 met (R1, R2, R3, R4, R5, R6, R7, R10; R6 and R7 against the limits set on 2026-10-02), none not met, 1 over its value-engineering target (R12 by USD 1), 1 at risk (R9), 2 not verifiable at TRL 3 (R8, R11).
 
 ## Checks against earlier figures
 

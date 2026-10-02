@@ -3,9 +3,9 @@ doc_id: FCL-PRC-001
 title: FieldCell design precis
 project: FieldCell
 doc_type: Design precis
-version: "0.6"
+version: "0.7"
 status: Draft
-date: '2026-10-01'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -33,6 +33,10 @@ revisions:
   date: '2026-10-01'
   author: Amish Chadha
   change: Budget treated as a value-engineering target
+- version: "0.7"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "Mass and pull limits, charging inputs and portfolio positioning decided by Amish on 2026-10-02 (FCL-DEC-001)"
 ---
 
 # FieldCell design precis
@@ -99,11 +103,11 @@ All values are estimates from FCL-CAL-001 (`docs/04-calcs/sizing.py`), which che
 | Reference load from battery | 1,063 Wh/day | 897 Wh at the outlets, Table 4 | |
 | Autonomy with no sun | 1.08 days | 1,152 / 1,063 Wh | R4 met |
 | Battery current | 46 A at 1 kW AC; 66 A with full DC; 98 A surge | 24 V at the low end | R2 met |
-| Total mass | About 80.0 kg | Table 5 | **R6 not met** (5.0 kg over 75 kg) |
+| Total mass | About 80.0 kg | Table 5 | R6 met (2.0 kg under the 82 kg limit set on 2026-10-02) |
 | Center of gravity | 54 mm toward the handle from the axle, 561 mm above ground | Table 5 | R6 |
 | Handle force, travel | 34 N level; 14 to 54 N at a 5° pitch | CG offset x weight / 1,240 mm axle to grip | R6 met |
 | Lateral static tip angle | 32.7° | atan(360 mm half-track / 564 mm CG height) | R7 met |
-| Pull force, 10 % grade | 125 N (gravel) to 156 N (grass) | 785 N weight x (grade + rolling resistance) | **R7 not met** (grass) |
+| Pull force, 10 % grade | 125 N (gravel) to 156 N (grass) | 785 N weight x (grade + rolling resistance) | R7 met (grass, 160 N limit set on 2026-10-02) |
 | Ground clearance | 193 mm | Under the axle, legs folded | R7 met |
 | Deploy and stow time | 6.5 and 5.5 min | Table 6 | R5 met |
 | Deployed footprint | About 2.0 x 2.0 m including the handle | Model, wings at 15° | |
@@ -187,7 +191,7 @@ The center of gravity is 54 mm on the handle side of the axle. At the 900 mm gri
 - **24 V class panels in parallel.** With Vmp about 36 V each, the panels can be paralleled into one MPPT and still charge a 25.6 V pack, so the off-sun wing does not limit the other. At 70 °C cell the headroom above the absorption voltage is under 1 V, so the chosen module must have Vmp of at least 36 V at STC. Decided by Amish, 2026-09-25 (D3).
 - **25.6 V battery system.** Halves the current of a 12.8 V system (46 A instead of about 90 A at 1 kW), allowing thinner cable and a smaller fuse, while 24 V inverters and MPPT controllers remain common. Decided by Amish, 2026-09-25 (D1).
 - **120 V 60 Hz output first.** A 230 V 50 Hz variant swaps the inverter and uses a 30 mA RCD socket. Decided by Amish, 2026-09-25 (D4).
-- **Welded steel frame and flat-free tyres.** Easiest garage build and no punctures on debris, at a mass cost that now puts the cart over R6. Decided by Amish, 2026-09-25 (D5).
+- **Welded steel frame and flat-free tyres.** Easiest garage build and no punctures on debris, at a mass cost that put the cart over the earlier 75 kg R6 limit. Decided by Amish, 2026-09-25 (D5), and kept on 2026-10-02 with R6 set at 82 kg (FCL-DEC-001).
 - **SwapCell compatibility as a future option only.** A later variant could take a SwapCell 48 V pack in place of item 6, which would need a 48 V inverter and charger. It would rely on three SwapCell interface v0.3 items approved portfolio-wide: a wake method for hosts without CAN, a charge-while-discharging mode (FieldCell charges from PV while loads run) and a latch vibration rating for vehicles. Decided by Amish, 2026-09-25 (D6).
 - **Heavy parts low and over the axle.** The battery sits directly over the axle; the electronics box and the accessory bin balance each other fore and aft. Kept as a layout rule, decided by Amish, 2026-09-25 (FCL-DDR-002).
 - **Forced ventilation of the electronics box.** A thermostat-controlled IP54 filter fan (40 to 60 m³/h) and exhaust filter keep the box within about 10 K of ambient at 1 kW; a sealed box would reach about 70 °C at 45 °C ambient. Decided by Amish, 2026-09-25 (FCL-DDR-002).
@@ -215,11 +219,11 @@ The center of gravity is 54 mm on the handle side of the axle. At the 900 mm gri
 
 ## Open questions
 
-- Mass, pull force and cost: about 80 kg against 75 kg (R6), 156 N against 150 N on a grass grade (R7) and $2,101 against $2,100 (R12) after the design was made buildable. Options are in the design decisions register (FCL-DEC-001), awaiting Amish.
+- Mass, pull force and cost: about 80 kg and 156 N on a grass grade after the design was made buildable. Decided by Amish, 2026-10-02: R6 set at 82 kg and the R7 grass pull at 160 N, keeping steel and flat-free tyres; the prototype is weighed at TRL 4 and moves to a bolted aluminium frame if it is over 82 kg (FCL-DEC-001). The cost is $2,101 against the $2,100 value-engineering target (R12).
 - Inverter derating data at 45 °C (R9) and supplier quotes for the pack, PV wings and inverter to set the real cost against the $2,100 value-engineering target. Decided by Amish, 2026-09-25 (FCL-DDR-002); to be obtained with supplier selection.
 - Confirm the inverter idle draw and fan noise (R11) and the filter fan noise from datasheets.
-- Whether an AC charger or a vehicle 12 V input should be added for cloudy periods. Open option, awaiting Amish (FCL-DDR-001, O3).
-- How FieldCell relates to PowerBox and SwapCell in the portfolio, so the three do not overlap. Awaiting Amish (O2).
+- Whether an AC charger or a vehicle 12 V input should be added for cloudy periods. Decided by Amish, 2026-10-02: no AC charger, since a power inlet is ruled out by the safety case; the vehicle 12 V input is left out of the first prototype and may be offered later as a DC-to-DC charging option if the responder review asks for it (FCL-DEC-001).
+- How FieldCell relates to PowerBox and SwapCell in the portfolio. Decided by Amish, 2026-10-02: FieldCell is the mobile field-site unit (PV only, 1 kW AC, one-person cart, own 25.6 V pack), PowerBox the household outage unit (multi-input, indoor, SwapCell pack) and SwapCell the shared pack standard (FCL-DEC-001).
 - Handle geometry and grip height for users from 1.55 to 1.90 m tall.
 
 Concept media: [blueprint sheet](../media/concept-blueprint.pdf), [cutaway](../media/cutaway.png), [interactive 3D model](../media/viewer.html). General arrangement: [FCL-DWG-002](../cad/drawings/FCL-DWG-002.pdf). Prototype build plan: [FCL-BLD-001](05-build-plan.md).

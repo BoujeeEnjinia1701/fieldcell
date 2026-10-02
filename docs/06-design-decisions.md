@@ -3,9 +3,9 @@ doc_id: FCL-DEC-001
 title: FieldCell design decisions register
 project: FieldCell
 doc_type: Design decisions register
-version: "0.2"
+version: "0.3"
 status: Draft
-date: '2026-10-01'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -17,6 +17,10 @@ revisions:
     date: '2026-10-01'
     author: Amish Chadha
     change: Budget treated as a value-engineering target
+  - version: "0.3"
+    date: '2026-10-02'
+    author: Amish Chadha
+    change: "Amish approved the recommendations for all eight open decisions (FCL-DDR-003 accepted); moved to decisions made"
 ---
 
 # FieldCell design decisions register
@@ -25,22 +29,11 @@ Every design decision still to be made, and every decision made, in one place. E
 
 ## Open decisions
 
-*Table 1. Open decisions, Proposed, awaiting Amish.*
-
-| # | Decision needed | Options | Recommendation | Affects in the build | Source |
-| --- | --- | --- | --- | --- | --- |
-| 1 | Accept the design-for-construction changes P1 to P13 (deck on the cross tubes, braced axle brackets, clevis stand legs, handle sockets, hinge tabs and real hinge, wing frame, outrigger brackets, tie bars, shade uprights, electronics layout and class T fuse in the battery case, 60 mm box gap, fixings) | (a) accept all; (b) accept with named changes | (a) | The whole build plan, every making sketch and step | FCL-DDR-003, Table 1 |
-| 2 | The buildable cart is about 80 kg: R6 (75 kg) missed by 5 kg and the R7 grass pull (150 N) by 6 N. Supersedes the 0.06 kg gap of the 2026-09-25 review | (a) relax R6 to 80 kg and the R7 grass figure to 160 N, keeping steel and flat-free tyres; (b) bolted aluminium frame (about 72.7 kg, 142 N), reversing D5; (c) pneumatic tyres (about 77.6 kg); (d) both (about 70.3 kg) | (a) for the first prototype, weighed at TRL 4; (b) if it weighs over 80 kg | Frame material and joints (section 3.1), wheels | FCL-DDR-003, A1; FCL-CAL-001 [E3], [E5], [F1] |
-| 3 | How the stowed wings are held together | (a) two tie bars with over-centre latches, as modelled; (b) two webbing straps with cam buckles | (a) | Tie bars (section 3.9), steps 12 and 17; deploy and stow times | FCL-DDR-003, A3 |
-| 4 | The shade lifts off (four wing bolts) to open the battery case | (a) accept, service only; (b) hinge the shade on its handle-end uprights | (a) | Shade (section 3.10) | FCL-DDR-003, A4 |
-| 5 | Whether to seek a responder organization to review the deployment sequence and load profile, and which one | Name an organization, or not now | None yet | None in the build | FCL-DDR-001, O1 |
-| 6 | How FieldCell relates to PowerBox and SwapCell in the portfolio | Position FieldCell against both | None yet | None in the build | FCL-DDR-001, O2 |
-| 7 | Whether to add an AC charger or a vehicle 12 V input for cloudy periods | Add one, or not | None yet. An AC charger would add a power inlet, which the safety case now rules out | Electronics box wiring and cut-outs | FCL-DDR-001, O3 |
-| 8 | Bring the appearance model and photoreal renders up to the constructable design; settle the render deviations of 2026-09-26 (hinge tabs, in-use cover depth, isolator and monitor position and cable route are now in the model; the clear side window and stake loop direction remain) | (a) rebuild the appearance model from the constructable model and re-render on Amish's Mac, side window as a render aid only; (b) keep the concept renders | (a) | None in the build | `docs/REVIEW.md`, sessions 2026-09-26 and 2026-10-01; FCL-DDR-003 |
+None. All open decisions were decided on 2026-10-02.
 
 ## To confirm when parts are bought
 
-*Table 2. Items to confirm when parts are bought.*
+*Table 1. Items to confirm when parts are bought.*
 
 | # | What to confirm | Why it matters | Source |
 | --- | --- | --- | --- |
@@ -62,11 +55,11 @@ Value-engineering target: USD 2,100 (a hypothetical control target, not a limit)
 - The largest lines are the two PV wings (USD 460), the pack (USD 300) and the inverter (USD 220).
 - Making the design buildable took the BOM from USD 2,051 to USD 2,101: frame steel +USD 12, wheel collars and linch pins +USD 5, outrigger brackets +USD 6, two latches fewer and new fixings -USD 6, cam straps and PV glands +USD 15, shade uprights +USD 9 and tie bars +USD 9.
 - The USD 1 gap is well inside the accuracy of indicative prices. Supplier quotes for the pack, wings and inverter are the first saving to try.
-- Webbing straps with cam buckles in place of the tie bars (decision 3 above) are the other place to look for a small saving.
+- Webbing straps with cam buckles in place of the tie bars were the other place to look for a small saving; the tie bars were kept on 2026-10-02.
 
 ## Decisions made
 
-*Table 3. Decisions made.*
+*Table 2. Decisions made.*
 
 | Date | Decision | Decided by | Record |
 | --- | --- | --- | --- |
@@ -75,3 +68,11 @@ Value-engineering target: USD 2,100 (a hypothetical control target, not a limit)
 | 2026-09-25 | TRL 4 on hold: no building, testing or purchasing | Amish, same instruction as D1 to D8 | FCL-DDR-001 |
 | 2026-09-26 | FieldCell chosen for the first batch of product renders | Amish (words not recorded) | `docs/REVIEW.md`, session 2026-09-26 |
 | 2026-09-30 | Make the design physically buildable while drawing the build plan; record outstanding decisions in this register, not in the build plan. The changes made under this instruction (FCL-DDR-003) are open for Amish's review (Table 1, item 1) | Amish: "If you are realising that the design cannot be built as per concept - fix the design assumptions to match and be physically feasible as you draw the illustrations." and "don't log outstanding decisions in this build plan - that is not the place for it. that should be in a separate design document logged and named as such" | FCL-DDR-003 (Draft) |
+| 2026-10-02 | Design for construction accepted: the changes P1 to P13 as made (open item 1) | Amish: "i approve your recommendations for all 555 open decisions." | FCL-DDR-003, Table 1 |
+| 2026-10-02 | Mass and pull: steel frame and flat-free tyres kept; R6 set at 82 kg and the R7 grass pull at 160 N (sharpened from the 80 kg first proposed, to keep a margin); the prototype is weighed at TRL 4 and moves to the bolted aluminium frame (option b) if it is over 82 kg (open item 2) | Amish: "i approve your recommendations for all 555 open decisions." | FCL-DDR-003, A1; FCL-CAL-001 [E3], [E5], [F1]; FCL-REQ-001 R6 and R7 |
+| 2026-10-02 | Stowed wings held by the two tie bars with over-centre latches, as modelled (option a) (open item 3) | Amish: "i approve your recommendations for all 555 open decisions." | FCL-DDR-003, A3 |
+| 2026-10-02 | The shade lifts off on four wing bolts to open the battery case, for service only (option a) (open item 4) | Amish: "i approve your recommendations for all 555 open decisions." | FCL-DDR-003, A4 |
+| 2026-10-02 | Seek a responder organization now, for a paper review of the deployment sequence and load profile only; first candidate to approach a US volunteer disaster response organization such as Team Rubicon, since the first build is 120 V 60 Hz (open item 5) | Amish: "i approve your recommendations for all 555 open decisions." | FCL-DDR-001, O1 |
+| 2026-10-02 | Positioning: FieldCell is the mobile field-site unit (PV only, 1 kW AC, one-person cart, own 25.6 V pack), PowerBox the household outage unit (multi-input, indoor, SwapCell pack) and SwapCell the shared pack standard; one paragraph saying so goes in each README (open item 6) | Amish: "i approve your recommendations for all 555 open decisions." | FCL-DDR-001, O2 |
+| 2026-10-02 | No AC charger; the vehicle 12 V input is left out of the first prototype and may be offered later as a DC-to-DC charging option if the responder review asks for it (open item 7) | Amish: "i approve your recommendations for all 555 open decisions." | FCL-DDR-001, O3 |
+| 2026-10-02 | Appearance model rebuilt from the constructable model and re-rendered on Amish's Mac, with the clear side window as a render aid only (option a) (open item 8) | Amish: "i approve your recommendations for all 555 open decisions." | `docs/REVIEW.md`, sessions 2026-09-26 and 2026-10-01; FCL-DDR-003 |
