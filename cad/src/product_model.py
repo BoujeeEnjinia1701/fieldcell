@@ -4,7 +4,8 @@ Finished-product look for photoreal renders of the cart parked and deployed: gra
 frame with tube end plugs and an expanded-metal deck, flat-free tyres with tread on dished steel rims,
 a T-handle with a foam grip and quick-release pins, stand legs with rubber feet, two PV wings (cell
 grid, busbars, white backsheet, aluminium backing frame, teal corner guards, junction boxes) on
-knuckled continuous hinges, staked outrigger feet, a reflective fabric sun shade on a flat-bar frame,
+knuckled continuous hinges, staked outrigger feet, two tie bars with over-centre latches holding the stowed wings,
+a reflective fabric sun shade on a flat-bar frame lifting off on four bolted uprights,
 an IP65 battery case with latches, lid parting line, carry handle, pressure vent and gland plate, and
 an IP54 electronics box with a clear side window onto the inverter, MPPT and breakers, a louvered
 exhaust filter and intake fan, and the outlet face toward the handle: DC panel (two USB-C PD ports
@@ -35,7 +36,7 @@ sys.path[:0] = [str(HERE), str(HERE.parents[1] / ".kit")]
 
 from build123d import (Axis, Box, Compound, Cylinder, Plane, Pos, RectangleRounded, Rot, SlotOverall,
                        Sphere, Torus, extrude, fillet)
-from model import PARAMS, derived, build_parts, _tube
+from model import PARAMS, derived, build_parts, build_components, _tube
 
 TITLE = "FieldCell: solar power cart with fold-out panels and a battery bank"
 
@@ -354,13 +355,7 @@ def _shade(P):
     ring = _fillet_try(ring, _vertical_edges(ring), [10.0, 5.0])
     fabric = _box((x0 + x1) / 2, 0, sz + 0.5, x1 - x0 - 30, sw - 30, 2.0)
     fabric = _fillet_try(fabric, _vertical_edges(fabric), [8.0, 4.0])
-    posts, clips = [], []
-    for x in (x0 + 30, x1 - 30):
-        for s in (-1, 1):
-            y = s * (sw / 2 - 30)
-            posts.append(_tube((x, y, top), (x, y, sz - t / 2), 6))
-            clips.append(_zcyl(x, y, top + 4, 10, 8))
-    return ring, fabric, _comp(posts + clips)
+    return ring, fabric
 
 
 def _bin(P, D):
@@ -669,11 +664,29 @@ def product_parts(P=PARAMS):
         add(f"Outrigger stakes, {tag}", st, C_STEEL, "metal", 15, "shell", (0, s * 1150, 200))
 
     # ---- sun shade (BOM 18)
-    ring, fabric, posts = _shade(P)
+    ring, fabric = _shade(P)
     es = (0, 0, 1450)
     add("Sun shade frame, aluminium flat bar", ring, C_ALU, "metal", 18, "shell", es)
     add("Sun shade, reflective fabric", fabric, C_SHADE, "fabric", 18, "shell", es)
-    add("Sun shade posts and clips", posts, C_ALU, "metal", 18, "shell", (0, 0, 1250))
+    # Shade uprights, bolted to four tabs on the side rails so the shade lifts off for battery service
+    # (FCL-DEC-001, 2026-10-02): taken straight from the constructable model.
+    M = build_components(P)
+    add("Sun shade uprights, aluminium tube", M["uprights"].shape, C_ALU, "metal", 18, "shell", (0, 0, 1250))
+    add("Shade upright tabs and wing bolts", M["up_tabs"].shape, C_STEEL, "metal", 18, "shell", (0, 0, 700))
+
+    # ---- constructable hardware from model.py (FCL-DDR-003): tie bars with over-centre latches,
+    #      hinge, handle socket, stand leg and outrigger brackets, axle collars, fuse and cam straps
+    add("Wing tie bars, aluminium square tube", M["tie_bars"].shape, C_ALU, "metal", 19, "shell", (0, 0, 520))
+    add("Tie bar pivot brackets", M["tie_brk"].shape, C_STEEL, "metal", 19, "shell", (0, 0, 380))
+    add("Over-centre tie bar latches", M["latches"].shape, C_ACCENT, "metal", 14, "shell", (0, 0, 520))
+    add("Latch keepers", M["keepers"].shape, C_STEEL, "metal", 14, "shell", (0, 0, 380))
+    add("Hinge tabs on the side rails", M["tabs"].shape, C_FRAME, "painted", 1, "shell", (0, 0, 200))
+    add("Handle sockets and gussets", M["sockets"].shape, C_FRAME, "painted", 1, "shell", (260, 0, 0))
+    add("Stand leg clevises", M["clevises"].shape, C_FRAME, "painted", 1, "shell", (0, 0, -200))
+    add("Stand leg pivot bolts", M["leg_bolts"].shape, C_STEEL, "metal", 4, "shell", (0, 0, -200))
+    add("Axle spacer collars and linch pins", M["axle_hw"].shape, C_STEEL, "metal", 2, "shell", (0, 0, -120))
+    add("Outrigger clevis brackets", M["out_brk"].shape, C_STEEL, "metal", 15, "shell", (0, 0, -60))
+    add("Outrigger pivot bolts", M["out_bolts"].shape, C_STEEL, "metal", 15, "shell", (0, 0, -60))
 
     # ---- accessory bin (BOM 16)
     body, strap, buckle, coil, plug = _bin(P, D)
@@ -701,6 +714,8 @@ def product_parts(P=PARAMS):
     add("Pack terminal cover, positive", tr, C_RED, "plastic", 6, "internal", ep)
     add("Pack terminal cover, negative", tb, C_BLACK, "plastic", 6, "internal", ep)
     add("Pack label", pl, C_LABEL, "paper", 6, "internal", ep)
+    add("Class T fuse and holder", M["fuse_t"].shape, C_RED, "plastic", 12, "internal", (0, 0, 640))
+    add("Battery case cam straps", M["straps"].shape, C_ACCENT, "fabric", 17, "internal", (0, 0, 900))
 
     # ---- electronics box and contents (BOM 7 to 12)
     E = _ebox(P, D)

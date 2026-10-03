@@ -286,7 +286,7 @@ All open decisions are now in the design decisions register (`docs/06-design-dec
 
 ### Stale until regenerated on Amish's Mac
 
-The design changed visibly, so `media/render-hero.png`, `media/render-exploded.png`, `media/render-detail.png` (not present in this working copy), `media/card.png`, `media/social-preview.png` and the appearance model `cad/src/product_model.py` still show the concept: shade posts, the floating hinge spacer, the old outrigger feet and electronics layout, and no tie bars. They were not regenerated here.
+The appearance model was rebuilt on 2026-10-02 (see the section "Approved follow-ups carried out"). The photoreal renders, `media/card.png` and `media/social-preview.png` are made on Amish's Mac next and are not in this working copy.
 
 ### Safety concerns
 
@@ -325,3 +325,26 @@ Eight, all moved to "Decisions made" in FCL-DEC-001 (open items 1 to 8): design 
 
 - R6 has now been relaxed twice (70 to 75 kg in DDR-002, and option (a) would take it to 80 kg), and an 80 kg limit against a 79.99 kg model has no margin at all.
 - The 2026-10-01 review notes the cart is now a two-person lift at about 80 kg, while the pitch still says one person can deploy it; deploying is still one person, but loading it onto a vehicle is not.
+
+## Approved follow-ups carried out (2026-10-02)
+
+Amish approved all follow-up actions from the open-decision sign-off on 2026-10-02. Results for FieldCell:
+
+1. Decision 2, calculations: done. `docs/04-calcs/sizing.py` now uses the 82 kg R6 limit and the 160 N grass limit for R7, so its printed margins match FCL-CAL-001 (mass margin +2.01 kg; grass pull 156 N against 160 N). There is no `results.csv` in this repo; the script prints its results. FCL-CAL-001 is now v0.6 (safety box cites the 80 kg cart). No requirement status changed and no figure changed.
+2. Decision 6, positioning paragraph in the PowerBox and SwapCell READMEs: not done here, it lives in other repos (see Cross-repo actions). The FieldCell README already carries its own paragraph.
+3. Decision 8, appearance model: done. `cad/src/product_model.py` now takes the constructable hardware straight from `cad/src/model.py`: the two wing tie bars with their pivot brackets, over-centre latches and keepers; the four shade uprights and their rail tabs (the shade lifts off on four wing bolts); hinge tabs, handle sockets, stand leg clevises and pivot bolts, axle collars and linch pins, outrigger brackets and bolts; the class T fuse and the battery cam straps. The old floating shade posts are gone. The clear side window stays as a render aid only. Render scenes exported to `/home/claude/renders/fieldcell` (hero, exploded, detail, with `fieldcell__jobs.json`). `media/card.png` and `media/social-preview.png` are regenerated on Amish's Mac with the renders.
+
+Model, BOM, mass, cost and drawings are unchanged (82 kg and 160 N are limits, not design changes), so the general arrangement, concept media and build plan pictures were not regenerated. Cost stays USD 2,101 against the USD 2,100 target (USD 1 over).
+
+### Cross-repo actions
+
+- PowerBox README: add the matching positioning paragraph (FieldCell is the mobile field-site unit; PowerBox the household outage unit; SwapCell the shared pack standard).
+- SwapCell README: add the same paragraph.
+
+### Documents changed
+
+`docs/04-calcs/01-sizing.md` FCL-CAL-001 v0.6; `docs/04-calcs/sizing.py`; `cad/src/product_model.py`; this review note.
+
+## 2026-10-02: photoreal renders redone on the constructable design
+
+Rendered with Blender Cycles on Amish's Mac from the updated appearance model; captioned with `.kit/photo_caption.py`; `media/card.png` and `media/social-preview.png` regenerated with `.kit/cards.py`. Views: hero, exploded, detail. image_qc passes. Appearance deviations are those logged above as proposed, awaiting Amish.

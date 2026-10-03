@@ -253,7 +253,7 @@ cgx = sum(m * x for _, m, x, _ in MASS) / M
 cgz = sum(m * z for _, m, _, z in MASS) / M
 for name, m, x, z in MASS:
     say("E2", f"  {name:44s} {m:5.2f} kg  x {x:5.0f}  z {z:4.0f}")
-M_LIMIT = 75.0                                  # R6 limit, relaxed from 70 kg by DDR-002
+M_LIMIT = 82.0                                  # R6 limit, set at 82 kg by Amish on 2026-10-02 (FCL-DEC-001)
 M_V02 = 75.06                                   # FCL-CAL-001 v0.2, concept model
 say("E3", f"total {M:.2f} kg (limit {M_LIMIT:.0f} kg, margin {M_LIMIT - M:+.2f} kg; v0.2 concept figure {M_V02:.2f} kg, "
           f"{M - M_V02:+.2f} kg for the parts added for construction); CG x {cgx:.0f} mm, z {cgz:.0f} mm")
@@ -278,7 +278,8 @@ say("E8", f"made parts: wing frame {m_wframe:.2f} kg each ({wf_len / 1000:.2f} m
 # ============================================================ F. Rough ground (R7)
 th = atan(0.10)
 for surf, crr in (("hard or packed", 0.04), ("gravel", 0.06), ("grass", 0.10)):
-    say("F1", f"  pull on a 10 % grade, {surf} (Crr {crr}): {W * (sin(th) + crr * cos(th)):.0f} N (limit 150 N)")
+    lim = 160 if surf == "grass" else 150           # grass limit set at 160 N on 2026-10-02 (FCL-DEC-001)
+    say("F1", f"  pull on a 10 % grade, {surf} (Crr {crr}): {W * (sin(th) + crr * cos(th)):.0f} N (limit {lim} N)")
 F_grass = W * (sin(th) + 0.10 * cos(th))
 h_step, r_w = 150.0, P["wheel_r"]
 a_e = sqrt(h_step * (2 * r_w - h_step))          # horizontal distance axle to step edge at contact

@@ -3,7 +3,7 @@ doc_id: FCL-CAL-001
 title: FieldCell sizing calculations
 project: FieldCell
 doc_type: Calculation
-version: "0.5"
+version: "0.6"
 status: Draft
 date: '2026-10-02'
 author: Amish Chadha
@@ -29,13 +29,17 @@ revisions:
   date: '2026-10-02'
   author: Amish Chadha
   change: "R6 and R7 status against the limits set by Amish on 2026-10-02 (82 kg, 160 N on grass); no figures changed"
+- version: "0.6"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "Calculation script set to the 82 kg and 160 N limits so its printed margins match the note; safety box cites the 80 kg cart"
 ---
 
 # FieldCell sizing calculations
 
 On paper, FieldCell meets eight of its twelve requirements, misses none, is over its value-engineering cost target on one and has one at risk; two more cannot be verified at TRL 3. The energy case works: the 400 W east-west array stores about 1.17 kWh/day at 4 kWh/m²/day of global horizontal irradiation, which carries the 0.9 kWh/day reference load with about 10 % surplus, and the 1.15 kWh usable pack gives 1.08 days with no sun. Version 0.3 follows the constructable design of FCL-DDR-003: the brackets, gussets, tabs, sockets, clevises, fixings, tie bars and shade uprights that make the cart buildable add about 4.9 kg, so the cart now weighs about 80.0 kg against the 75 kg limit, and the pull on a 10 % grass grade is 156 N against 150 N; on 2026-10-02 Amish set the limits at 82 kg and 160 N (FCL-DEC-001), so R6 and R7 are now met, and the 19-line BOM is $2,101 against the $2,100 value-engineering target (R12 over the target by USD 1). Heat (R9) remains at risk. Every number in this note is printed by `docs/04-calcs/sizing.py`; the tag in brackets, for example [C4], is the line of that script's output that carries it.
 
-> **Safety:** These calculations concern a 1.28 kWh lithium battery, 120 V AC output, 100 A DC circuits, always-live PV panels and a 75 kg cart. They are first-principles estimates for a paper proof of concept and are not a substitute for component datasheets, a qualified electrical review or test. See FCL-PRC-001, Safety.
+> **Safety:** These calculations concern a 1.28 kWh lithium battery, 120 V AC output, 100 A DC circuits, always-live PV panels and an 80 kg cart. They are first-principles estimates for a paper proof of concept and are not a substitute for component datasheets, a qualified electrical review or test. See FCL-PRC-001, Safety.
 
 ## Scope and method
 
